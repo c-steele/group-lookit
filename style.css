@@ -111,8 +111,8 @@ label.welcome-pause-label { grid-row: 2; grid-column: 2; display: flex; align-it
 #rule-extra { max-width: 720px; margin: 0 auto; color: #587366; font-size: .9375rem; }
 #rule-extra > summary { min-height: 44px; padding: 10px 0; cursor: pointer; text-align: center; }
 #rule-extra p { margin: 8px 0 12px; font-size: 1rem; line-height: 1.55; }
-#rule-visual[data-moving='true'] .rule-scene-motion { animation: rule-example-squiggle 1.2s ease-in-out 2; transform-box: fill-box; transform-origin: center; }
-#timing-visual[data-moving='true'] .rule-scene-motion { animation: rule-example-squiggle 1.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+#rule-visual[data-moving='true'] .rule-scene-motion,
+#timing-visual[data-moving='true'] .rule-scene-motion { animation: rule-example-squiggle 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 #timing-practice .page-heading { margin-bottom: 18px; }
 #timing-practice h1 { font-size: clamp(1.65rem, 3.2vw, 2.3rem); }
 #timing-caption { text-align: center; font-size: 1.35rem; font-weight: 700; margin: 14px auto; color: #315b47; }
@@ -142,8 +142,8 @@ label.welcome-pause-label { grid-row: 2; grid-column: 2; display: flex; align-it
 #ready-narration .narration-status, #ready .preview-note { text-align: center; }
 #ready .preview-note { font-size: .875rem; }
 @keyframes rule-example-squiggle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  0%, 100% { transform: translate(-23px, 0); }
+  50% { transform: translate(23px, -13px); }
 }
 @media (prefers-reduced-motion: reduce) {
   #rule-visual[data-moving='true'] .rule-scene-motion { animation: none; }

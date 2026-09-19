@@ -28,3 +28,7 @@ Setup now shows four short steps: computer, lighting, clear camera view, and sou
 Files are deliberately flat for GitHub's browser uploader. The parent setup now uses four concise screens, explicit no-phone/tablet and front-light guidance, and paired synthetic camera examples. Practice is illustrated from behind the baby, matching the caregiver viewpoint; the original Raz front demonstration and rear practice remain unchanged. Runtime asset references are adapted for this public review. Scientific media bytes, scientific timing, counterbalance mapping, and parent-training timing rules are unchanged. Historical provenance fields in the study map are retained as metadata, not downloadable asset links.
 
 No blanket license is granted by publishing this review. Third-party research materials retain their applicable rights and attribution; public access is not permission for unrestricted reuse.
+
+## Animated comprehension examples
+
+Each question now enacts its short scene before answer buttons appear. A moving-movie question stays visibly animated while answering; frozen scenes remain frozen. A brighter moving ball makes the demonstration screen easier to follow. Leaving the tab pauses the example and requires replay, without credit for unseen frames. Existing four comprehension rules, 3-second thresholds, scientific movies and study timing are unchanged.

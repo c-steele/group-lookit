@@ -1,7 +1,7 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
 import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs';
-import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs';
-import { renderRuleScene } from './rule-scene.mjs?v=parent-view-v2';
+import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=animated-questions-v1';
+import { renderRuleScene } from './rule-scene.mjs?v=animated-questions-v1';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs';
 
 const $ = id => document.getElementById(id);
@@ -200,43 +200,45 @@ function renderRuleCheck() {
   const step = ruleLessonSteps[ruleCheck.index];
   const overview = ruleLesson.mode === 'overview';
   const teaching = ruleLesson.mode === 'teach';
+  const questionReady = ruleLesson.mode === 'question' && ruleLesson.ended && !ruleLesson.paused;
   const answered = ruleCheck.answered[ruleCheck.index];
-  const lastComplete = ruleLesson.mode === 'question' && ruleCheck.index === ruleLessonSteps.length - 1 && ruleCheckComplete(ruleCheck);
-  const frame = step.frames[ruleLesson.frame];
+  const lastComplete = questionReady && ruleCheck.index === ruleLessonSteps.length - 1 && ruleCheckComplete(ruleCheck);
+  const frame = (teaching ? step.frames : step.questionFrames)[ruleLesson.frame];
   $('rule-position').hidden = overview;
-  $('rule-position').textContent = `Example ${ruleCheck.index + 1} of ${ruleLessonSteps.length} · ${teaching ? 'See it' : 'Try it'}`;
-  $('instructions-title').textContent = overview ? ruleRoleTitle : teaching ? step.title : step.questionTitle;
+  $('rule-position').textContent = `Example ${ruleCheck.index + 1} of ${ruleLessonSteps.length} · ${teaching ? 'Watch what happens' : questionReady ? 'Now choose' : 'Watch, then choose'}`;
+  $('instructions-title').textContent = overview ? ruleRoleTitle : teaching ? step.title : questionReady ? step.questionTitle : 'Watch this short example.';
   $('rule-heading-copy').textContent = overview
     ? 'Start counting only when the picture is still. A look back resets the count.'
-    : teaching ? step.copy : step.questionCopy;
+    : teaching ? step.copy : questionReady ? step.questionCopy : 'Watch the movie and the baby. Then choose what you would do.';
   const visual = overview ? { movie: 'still', gaze: 'on', cue: 'none', showCount: false }
-    : teaching ? frame.visual : step.questionScene;
+    : frame.visual;
   $('rule-visual').innerHTML = renderRuleScene(visual);
-  $('rule-visual').dataset.moving = String(teaching && !ruleLesson.paused && !ruleLesson.ended && visual.movie === 'moving');
+  // A question about a moving movie must keep visibly moving while parents answer.
+  $('rule-visual').dataset.moving = String(!overview && !ruleLesson.paused && visual.movie === 'moving');
   $('rule-scene-caption').textContent = overview ? 'Watch your baby—not the movies.'
-    : teaching ? (ruleLesson.paused ? 'Example paused. Replay it when you’re ready.' : frame.caption)
-      : step.questionCaption;
+    : ruleLesson.paused ? 'Example paused. Replay it when you’re ready.' : frame.caption;
   $('rule-example-note').hidden = overview;
   $('rule-review-tools').hidden = overview;
   $('rule-audio-area').hidden = !overview;
   $('rule-extra').hidden = !overview;
-  $('rule-answer-group').hidden = ruleLesson.mode !== 'question' || answered;
+  $('rule-answer-group').hidden = !questionReady || answered;
   $('rule-question').textContent = step.questionCopy;
   ['rule-answer-a', 'rule-answer-b'].forEach((id, choice) => {
     const button = $(id);
     button.textContent = step.choices[choice];
-    button.disabled = ruleLesson.mode !== 'question' || answered;
+    button.disabled = !questionReady || answered;
     button.className = 'rule-answer' + (ruleCheck.selected === choice ? ` ${answered ? 'correct' : 'retry'}` : '');
   });
-  $('rule-feedback').hidden = ruleLesson.mode !== 'question' || !ruleCheck.feedback;
+  $('rule-feedback').hidden = !questionReady || !ruleCheck.feedback;
   $('rule-feedback').textContent = ruleCheck.feedback ? step[ruleCheck.feedback] : '';
   $('rule-feedback').className = `rule-feedback ${ruleCheck.feedback}`;
   $('rule-previous').disabled = false;
   $('rule-next').hidden = lastComplete;
-  $('rule-next').disabled = teaching ? !ruleLesson.ended && !ruleLesson.paused : !overview && !answered;
+  $('rule-next').disabled = !overview && !ruleLesson.paused && (teaching ? !ruleLesson.ended : !questionReady || !answered);
   $('rule-next').textContent = overview ? 'Show me how →'
-    : teaching ? (ruleLesson.paused ? 'Replay this example' : ruleLesson.ended ? 'Let me try →' : 'Watch the example…')
-      : 'Next example →';
+    : ruleLesson.paused ? 'Replay this example'
+      : teaching ? (ruleLesson.ended ? 'Watch & try →' : 'Watch the example…')
+        : questionReady ? 'Next example →' : 'Watch the example…';
   $('instructions-next').hidden = !lastComplete;
   $('instructions-next').disabled = !lastComplete;
 }
@@ -252,18 +254,18 @@ function showRuleOverview() {
   if (narration.auto) startNarration('instructions');
 }
 
-function startRuleTeaching() {
+function startRuleSequence(mode) {
   if (state.page !== 'instructions' || document.hidden) return;
   stopNarration();
   stopRuleDemo();
-  ruleLesson.mode = 'teach';
+  ruleLesson.mode = mode;
   ruleLesson.frame = 0;
   ruleLesson.ended = false;
   ruleLesson.paused = false;
   const token = ruleLesson.generation;
-  const frames = ruleLessonSteps[ruleCheck.index].frames;
+  const frames = ruleLessonSteps[ruleCheck.index][mode === 'teach' ? 'frames' : 'questionFrames'];
   const advanceFrame = index => {
-    if (token !== ruleLesson.generation || state.page !== 'instructions' || ruleLesson.mode !== 'teach' || document.hidden) return;
+    if (token !== ruleLesson.generation || state.page !== 'instructions' || ruleLesson.mode !== mode || document.hidden) return;
     ruleLesson.frame = index;
     ruleLesson.ended = index === frames.length - 1;
     ruleLesson.timer = null;
@@ -274,19 +276,19 @@ function startRuleTeaching() {
   $('instructions-title').focus({ preventScroll: false });
 }
 
+function startRuleTeaching() { startRuleSequence('teach'); }
+function startRuleQuestion() { startRuleSequence('question'); }
+
 function advanceRuleLesson() {
   if (state.page !== 'instructions' || document.hidden) return;
   if (ruleLesson.mode === 'overview') { startRuleTeaching(); return; }
+  if (ruleLesson.paused) { startRuleSequence(ruleLesson.mode); return; }
   if (ruleLesson.mode === 'teach') {
-    if (ruleLesson.paused) { startRuleTeaching(); return; }
     if (!ruleLesson.ended) return;
-    stopRuleDemo();
-    ruleLesson.mode = 'question';
-    renderRuleCheck();
-    $('instructions-title').focus({ preventScroll: false });
+    startRuleQuestion();
     return;
   }
-  if (!ruleCheck.answered[ruleCheck.index] || ruleCheck.index === ruleLessonSteps.length - 1) return;
+  if (!ruleLesson.ended || !ruleCheck.answered[ruleCheck.index] || ruleCheck.index === ruleLessonSteps.length - 1) return;
   ruleCheck = moveRuleCheck(ruleCheck, 1);
   startRuleTeaching();
 }
@@ -298,13 +300,11 @@ function backRuleLesson() {
   if (ruleCheck.index === 0) { showRuleOverview(); return; }
   stopRuleDemo();
   ruleCheck = moveRuleCheck(ruleCheck, -1);
-  ruleLesson.mode = 'question';
-  renderRuleCheck();
-  $('instructions-title').focus({ preventScroll: false });
+  startRuleQuestion();
 }
 
 function chooseRuleAnswer(choice) {
-  if (state.page !== 'instructions' || ruleLesson.mode !== 'question') return;
+  if (state.page !== 'instructions' || document.hidden || ruleLesson.mode !== 'question' || !ruleLesson.ended || ruleLesson.paused) return;
   stopNarration();
   ruleCheck = answerRuleCheck(ruleCheck, choice);
   renderRuleCheck();
@@ -673,11 +673,11 @@ $('rule-answer-a').onclick = () => chooseRuleAnswer(0);
 $('rule-answer-b').onclick = () => chooseRuleAnswer(1);
 $('rule-previous').onclick = backRuleLesson;
 $('rule-next').onclick = advanceRuleLesson;
-$('rule-replay-demo').onclick = startRuleTeaching;
+$('rule-replay-demo').onclick = () => ruleLesson.mode === 'question' ? startRuleQuestion() : startRuleTeaching();
 $('rule-review-overview').onclick = showRuleOverview;
 $('rule-audio-stop').onclick = () => stopNarration('Stopped. You can replay the rule in Audio & written instructions.');
 $('instructions-next').onclick = () => {
-  if (state.page === 'instructions' && ruleLesson.mode === 'question' && ruleCheck.index === ruleLessonSteps.length - 1 && ruleCheckComplete(ruleCheck)) showPage('timing-practice');
+  if (state.page === 'instructions' && !document.hidden && ruleLesson.mode === 'question' && ruleLesson.ended && !ruleLesson.paused && ruleCheck.index === ruleLessonSteps.length - 1 && ruleCheckComplete(ruleCheck)) showPage('timing-practice');
 };
 $('timing-start').onclick=beginTimingPractice;
 $('timing-next').onclick=() => { if(state.page==='timing-practice' && timingPractice.phase==='success') showPage('example'); };
@@ -790,7 +790,7 @@ document.addEventListener('visibilitychange', () => {
   // Returning to a tab never starts the study or restarts interrupted speech.
   if (!document.hidden) return;
   if(state.page==='timing-practice') { stopTimingPractice(); renderTimingPractice(); }
-  if (state.page === 'instructions' && ruleLesson.mode === 'teach' && !ruleLesson.ended) {
+  if (state.page === 'instructions' && ruleLesson.mode !== 'overview') {
     stopRuleDemo();
     ruleLesson.paused = true;
     renderRuleCheck();

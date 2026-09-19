@@ -44,14 +44,16 @@ export function renderRuleScene({
         </svg>
       </g>
       <g class="rule-scene-laptop">
-        <g class="${isStill ? 'rule-scene-frozen' : 'rule-scene-motion'}" stroke="#456f70" stroke-width="4">
-          <path d="M 115 68 C 126 54 137 54 148 68 S 170 82 181 68"/>
+        <path d="M 110 83 H 185" stroke="#acc7d1" stroke-width="2"/>
+        <g class="${isStill ? 'rule-scene-frozen' : 'rule-scene-motion'}">
+          <circle cx="148" cy="72" r="10" fill="#d89038" stroke="#775622" stroke-width="2"/>
+          <circle cx="145" cy="69" r="2.5" fill="#ffdf9e"/>
         </g>
       </g>
       <text x="425" y="38" text-anchor="middle" fill="#355b4c" font-size="19" font-weight="700">Your view from behind</text>
       <text x="425" y="64" text-anchor="middle" fill="#566e65" font-size="16">Watch your baby.</text>
       <rect x="322" y="84" width="206" height="38" rx="10" fill="#ffffff" stroke="#d7e5de"/>
-      <text x="425" y="109" text-anchor="middle" fill="#3d6063" font-size="17" font-weight="650">${isStill ? 'Picture still' : 'Movie moving'}</text>
+      <text x="425" y="109" text-anchor="middle" fill="#3d6063" font-size="17" font-weight="650">${isStill ? '❚❚ Picture frozen' : '▶ Movie playing'}</text>
       <g class="rule-scene-space${isPress ? ' is-ready' : ''}">
         <rect x="366" y="150" width="119" height="39" rx="9" fill="${isPress ? '#2c5846' : '#d3e0d9'}"/>
         <rect x="366" y="145" width="119" height="39" rx="9" fill="${isPress ? '#3f755f' : '#ffffff'}" stroke="${isPress ? '#3f755f' : '#a8c1b3'}" stroke-width="2"/>
