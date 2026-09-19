@@ -1,7 +1,7 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
 import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs';
 import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs';
-import { renderRuleScene } from './rule-scene.mjs';
+import { renderRuleScene } from './rule-scene.mjs?v=seated-v3';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs';
 
 const $ = id => document.getElementById(id);
@@ -21,6 +21,98 @@ const narration = {
   auto: true, audio: $('parent-narration'), generation: 0,
   page: null, phase: 'idle', heard: new Set(), messages: new Map(), controls: new Map()
 };
+// Parent setup is deliberately one small decision at a time. These are exact
+// excerpts of the existing Evelyn recordings, not newly synthesized speech.
+const setupSteps = [
+  { title: 'Use a computer with a keyboard.', copy: 'Laptop or desktop, with a webcam and speakers. No phone or tablet.', scene: 'setup-computer', next: 'Next: the room →',
+    audio: 'setup-device.mp3', transcript: "First, use a laptop or desktop with a webcam, speakers, and a physical keyboard. Please don't use a phone or tablet." },
+  { title: 'Find a quiet, well-lit spot.', copy: 'Clear away toys. Turn off extra screens and sound.', scene: 'setup-room', next: 'Next: check the sound →',
+    audio: 'setup-quiet-light.mp3', transcript: 'Second, find a quiet spot. Move toys and other distractions out of view, and turn off extra screens and other sound. Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
+  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'Yes, I heard them — Continue →',
+    audio: 'setup-sound.mp3', transcript: 'Third, check the sound. Turn on your speakers at a comfortable volume.' }
+];
+const setup = { index: 0, sound: 'idle', generation: 0, message: '' };
+const narrationKey = page => page === 'setup' ? `setup:${setup.index}` : page;
+
+function renderSetup() {
+  const step = setupSteps[setup.index];
+  $('setup-position').textContent = `Setup · ${setup.index + 1} of ${setupSteps.length}`;
+  $('setup-title').textContent = step.title;
+  $('setup-copy').textContent = step.copy;
+  setupSteps.forEach(item => { $(item.scene).hidden = item !== step; });
+  $('setup-sound-actions').hidden = setup.index !== 2;
+  $('setup-next').hidden = setup.index === 2 && setup.sound !== 'complete';
+  $('setup-next').disabled = false;
+  $('setup-next').textContent = step.next;
+  $('sound-play').disabled = ['loading', 'playing'].includes(setup.sound);
+  $('sound-play').className = setup.sound === 'complete' ? 'secondary' : 'primary';
+  $('sound-play').textContent = setup.sound === 'complete' ? '↻ Replay the chimes' : setup.sound === 'playing' ? 'Playing the chimes…' : setup.sound === 'loading' ? 'Loading the chimes…' : 'Play 3 gentle chimes';
+  $('sound-status').textContent = setup.message || 'Play the sound, then tell us if you heard it.';
+  const controls = narration.controls.get('setup');
+  if (controls) {
+    controls.querySelector('.narration-transcript p').textContent = step.transcript;
+    controls.querySelector('.narration-transcript').hidden = false;
+  }
+  renderNarration();
+}
+
+function moveSetup(direction) {
+  if (state.page !== 'setup' || document.hidden) return;
+  if (direction === -1 && setup.index === 0) { showPage('welcome'); return; }
+  if (direction === 1 && setup.index === 2) {
+    if (setup.sound === 'complete') showPage('instructions');
+    return;
+  }
+  const next = setup.index + direction;
+  if (![1, -1].includes(direction) || next < 0 || next >= setupSteps.length) return;
+  stopParentMedia();
+  setup.index = next;
+  setup.sound = 'idle';
+  setup.message = '';
+  setup.generation += 1;
+  $('sound-help').open = false;
+  $('setup-audio').open = false;
+  renderSetup();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  $('setup-title').focus({ preventScroll: true });
+  if (narration.auto) startNarration('setup');
+}
+
+function playSetupSound() {
+  if (state.page !== 'setup' || setup.index !== 2 || document.hidden || ['loading', 'playing'].includes(setup.sound)) return;
+  const token = ++setup.generation;
+  const audio = freshParentMedia('sound-check');
+  setup.sound = 'loading';
+  setup.message = 'The sample is loading…';
+  renderSetup();
+  const current = () => state.page === 'setup' && setup.index === 2 && !document.hidden && setup.generation === token && $('sound-check') === audio;
+  const failure = error => {
+    if (!current()) return;
+    audio.pause();
+    setup.sound = 'error';
+    setup.message = error?.name === 'NotAllowedError'
+      ? 'Your browser blocked the sound. Click Play 3 gentle chimes to try again.'
+      : 'The chimes couldn’t play. Check your sound and try again.';
+    $('sound-help').open = true;
+    renderSetup();
+  };
+  audio.onplaying = () => {
+    if (!current()) { audio.pause(); return; }
+    setup.sound = 'playing';
+    setup.message = 'Listen for 3 gentle chimes.';
+    renderSetup();
+  };
+  audio.onended = () => {
+    if (!current() || setup.sound !== 'playing') return;
+    setup.sound = 'complete';
+    setup.message = 'Did you hear all 3 chimes?';
+    renderSetup();
+    $('setup-next').focus({ preventScroll: false });
+  };
+  audio.onerror = failure;
+  audio.play().catch(failure);
+}
+
 let ruleCheck = freshRuleCheck();
 let timingPractice = freshGuidedPractice();
 let timingTimer = null;
@@ -214,7 +306,7 @@ function renderNarration() {
     const active = narration.page === page && ['loading', 'playing'].includes(narration.phase);
     const replay = controls.querySelector('.narration-replay');
     replay.textContent = page === 'instructions' ? '↻ Replay the rule' : '↻ Replay audio';
-    replay.hidden = !narration.heard.has(page);
+    replay.hidden = !narration.heard.has(narrationKey(page));
     controls.querySelector('.narration-stop').disabled = !active;
     controls.querySelector('.narration-auto').hidden = false;
     controls.querySelector('input').checked = narration.auto;
@@ -262,12 +354,13 @@ function startNarration(page) {
     const message = error?.name === 'NotAllowedError'
       ? 'Your browser blocked the spoken instructions. You can read them below.'
       : 'The spoken instructions couldn’t play. You can read them below and continue.';
+    if (page === 'setup') $('setup-audio').open = true;
     stopNarration(message + (narration.auto ? ' Automatic narration is still on for the next page.' : ' Automatic narration is off.'));
   };
   audio.onplaying = () => {
     if (!current()) { audio.pause(); return; }
     narration.phase = 'playing';
-    narration.heard.add(page);
+    narration.heard.add(narrationKey(page));
     narration.messages.set(page, 'Reading this page aloud.');
     renderNarration();
   };
@@ -276,17 +369,18 @@ function startNarration(page) {
     stopNarration('Finished. You can replay the instructions at any time.');
   };
   audio.onerror = failure;
-  audio.src = new URL(`./${narrationFiles[page]}`, location.href).href;
+  const narrationFile = page === 'setup' ? setupSteps[setup.index].audio : narrationFiles[page];
+  audio.src = new URL(`./${narrationFile}`, location.href).href;
   renderNarration();
   audio.play().catch(failure);
 }
 
 Object.keys(narrationFiles).forEach(page => {
   const controls = $('narration-controls-template').content.firstElementChild.cloneNode(true);
-  (page === 'instructions' ? $('rule-narration') : page === 'ready' ? $('ready-narration') : $(page).querySelector('.page-heading')).append(controls);
+  (page === 'instructions' ? $('rule-narration') : page === 'ready' ? $('ready-narration') : page === 'setup' ? $('setup-narration') : $(page).querySelector('.page-heading')).append(controls);
   narration.controls.set(page, controls);
   controls.querySelector('.narration-replay').onclick = () => {
-    if (narration.heard.has(page)) startNarration(page);
+    if (narration.heard.has(narrationKey(page))) startNarration(page);
   };
   controls.querySelector('.narration-stop').onclick = () => stopNarration('Stopped for this page. Uncheck “Read pages aloud” to keep later pages silent.');
   controls.querySelector('input').onchange = event => {
@@ -305,6 +399,7 @@ fetch('./narration-manifest.json').then(response => {
   return response.json();
 }).then(manifest => {
   for (const clip of manifest.clips || []) {
+    if (clip.page === 'setup') continue; // Setup shows only the matching excerpt transcript.
     const controls = narration.controls.get(clip.page);
     if (!controls || typeof clip.text !== 'string' || !clip.text.trim()) continue;
     controls.querySelector('.narration-transcript p').textContent = clip.text;
@@ -324,6 +419,12 @@ function stopParentMedia() {
     media.onplaying = media.onended = media.onerror = null;
     media.pause();
   });
+  if (['loading', 'playing'].includes(setup.sound)) {
+    setup.sound = 'idle';
+    setup.message = 'The sound stopped. Play the chimes again when you’re ready.';
+    setup.generation += 1;
+    renderSetup();
+  }
   practiceRunning = false;
   $('practice-space').disabled = true;
   $('practice-start').hidden = false;
@@ -404,6 +505,7 @@ function showPage(page) {
   stopTimingPractice();
   stopParentMedia();
   state.page = page;
+  if (page === 'setup') renderSetup();
   if (page === 'timing-practice') { timingPractice=freshGuidedPractice(); renderTimingPractice(); }
   if (page === 'instructions') { ruleLesson.mode = 'overview'; ruleLesson.paused = false; renderRuleCheck(); }
   ['study-entry', ...parentPages, 'session', 'complete'].forEach(id => { $(id).hidden = id !== page; });
@@ -550,11 +652,12 @@ $('researcher-ready').onclick = () => researcherNavigate('ready');
 $('researcher-stimuli').onclick = researcherStartMovies;
 $('researcher-movie').onclick = researcherSkipMovie;
 renderResearcherControls();
-$('begin').onclick = () => { selectCell(); showPage('setup'); };
+$('begin').onclick = () => { selectCell(); setup.index = 0; showPage('setup'); };
 $('play').onclick = () => { selectCell(); showPage('session'); playEntry(0); };
 document.querySelectorAll('[data-page]').forEach(button => { button.onclick = () => showPage(button.dataset.page); });
 $('review-go').onclick = () => { $('preview-tools').open = false; showPage($('review-page').value); };
-$('setup-next').onclick = () => showPage('instructions');
+$('setup-back').onclick = () => moveSetup(-1);
+$('setup-next').onclick = () => moveSetup(1);
 $('rule-answer-a').onclick = () => chooseRuleAnswer(0);
 $('rule-answer-b').onclick = () => chooseRuleAnswer(1);
 $('rule-previous').onclick = backRuleLesson;
@@ -569,27 +672,7 @@ $('timing-start').onclick=beginTimingPractice;
 $('timing-next').onclick=() => { if(state.page==='timing-practice' && timingPractice.phase==='success') showPage('example'); };
 renderTimingPractice();
 renderRuleCheck();
-$('sound-confirm').onchange = () => { $('setup-next').disabled = !$('sound-confirm').checked; };
-$('sound-play').onclick = () => {
-  const audio = freshParentMedia('sound-check');
-  $('sound-play').disabled = true;
-  $('sound-status').textContent = 'Playing…';
-  const current = () => state.page === 'setup' && $('sound-check') === audio;
-  const failure = () => {
-    if (!current()) return;
-    $('sound-play').disabled = false;
-    $('sound-status').textContent = 'The sample couldn’t play. Check your sound and try again.';
-  };
-  audio.onended = () => {
-    if (!current()) return;
-    $('sound-play').disabled = false;
-    $('sound-play').textContent = '↻ Play the sound again';
-    $('sound-confirm').disabled = false;
-    $('sound-status').textContent = 'Could you hear all three chimes?';
-  };
-  audio.onerror = failure;
-  audio.play().catch(failure);
-};
+$('sound-play').onclick = playSetupSound;
 
 $('example-start').onclick = () => {
   const video = freshParentMedia('example-movie');
@@ -702,7 +785,7 @@ document.addEventListener('visibilitychange', () => {
     stopParentMedia();
     if (state.page === 'practice') $('practice-status').textContent = 'Practice paused while this page was hidden. Start the practice again when you’re ready.';
     if (state.page === 'example') $('example-status').textContent = 'Example paused. Play it again when you’re ready.';
-    if (state.page === 'setup') $('sound-status').textContent = '';
+    if (state.page === 'setup') renderSetup();
   }
 });
 let wasFullscreen = false;

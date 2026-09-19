@@ -20,11 +20,13 @@ export function renderRuleScene({
   const isPress = cue === 'press' && elapsed === 3;
   const showSecondMarks = showCount ?? (isStill || isReset);
 
-  // Turning the whole open-eyed profile makes looking away distinct from blinking.
-  const headTransform = isAway ? 'translate(860 0) scale(-1 1)' : '';
+  // The two open-eyed states share a seated body and stationary highchair.
+  // Select a tightly cropped sprite panel; never mirror the whole baby/chair.
+  // The generated halves have different side margins, so align their chair centers.
+  const babyViewBox = isAway ? '813 20 630 970' : '100 20 630 970';
   const gazeLine = isAway
-    ? '<path d="M 486 89 H 550 M 543 83 L 551 89 L 543 95"/>'
-    : '<path d="M 370 89 H 252 M 259 83 L 251 89 L 259 95"/>';
+    ? '<path d="M 486 64 H 550 M 543 58 L 551 64 L 543 70"/>'
+    : '<path d="M 389 64 H 252 M 259 58 L 251 64 L 259 70"/>';
 
   const secondMarks = [1, 2, 3].map((second, index) => {
     const x = 384 + index * 49;
@@ -40,7 +42,6 @@ export function renderRuleScene({
   return `<svg xmlns="http://www.w3.org/2000/svg" class="rule-lesson-scene" viewBox="0 0 600 260" aria-hidden="true" focusable="false" fill="none">
     <g font-family="Avenir Next, Avenir, ui-sans-serif, system-ui, sans-serif" stroke-linecap="round" stroke-linejoin="round">
       <ellipse cx="144" cy="168" rx="106" ry="9" fill="#e2ece7"/>
-      <ellipse cx="430" cy="172" rx="72" ry="9" fill="#e2ece7"/>
 
       <g class="rule-scene-laptop">
         <rect x="55" y="43" width="179" height="118" rx="11" fill="#526d79"/>
@@ -61,8 +62,10 @@ export function renderRuleScene({
         ${gazeLine}
       </g>
 
-      <g class="rule-scene-baby" transform="${headTransform}">
-        <image href="./practice-baby-girl.png" x="350" y="8" width="160" height="173" preserveAspectRatio="xMidYMid meet"/>
+      <g class="rule-scene-baby" data-gaze="${isAway ? 'away' : 'on'}">
+        <svg x="372" y="10" width="117" height="180" viewBox="${babyViewBox}" preserveAspectRatio="xMidYMid slice" overflow="hidden">
+          <image href="./practice-baby-seated.png" x="0" y="0" width="1536" height="1024"/>
+        </svg>
       </g>
 
       <g class="rule-scene-space${isPress ? ' is-ready' : ''}">

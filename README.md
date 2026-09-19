@@ -2,11 +2,11 @@
 
 This is this GROUP project's own latest parent-instructions and scientific-movie preview, prepared September 18, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
 
-The intended GitHub Pages address is https://c-steele.github.io/group-lookit/ after Pages is enabled and deployment succeeds. Open it through a web server, not directly as a downloaded file.
+The live collaborator review is https://c-steele.github.io/group-lookit/. Open it through a web server, not directly as a downloaded file.
 
 ## Included
 
-- The current parent pages, guided lessons, physical-space-bar timing practice, six Evelyn narration recordings with transcripts, AI-generated practice-baby illustration, and review chime candidate.
+- The current parent pages, guided lessons, physical-space-bar timing practice, six original Evelyn narration recordings plus three shorter setup excerpts, with transcripts, AI-generated seated baby illustration, and review chime candidate.
 - Both V3 and V5, 16 counterbalance cells each, their complete 37-entry sequences, and 148 original selected scientific video files. V3 PS09 is the review default.
 - The current player timing and review controls. Researcher skips are an explicit review convenience available to every visitor, not authentication or proof that training was passed.
 
@@ -21,10 +21,10 @@ The example and practice videos play directly from the existing author-hosted OS
 
 Internet access is required for those third-party videos; availability and playback are not guaranteed. They are not redistributed in this repository.
 
-Updated setup/lighting wording still needs matching revised narration. Visual mini-lessons and timed practice have no new dedicated narration. The chime remains a review candidate, not approved release audio. Parent usability testing and actual CHS integration remain pending. This preview is not validated gaze detection, a competency assessment, or a participant-ready protocol.
+Setup now shows one step at a time, with a direct sound-confirmation button. Three shorter setup recordings reuse the existing Evelyn voice, including the existing lighting guidance; source-pause boundaries are verified, but human listening review remains pending. Visual mini-lessons and timed practice have no new dedicated narration. The chime remains a review candidate, not approved release audio. Parent usability testing and actual CHS integration remain pending. This preview is not validated gaze detection, a competency assessment, or a participant-ready protocol.
 
 ## Packaging and rights
 
-Files are deliberately flat for GitHub's browser uploader. Only runtime asset references and URL-base resolution were adapted from the approved public copy; scientific media bytes, scientific timing, narration and interface behavior are unchanged. Historical provenance fields in the study map are retained as metadata, not downloadable asset links.
+Files are deliberately flat for GitHub's browser uploader. The parent setup now uses three concise screens and a direct sound-confirmation button; the practice illustration shows a seated baby. Runtime asset references are adapted for this public review. Scientific media bytes, scientific timing, counterbalance mapping, and parent-training timing rules are unchanged. Historical provenance fields in the study map are retained as metadata, not downloadable asset links.
 
 No blanket license is granted by publishing this review. Third-party research materials retain their applicable rights and attribution; public access is not permission for unrestricted reuse.

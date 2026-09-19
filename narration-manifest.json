@@ -155,5 +155,54 @@
   "exportSha256": "b00ce5516f0c82cc97036f3e417d1ffd0fd81d9b4c28b6befa03a358b9c584c3",
   "exportedTextVerified": true,
   "sourceProjectDisplayName": "Welcome, grown-ups! Thank you for",
-  "notes": "Generated in a new NaturalReaders file, with Evelyn Soft, 180 WPM (creation panel 0.90x), zero paragraph pause and 320 kbps selected. Exact six-segment transcript verified against export. Not a scientific/CHS release approval. Human listening review remains required."
+  "notes": "Generated in a new NaturalReaders file, with Evelyn Soft, 180 WPM (creation panel 0.90x), zero paragraph pause and 320 kbps selected. Exact six-segment transcript verified against export. Not a scientific/CHS release approval. Human listening review remains required.",
+  "setupSteps": [
+    {
+      "filename": "setup-device.mp3",
+      "text": "First, use a laptop or desktop with a webcam, speakers, and a physical keyboard. Please don't use a phone or tablet.",
+      "sha256": "5159315ab34822e037335f28add76a2a6b79e2f440ba337c21c3cb2f335d1517",
+      "durationSeconds": 8.196984,
+      "parts": [
+        {
+          "source": "02-get-ready.mp3",
+          "start": 1.747,
+          "end": 9.944
+        }
+      ],
+      "verification": "Pause-aligned to existing transcript; human listening review pending."
+    },
+    {
+      "filename": "setup-quiet-light.mp3",
+      "text": "Second, find a quiet spot. Move toys and other distractions out of view, and turn off extra screens and other sound. Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.",
+      "sha256": "cdcb765c00be81d9df79b01c187aae4ec57227fdca780a18621304b67bc98f30",
+      "durationSeconds": 15.711995,
+      "parts": [
+        {
+          "source": "02-get-ready.mp3",
+          "start": 9.944,
+          "end": 17.832
+        },
+        {
+          "source": "06-baby-ready.mp3",
+          "start": 5.947,
+          "end": 13.771
+        }
+      ],
+      "verification": "Pause-aligned to existing transcript; human listening review pending."
+    },
+    {
+      "filename": "setup-sound.mp3",
+      "text": "Third, check the sound. Turn on your speakers at a comfortable volume.",
+      "sha256": "c8ccf97eefbeca6b7e4a3f5ef922785ac95820ac75ffa86e944cd4d0680226ea",
+      "durationSeconds": 5.249002,
+      "parts": [
+        {
+          "source": "02-get-ready.mp3",
+          "start": 17.832,
+          "end": 23.081
+        }
+      ],
+      "verification": "Pause-aligned to existing transcript; human listening review pending."
+    }
+  ]
 }
