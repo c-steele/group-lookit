@@ -1,7 +1,8 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
 import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs';
 import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=three-full-seconds-v1';
-import { renderRuleScene } from './rule-scene.mjs?v=three-full-seconds-v1';
+import { renderRuleScene } from './rule-scene.mjs?v=one-point-rule-v1';
+import { ruleIntroPages } from './rule-intro.mjs?v=one-point-rule-v1';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs';
 
 const $ = id => document.getElementById(id);
@@ -35,7 +36,7 @@ const setupSteps = [
 ];
 const setup = { index: 0, sound: 'idle', soundConfirmed: false, generation: 0, message: '' };
 const isSoundSetup = () => setupSteps[setup.index].scene === 'setup-sound';
-const narrationKey = page => page === 'setup' ? `setup:${setup.index}` : page;
+const narrationKey = page => page === 'setup' ? `setup:${setup.index}` : page === 'instructions' ? `instructions:${ruleLesson.introIndex}` : page;
 
 function renderSetup() {
   const step = setupSteps[setup.index];
@@ -188,7 +189,7 @@ function pressTimingSpace() {
   if(timingPractice.phase==='success') $('timing-feedback').focus({preventScroll:false});
 }
 
-const ruleLesson = { mode: 'overview', frame: 0, ended: false, paused: false, timer: null, generation: 0 };
+const ruleLesson = { mode: 'overview', introIndex: 0, introStarted: false, frame: 0, ended: false, paused: false, timer: null, generation: 0 };
 
 function stopRuleDemo() {
   clearTimeout(ruleLesson.timer);
@@ -199,28 +200,35 @@ function stopRuleDemo() {
 function renderRuleCheck() {
   const step = ruleLessonSteps[ruleCheck.index];
   const overview = ruleLesson.mode === 'overview';
+  const intro = ruleIntroPages[ruleLesson.introIndex];
   const teaching = ruleLesson.mode === 'teach';
   const questionReady = ruleLesson.mode === 'question' && ruleLesson.ended && !ruleLesson.paused;
   const answered = ruleCheck.answered[ruleCheck.index];
   const lastComplete = questionReady && ruleCheck.index === ruleLessonSteps.length - 1 && ruleCheckComplete(ruleCheck);
-  const frame = (teaching ? step.frames : step.questionFrames)[ruleLesson.frame];
-  $('rule-position').hidden = overview;
-  $('rule-position').textContent = `Example ${ruleCheck.index + 1} of ${ruleLessonSteps.length} · ${teaching ? 'Watch what happens' : questionReady ? 'Now choose' : 'Watch, then choose'}`;
-  $('instructions-title').textContent = overview ? ruleRoleTitle : teaching ? step.title : questionReady ? step.questionTitle : 'Watch this short example.';
+  const frame = (overview ? intro.frames : teaching ? step.frames : step.questionFrames)[ruleLesson.frame];
+  $('rule-position').hidden = false;
+  $('rule-position').textContent = overview ? `Your part · ${ruleLesson.introIndex + 1} of ${ruleIntroPages.length}` : `Example ${ruleCheck.index + 1} of ${ruleLessonSteps.length} · ${teaching ? 'Watch what happens' : questionReady ? 'Now choose' : 'Watch, then choose'}`;
+  $('instructions-title').textContent = overview ? intro.title : teaching ? step.title : questionReady ? step.questionTitle : 'Watch this short example.';
   $('rule-heading-copy').textContent = overview
-    ? 'First, wait for the picture to freeze. Count only while baby looks away. A look back resets the count.'
+    ? intro.copy
     : teaching ? step.copy : questionReady ? step.questionCopy : 'Watch the movie and the baby. Then choose what you would do.';
-  const visual = overview ? { movie: 'still', gaze: 'on', cue: 'none', showCount: false }
-    : frame.visual;
+  const visual = frame.visual;
   $('rule-visual').innerHTML = renderRuleScene(visual);
   // A question about a moving movie must keep visibly moving while parents answer.
-  $('rule-visual').dataset.moving = String(!overview && !ruleLesson.paused && visual.movie === 'moving');
-  $('rule-scene-caption').textContent = overview ? 'Watch your baby—not the movies.'
-    : ruleLesson.paused ? 'Example paused. Replay it when you’re ready.' : frame.caption;
-  $('rule-example-note').hidden = overview;
-  $('rule-review-tools').hidden = overview;
+  $('rule-visual').dataset.moving = String(!ruleLesson.paused && visual.movie === 'moving');
+  $('rule-scene-caption').textContent = ruleLesson.paused ? 'Example paused. Replay it when you’re ready.' : frame.caption;
+  $('rule-example-note').hidden = overview && intro.frames.length === 1;
+  $('rule-example-note').textContent = overview ? 'Teaching example—not a timer for your baby.' : 'Animated practice example—not your baby or a live camera.';
+  $('rule-review-tools').hidden = overview && intro.frames.length === 1;
+  $('rule-review-overview').hidden = overview;
+  $('rule-replay-demo').textContent = overview ? '↻ Watch this step again' : '↻ Show this again';
   $('rule-audio-area').hidden = !overview;
-  $('rule-extra').hidden = !overview;
+  $('rule-extra').hidden = true; // Breaks now have their own short, narrated page.
+  const controls = narration.controls.get('instructions');
+  if (overview && controls) {
+    controls.querySelector('.narration-transcript p').textContent = intro.transcript;
+    controls.querySelector('.narration-transcript').hidden = false;
+  }
   $('rule-answer-group').hidden = !questionReady || answered;
   $('rule-question').textContent = step.questionCopy;
   ['rule-answer-a', 'rule-answer-b'].forEach((id, choice) => {
@@ -235,7 +243,7 @@ function renderRuleCheck() {
   $('rule-previous').disabled = false;
   $('rule-next').hidden = lastComplete;
   $('rule-next').disabled = !overview && !ruleLesson.paused && (teaching ? !ruleLesson.ended : !questionReady || !answered);
-  $('rule-next').textContent = overview ? 'Show me how →'
+  $('rule-next').textContent = overview ? intro.next
     : ruleLesson.paused ? 'Replay this example'
       : teaching ? (ruleLesson.ended ? 'Watch & try →' : 'Watch the example…')
         : questionReady ? 'Next example →' : 'Watch the example…';
@@ -244,14 +252,43 @@ function renderRuleCheck() {
 }
 
 function showRuleOverview() {
+  showRuleIntro(0);
+}
+
+function showRuleIntro(index) {
   if (state.page !== 'instructions') return;
   stopRuleDemo();
   stopNarration();
   ruleLesson.mode = 'overview';
+  ruleLesson.introIndex = Math.max(0, Math.min(ruleIntroPages.length - 1, index));
+  ruleLesson.frame = 0;
+  ruleLesson.ended = false;
+  ruleLesson.introStarted = false;
   ruleLesson.paused = false;
+  $('rule-audio-area').querySelector('details').open = false;
   renderRuleCheck();
   $('instructions-title').focus({ preventScroll: false });
   if (narration.auto) startNarration('instructions');
+  else startRuleIntroAnimation();
+}
+
+function startRuleIntroAnimation() {
+  if (state.page !== 'instructions' || ruleLesson.mode !== 'overview' || document.hidden) return;
+  stopRuleDemo();
+  ruleLesson.paused = false;
+  ruleLesson.introStarted = true;
+  const token = ruleLesson.generation;
+  const introIndex = ruleLesson.introIndex;
+  const frames = ruleIntroPages[introIndex].frames;
+  const advanceFrame = index => {
+    if (token !== ruleLesson.generation || state.page !== 'instructions' || ruleLesson.mode !== 'overview' || ruleLesson.introIndex !== introIndex || document.hidden) return;
+    ruleLesson.frame = index;
+    ruleLesson.ended = index === frames.length - 1;
+    ruleLesson.timer = null;
+    renderRuleCheck();
+    if (!ruleLesson.ended) ruleLesson.timer = setTimeout(() => advanceFrame(index + 1), frames[index + 1].afterMs);
+  };
+  advanceFrame(0);
 }
 
 function startRuleSequence(mode) {
@@ -281,7 +318,11 @@ function startRuleQuestion() { startRuleSequence('question'); }
 
 function advanceRuleLesson() {
   if (state.page !== 'instructions' || document.hidden) return;
-  if (ruleLesson.mode === 'overview') { startRuleTeaching(); return; }
+  if (ruleLesson.mode === 'overview') {
+    if (ruleLesson.introIndex < ruleIntroPages.length - 1) showRuleIntro(ruleLesson.introIndex + 1);
+    else startRuleQuestion();
+    return;
+  }
   if (ruleLesson.paused) { startRuleSequence(ruleLesson.mode); return; }
   if (ruleLesson.mode === 'teach') {
     if (!ruleLesson.ended) return;
@@ -290,13 +331,21 @@ function advanceRuleLesson() {
   }
   if (!ruleLesson.ended || !ruleCheck.answered[ruleCheck.index] || ruleCheck.index === ruleLessonSteps.length - 1) return;
   ruleCheck = moveRuleCheck(ruleCheck, 1);
-  startRuleTeaching();
+  startRuleQuestion();
 }
 
 function backRuleLesson() {
   if (state.page !== 'instructions') return;
-  if (ruleLesson.mode === 'overview') { showPage('setup'); return; }
-  if (ruleLesson.mode === 'question') { startRuleTeaching(); return; }
+  if (ruleLesson.mode === 'overview') {
+    if (ruleLesson.introIndex > 0) showRuleIntro(ruleLesson.introIndex - 1);
+    else showPage('setup');
+    return;
+  }
+  if (ruleLesson.mode === 'question') {
+    if (ruleCheck.index === 0) showRuleIntro(ruleIntroPages.length - 1);
+    else { ruleCheck = moveRuleCheck(ruleCheck, -1); startRuleQuestion(); }
+    return;
+  }
   if (ruleCheck.index === 0) { showRuleOverview(); return; }
   stopRuleDemo();
   ruleCheck = moveRuleCheck(ruleCheck, -1);
@@ -315,7 +364,7 @@ function renderNarration() {
   narration.controls.forEach((controls, page) => {
     const active = narration.page === page && ['loading', 'playing'].includes(narration.phase);
     const replay = controls.querySelector('.narration-replay');
-    replay.textContent = page === 'instructions' ? '↻ Replay the rule' : '↻ Replay audio';
+    replay.textContent = page === 'instructions' ? '↻ Replay this step' : '↻ Replay audio';
     replay.hidden = !narration.heard.has(narrationKey(page));
     controls.querySelector('.narration-stop').disabled = !active;
     controls.querySelector('.narration-auto').hidden = false;
@@ -340,6 +389,14 @@ function stopNarration(message = '') {
 function startNarration(page) {
   if (!narrationFiles[page] || state.page !== page || document.hidden) return;
   if (page === 'instructions' && ruleLesson.mode !== 'overview') return;
+  if (page === 'instructions') {
+    stopRuleDemo();
+    ruleLesson.frame = 0;
+    ruleLesson.ended = false;
+    ruleLesson.paused = false;
+    ruleLesson.introStarted = false;
+    renderRuleCheck();
+  }
   // Stop pending and active parent media before starting a spoken instruction.
   stopParentMedia();
   ['sound-check', 'example-movie', 'practice-movie'].forEach(id => {
@@ -366,6 +423,7 @@ function startNarration(page) {
       : 'The spoken instructions couldn’t play. You can read them below and continue.';
     if (page === 'setup') $('setup-audio').open = true;
     stopNarration(message + (narration.auto ? ' Automatic narration is still on for the next page.' : ' Automatic narration is off.'));
+    if (page === 'instructions') startRuleIntroAnimation();
   };
   audio.onplaying = () => {
     if (!current()) { audio.pause(); return; }
@@ -377,9 +435,10 @@ function startNarration(page) {
   audio.onended = () => {
     if (!current()) return;
     stopNarration('Finished. You can replay the instructions at any time.');
+    if (page === 'instructions') startRuleIntroAnimation();
   };
   audio.onerror = failure;
-  const narrationFile = page === 'setup' ? setupSteps[setup.index].audio : narrationFiles[page];
+  const narrationFile = page === 'setup' ? setupSteps[setup.index].audio : page === 'instructions' ? ruleIntroPages[ruleLesson.introIndex].audio : narrationFiles[page];
   audio.src = new URL(`./${narrationFile}`, location.href).href;
   renderNarration();
   audio.play().catch(failure);
@@ -392,13 +451,17 @@ Object.keys(narrationFiles).forEach(page => {
   controls.querySelector('.narration-replay').onclick = () => {
     if (narration.heard.has(narrationKey(page))) startNarration(page);
   };
-  controls.querySelector('.narration-stop').onclick = () => stopNarration('Stopped for this page. Uncheck “Read pages aloud” to keep later pages silent.');
+  controls.querySelector('.narration-stop').onclick = () => {
+    stopNarration('Stopped for this page. Uncheck “Read pages aloud” to keep later pages silent.');
+    if (page === 'instructions') startRuleIntroAnimation();
+  };
   controls.querySelector('input').onchange = event => {
     narration.auto = event.target.checked;
     if (!narration.auto) {
       stopNarration();
       narration.messages.set(page, 'Automatic narration is off. Check “Read pages aloud” to turn it back on.');
       renderNarration();
+      if (page === 'instructions' && !ruleLesson.introStarted) startRuleIntroAnimation();
     } else startNarration(page);
   };
 });
@@ -409,7 +472,7 @@ fetch('./narration-manifest.json').then(response => {
   return response.json();
 }).then(manifest => {
   for (const clip of manifest.clips || []) {
-    if (clip.page === 'setup') continue; // Setup shows only the matching excerpt transcript.
+    if (clip.page === 'setup' || clip.page === 'instructions') continue; // Step pages show only their matching excerpt.
     const controls = narration.controls.get(clip.page);
     if (!controls || typeof clip.text !== 'string' || !clip.text.trim()) continue;
     controls.querySelector('.narration-transcript p').textContent = clip.text;
@@ -518,7 +581,7 @@ function showPage(page) {
   state.page = page;
   if (page === 'setup') renderSetup();
   if (page === 'timing-practice') { timingPractice=freshGuidedPractice(); renderTimingPractice(); }
-  if (page === 'instructions') { ruleLesson.mode = 'overview'; ruleLesson.paused = false; renderRuleCheck(); }
+  if (page === 'instructions') { ruleLesson.mode = 'overview'; ruleLesson.introIndex = 0; ruleLesson.frame = 0; ruleLesson.introStarted = false; ruleLesson.paused = false; renderRuleCheck(); }
   ['study-entry', ...parentPages, 'session', 'complete'].forEach(id => { $(id).hidden = id !== page; });
   $('parent-shell').hidden = !parentPages.includes(page);
   $('preview-tools').hidden = !parentPages.includes(page);
@@ -534,6 +597,7 @@ function showPage(page) {
   window.scrollTo({ top: 0, behavior: 'instant' });
   $(page).querySelector('h1')?.focus({ preventScroll: true });
   if (narration.auto && parentPages.includes(page)) startNarration(page);
+  else if (page === 'instructions') startRuleIntroAnimation();
   renderResearcherControls();
 }
 
@@ -673,9 +737,16 @@ $('rule-answer-a').onclick = () => chooseRuleAnswer(0);
 $('rule-answer-b').onclick = () => chooseRuleAnswer(1);
 $('rule-previous').onclick = backRuleLesson;
 $('rule-next').onclick = advanceRuleLesson;
-$('rule-replay-demo').onclick = () => ruleLesson.mode === 'question' ? startRuleQuestion() : startRuleTeaching();
+$('rule-replay-demo').onclick = () => {
+  if (ruleLesson.mode === 'overview') { stopNarration(); startRuleIntroAnimation(); }
+  else if (ruleLesson.mode === 'question') startRuleQuestion();
+  else startRuleTeaching();
+};
 $('rule-review-overview').onclick = showRuleOverview;
-$('rule-audio-stop').onclick = () => stopNarration('Stopped. You can replay the rule in Audio & written instructions.');
+$('rule-audio-stop').onclick = () => {
+  stopNarration('Stopped. You can replay this step in Audio & written instructions.');
+  startRuleIntroAnimation();
+};
 $('instructions-next').onclick = () => {
   if (state.page === 'instructions' && !document.hidden && ruleLesson.mode === 'question' && ruleLesson.ended && !ruleLesson.paused && ruleCheck.index === ruleLessonSteps.length - 1 && ruleCheckComplete(ruleCheck)) showPage('timing-practice');
 };
@@ -790,7 +861,7 @@ document.addEventListener('visibilitychange', () => {
   // Returning to a tab never starts the study or restarts interrupted speech.
   if (!document.hidden) return;
   if(state.page==='timing-practice') { stopTimingPractice(); renderTimingPractice(); }
-  if (state.page === 'instructions' && ruleLesson.mode !== 'overview') {
+  if (state.page === 'instructions') {
     stopRuleDemo();
     ruleLesson.paused = true;
     renderRuleCheck();
