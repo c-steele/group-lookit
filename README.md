@@ -54,3 +54,7 @@ These are contiguous excerpts of the existing `03-look-away-rule.mp3` performanc
 | rule-break.mp3 | 33.172–42.789 | 9.617 s |
 
 Exact page transcripts are included in `rule-intro.mjs`. Full technical provenance and an unchanged-file SHA-256 audit remain in the local project's incremental manifest. This builder does not run the regression suites, publish to GitHub, or change CHS. Parent usability and listening review, participant-protocol validation, and actual CHS integration remain pending.
+
+## High-chair and lap seating
+
+The baby-ready page replaces the old faceless camera drawing with two AI-generated seating examples: high chair and supported lap. These are synthetic illustrations, not real participants or a live webcam, and do not validate physical safety or exact camera coverage. The caregiver must be able to observe baby’s eyes and reach Space. No over-the-shoulder option is included for this parent-controlled paradigm. Existing Evelyn narration already covers high chair/lap and is unchanged, as are all scientific videos, timing models and CHS settings. The exact image-generation prompt and inspection notes are retained in the local project.

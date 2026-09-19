@@ -125,10 +125,15 @@ label.welcome-pause-label { grid-row: 2; grid-column: 2; display: flex; align-it
 .timing-feedback:empty { display: none; }
 .timing-feedback.success { background: #e8f3eb; color: #315e43; }
 .practice-disclaimer { max-width: 600px; margin: 16px auto 0; text-align: center; font-size: .875rem; color: #64786c; }
-/* Baby setup: one illustration, three brief checks, optional fuller guidance. */
-#ready .page-heading { margin-bottom: 26px; }
-#ready .baby-setup { grid-template-columns: minmax(0, .95fr) minmax(0, 1.25fr); gap: 24px; }
-#ready .camera-illustration { padding: 8px 10px 12px; }
+/* Two supported seating options; neither requires turning away from baby. */
+#parent-shell:has(#ready:not([hidden])) { padding-top: 26px; }
+#parent-shell:has(#ready:not([hidden])) .parent-progress { margin-bottom: 24px; }
+#ready .page-heading { margin-bottom: 22px; }
+#ready .baby-setup { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 22px; }
+.seating-options { margin: 0; padding: 12px 10px 10px; border: 1px solid #d5e4dc; border-radius: 16px; background: #f3f8f5; }
+.seating-labels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); text-align: center; color: #355b4c; font-size: 1.1rem; margin-bottom: 10px; }
+.seating-options img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.seating-options figcaption { margin-top: 8px; text-align: center; color: #687d73; font-size: .75rem; line-height: 1.4; }
 #ready .baby-checks { gap: 12px; }
 #ready .baby-checks article { display: flex; gap: 13px; align-items: center; padding: 17px; border: 1px solid #b9d3c5; border-radius: 14px; background: #f0f8f4; }
 #ready .baby-checks article:nth-child(2) { background: #f0f6fb; border-color: #c2d7e8; }
@@ -154,7 +159,7 @@ label.welcome-pause-label { grid-row: 2; grid-column: 2; display: flex; align-it
 }
 @media (max-width: 720px) {
   #ready .baby-setup { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  #ready .camera-illustration { max-width: 310px; }
+  #ready .seating-options { width: 100%; max-width: 560px; margin: auto; }
   #ready .baby-checks article { padding: 15px; }
   #parent-shell:has(#instructions:not([hidden])) { padding-top: 22px; padding-bottom: 22px; }
   #parent-shell:has(#instructions:not([hidden])) .parent-progress { margin-bottom: 20px; }
