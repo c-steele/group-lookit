@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Infant study — collaborator review</title>
   <meta name="robots" content="noindex,nofollow">
-  <meta name="description" content="Researcher review of parent instructions and V3/V5 movies. Recording and data collection are off.">
-  <link rel="stylesheet" href="style.css?v=setup-stepper-seated-v3">
+  <meta name="description" content="Collaborator review of parent instructions and V3/V5 movies. Recording and data collection are off.">
+  <link rel="stylesheet" href="style.css?v=setup-clear-view-v2">
 </head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -116,11 +116,12 @@
       <p id="startup-status" class="startup-status" role="status">Getting the preview ready…</p>
     </section>
     <section id="setup" class="parent-page" aria-labelledby="setup-title" hidden>
-      <div class="page-heading"><p id="setup-position" class="eyebrow">Setup · 1 of 3</p><h1 id="setup-title" tabindex="-1">Use a computer with a keyboard.</h1><p id="setup-copy" class="lede">Laptop or desktop, with a webcam and speakers.<br>No phone or tablet.</p></div>
+      <div class="page-heading"><p id="setup-position" class="eyebrow">Setup · 1 of 4</p><h1 id="setup-title" tabindex="-1">Use a laptop or desktop.</h1><p id="setup-copy" class="lede">You’ll need a webcam, speakers, and a physical keyboard.</p></div>
       <div class="setup-stage">
         <figure id="setup-computer" class="setup-scene">
-          <svg viewBox="0 0 520 210" role="img" aria-label="A laptop with a webcam, speakers, and physical keyboard">
+          <svg viewBox="0 0 520 210" role="img" aria-label="Use a laptop or desktop computer. Do not use a phone or tablet; both are crossed out.">
             <path d="M82 182h356" stroke="#dce9e3" stroke-width="3" stroke-linecap="round"/>
+            <g transform="translate(-68 12) scale(.82)">
             <rect x="138" y="24" width="244" height="141" rx="14" fill="#405962"/>
             <rect x="150" y="39" width="220" height="115" rx="7" fill="#e7f3fc"/>
             <circle cx="260" cy="31" r="3" fill="#b3d5db"/>
@@ -131,7 +132,16 @@
             <rect x="238" y="177" width="46" height="4" rx="2" fill="#f6fbfa"/>
             <circle cx="384" cy="37" r="25" fill="#70aa91" stroke="#fff" stroke-width="5"/>
             <path d="m374 37 7 7 14-16" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <rect x="316" y="59" width="51" height="93" rx="8" fill="#748c95"/>
+            <rect x="322" y="70" width="39" height="66" rx="3" fill="#e9f1f3"/>
+            <circle cx="342" cy="144" r="3" fill="#e9f1f3"/>
+            <rect x="386" y="38" width="89" height="118" rx="10" fill="#748c95"/>
+            <rect x="393" y="49" width="75" height="89" rx="3" fill="#e9f1f3"/>
+            <circle cx="431" cy="147" r="3" fill="#e9f1f3"/>
+            <path d="m315 37 161 126m-161 0L476 37" fill="none" stroke="#ac574e" stroke-width="7" stroke-linecap="round"/>
           </svg>
+          <figcaption class="device-guidance"><span>✓ Laptop or desktop</span><strong>✕ NO PHONE OR TABLET</strong></figcaption>
         </figure>
         <figure id="setup-room" class="setup-scene" hidden>
           <svg viewBox="0 0 520 210" role="img" aria-label="Place a soft lamp on the computer side, facing the baby's seat. Avoid a bright window behind the baby.">
@@ -146,11 +156,27 @@
             <path d="M366 73v53h-44m51 10-9 39m-35-39-9 39" fill="none" stroke="#78a698" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
             <rect x="314" y="104" width="51" height="26" rx="12" fill="#bed5ca"/>
             <path d="M233 65h83m-12-10 12 10-12 10" fill="none" stroke="#d3a55f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="432" y="49" width="65" height="77" rx="4" fill="#fff5dc" stroke="#d9c497" stroke-width="3"/>
+            <path d="M464 50v75m-31-39h63" stroke="#d9c497" stroke-width="3"/>
+            <path d="m429 44 72 87m-72 0 72-87" stroke="#ac574e" stroke-width="5" stroke-linecap="round"/>
             <text x="76" y="202" text-anchor="middle">Soft light</text>
             <text x="208" y="202" text-anchor="middle">Computer</text>
             <text x="367" y="202" text-anchor="middle">Baby’s seat</text>
           </svg>
-          <figcaption>Light from the computer side.<br><strong>No bright window behind your baby.</strong></figcaption>
+          <figcaption class="lighting-guidance"><span>✓ Soft light from the <strong>computer side</strong>, toward your baby.</span><strong class="setup-prohibited">✕ NO bright window behind your baby.</strong></figcaption>
+        </figure>
+        <figure id="setup-camera" class="setup-scene" hidden>
+          <div class="camera-examples-grid">
+            <div class="camera-example camera-example-good">
+              <div class="camera-example-crop"><img src="./camera-view-examples.png" alt="Even front lighting: the baby's whole head and both eyes are clearly visible."></div>
+              <p><span aria-hidden="true">✓</span> Both eyes clear</p>
+            </div>
+            <div class="camera-example camera-example-dark">
+              <div class="camera-example-crop"><img src="./camera-view-examples.png" alt="A bright window behind the baby leaves their face and eyes in shadow."></div>
+              <p><span aria-hidden="true">✕</span> Too dark to see the eyes</p>
+            </div>
+          </div>
+          <figcaption class="camera-examples-disclaimer">Illustrations—not your live camera.</figcaption>
         </figure>
         <figure id="setup-sound" class="setup-scene" hidden>
           <svg viewBox="0 0 520 170" role="img" aria-label="A speaker playing a sound">
@@ -164,11 +190,12 @@
         <div id="setup-sound-actions" hidden>
           <button id="sound-play" class="primary" type="button">Play 3 gentle chimes</button>
           <p id="sound-status" role="status" aria-live="polite">Play the sound, then tell us if you heard it.</p>
+          <label id="sound-confirm-row" class="sound-confirm-row" hidden><input type="checkbox" id="sound-confirm" disabled><span>I heard all 3 chimes clearly.</span></label>
           <details id="sound-help"><summary>I can’t hear the sound</summary><p>Check that your computer and this browser tab aren’t muted. Turn up your speakers a little, then play the chimes again. If sound still won’t play, try reloading or using another computer.</p></details>
         </div>
       </div>
       <audio id="sound-check" preload="none" src="./audio-check-three-chimes-candidate.mp3"></audio>
-      <div class="page-footer setup-footer"><button id="setup-back" class="back" type="button">← Back</button><button id="setup-next" class="primary" type="button">Next: the room <span aria-hidden="true">→</span></button></div>
+      <div class="page-footer setup-footer"><button id="setup-back" class="back" type="button">← Back</button><div class="setup-next-group"><button id="setup-next" class="primary" type="button" aria-describedby="setup-next-note">Next: the room <span aria-hidden="true">→</span></button><p id="setup-next-note" hidden></p></div></div>
       <details id="setup-audio" class="setup-audio-panel"><summary>Audio &amp; written instructions</summary><div id="setup-narration"></div></details>
     </section>
     <section id="instructions" class="visual-rule-lesson" aria-labelledby="instructions-title" hidden>
@@ -204,7 +231,7 @@
       <div class="page-heading"><p class="eyebrow">Your turn</p><h1 id="timing-title" tabindex="-1">Watch her. Count. Press space.</h1><p class="lede">Wait for a still picture, then 3 full seconds away.<br>A look back resets your count.</p></div>
       <div id="timing-visual" class="rule-visual" aria-hidden="true"></div>
       <p id="timing-caption" class="rule-scene-caption">Watch this practice baby. You do the counting.</p>
-      <img id="practice-art-loader" src="./practice-baby-seated.png" alt="" hidden>
+      <img id="practice-art-loader" src="./parent-view-practice.png" alt="" hidden>
       <div class="timing-actions"><button id="timing-start" class="primary" type="button">Start practice</button><p id="timing-response" hidden>Use the <kbd>space bar</kbd> on your keyboard.</p></div>
       <p id="timing-feedback" class="timing-feedback" role="status" aria-live="polite" tabindex="-1"></p>
       <p class="practice-disclaimer">AI-generated illustration, not a real baby or camera view. This checks your timing in this example only.</p>
@@ -276,6 +303,6 @@
   <section id="complete" class="card narrow" hidden><p class="eyebrow">Preview complete</p><h1 tabindex="-1">Thank you for watching!</h1><p>You’ve reached the end of the local movie sequence. No camera recording or study response was created.</p><button id="again">Back to the welcome</button></section>
   <footer class="site-footer">Collaborator review only · No recording or data collection · Not a live CHS study</footer>
 </main>
-<script type="module" src="app.js?v=setup-stepper-seated-v3"></script>
+<script type="module" src="app.js?v=setup-clear-view-v2"></script>
 </body>
 </html>

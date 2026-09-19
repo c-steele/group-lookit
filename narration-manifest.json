@@ -169,7 +169,7 @@
           "end": 9.944
         }
       ],
-      "verification": "Pause-aligned to existing transcript; human listening review pending."
+      "verification": "Pause-aligned to existing transcript; independent listening review pending."
     },
     {
       "filename": "setup-quiet-light.mp3",
@@ -188,21 +188,35 @@
           "end": 13.771
         }
       ],
-      "verification": "Pause-aligned to existing transcript; human listening review pending."
+      "verification": "Pause-aligned to existing transcript; independent listening review pending."
     },
     {
-      "filename": "setup-sound.mp3",
-      "text": "Third, check the sound. Turn on your speakers at a comfortable volume.",
-      "sha256": "c8ccf97eefbeca6b7e4a3f5ef922785ac95820ac75ffa86e944cd4d0680226ea",
-      "durationSeconds": 5.249002,
+      "filename": "setup-camera.mp3",
+      "text": "Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.",
+      "sha256": "d31429b6a6303205d49dc23af67ce16a23f39385d4139b01b46f30442e7152d2",
+      "durationSeconds": 7.823991,
+      "parts": [
+        {
+          "source": "06-baby-ready.mp3",
+          "start": 5.947,
+          "end": 13.771
+        }
+      ],
+      "verification": "Pause-aligned to existing transcript; independent listening review pending."
+    },
+    {
+      "filename": "setup-sound-no-ordinal.mp3",
+      "text": "Turn on your speakers at a comfortable volume.",
+      "sha256": "0c43b4039455f489bb9c8d91cad7a2fc602e3463307fd34e09193c7cbbd34559",
+      "durationSeconds": 3.303991,
       "parts": [
         {
           "source": "02-get-ready.mp3",
-          "start": 17.832,
+          "start": 19.777,
           "end": 23.081
         }
       ],
-      "verification": "Pause-aligned to existing transcript; human listening review pending."
+      "verification": "Pause-aligned to existing transcript; independent listening review pending."
     }
   ]
 }

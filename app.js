@@ -1,7 +1,7 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
 import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs';
 import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs';
-import { renderRuleScene } from './rule-scene.mjs?v=seated-v3';
+import { renderRuleScene } from './rule-scene.mjs?v=parent-view-v2';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs';
 
 const $ = id => document.getElementById(id);
@@ -24,14 +24,17 @@ const narration = {
 // Parent setup is deliberately one small decision at a time. These are exact
 // excerpts of the existing Evelyn recordings, not newly synthesized speech.
 const setupSteps = [
-  { title: 'Use a computer with a keyboard.', copy: 'Laptop or desktop, with a webcam and speakers. No phone or tablet.', scene: 'setup-computer', next: 'Next: the room →',
+  { title: 'Use a laptop or desktop.', copy: 'You’ll need a webcam, speakers, and a physical keyboard.', scene: 'setup-computer', next: 'Next: the room →',
     audio: 'setup-device.mp3', transcript: "First, use a laptop or desktop with a webcam, speakers, and a physical keyboard. Please don't use a phone or tablet." },
-  { title: 'Find a quiet, well-lit spot.', copy: 'Clear away toys. Turn off extra screens and sound.', scene: 'setup-room', next: 'Next: check the sound →',
+  { title: 'Light your baby from the front.', copy: 'A quiet spot: no toys, extra screens, or other sound.', scene: 'setup-room', next: 'Next: a clear camera view →',
     audio: 'setup-quiet-light.mp3', transcript: 'Second, find a quiet spot. Move toys and other distractions out of view, and turn off extra screens and other sound. Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
-  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'Yes, I heard them — Continue →',
-    audio: 'setup-sound.mp3', transcript: 'Third, check the sound. Turn on your speakers at a comfortable volume.' }
+  { title: 'Make both eyes easy to see.', copy: 'Keep your baby’s whole head in view, with even light on their face.', scene: 'setup-camera', next: 'Next: check the sound →',
+    audio: 'setup-camera.mp3', transcript: 'Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
+  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'Continue to parent practice →',
+    audio: 'setup-sound-no-ordinal.mp3', transcript: 'Turn on your speakers at a comfortable volume.' }
 ];
-const setup = { index: 0, sound: 'idle', generation: 0, message: '' };
+const setup = { index: 0, sound: 'idle', soundConfirmed: false, generation: 0, message: '' };
+const isSoundSetup = () => setupSteps[setup.index].scene === 'setup-sound';
 const narrationKey = page => page === 'setup' ? `setup:${setup.index}` : page;
 
 function renderSetup() {
@@ -40,10 +43,15 @@ function renderSetup() {
   $('setup-title').textContent = step.title;
   $('setup-copy').textContent = step.copy;
   setupSteps.forEach(item => { $(item.scene).hidden = item !== step; });
-  $('setup-sound-actions').hidden = setup.index !== 2;
-  $('setup-next').hidden = setup.index === 2 && setup.sound !== 'complete';
-  $('setup-next').disabled = false;
+  $('setup-sound-actions').hidden = !isSoundSetup();
+  $('setup-next').hidden = false;
+  $('setup-next').disabled = isSoundSetup() && !(setup.sound === 'complete' && setup.soundConfirmed);
   $('setup-next').textContent = step.next;
+  $('setup-next-note').hidden = !isSoundSetup() || setup.soundConfirmed;
+  $('setup-next-note').textContent = setup.sound === 'complete' ? 'Check the box above, then Continue.' : 'First play the chimes. Then confirm you heard them.';
+  $('sound-confirm-row').hidden = setup.sound !== 'complete';
+  $('sound-confirm').disabled = setup.sound !== 'complete';
+  $('sound-confirm').checked = setup.soundConfirmed;
   $('sound-play').disabled = ['loading', 'playing'].includes(setup.sound);
   $('sound-play').className = setup.sound === 'complete' ? 'secondary' : 'primary';
   $('sound-play').textContent = setup.sound === 'complete' ? '↻ Replay the chimes' : setup.sound === 'playing' ? 'Playing the chimes…' : setup.sound === 'loading' ? 'Loading the chimes…' : 'Play 3 gentle chimes';
@@ -59,8 +67,8 @@ function renderSetup() {
 function moveSetup(direction) {
   if (state.page !== 'setup' || document.hidden) return;
   if (direction === -1 && setup.index === 0) { showPage('welcome'); return; }
-  if (direction === 1 && setup.index === 2) {
-    if (setup.sound === 'complete') showPage('instructions');
+  if (direction === 1 && setup.index === setupSteps.length - 1) {
+    if (setup.sound === 'complete' && setup.soundConfirmed) showPage('instructions');
     return;
   }
   const next = setup.index + direction;
@@ -68,6 +76,7 @@ function moveSetup(direction) {
   stopParentMedia();
   setup.index = next;
   setup.sound = 'idle';
+  setup.soundConfirmed = false;
   setup.message = '';
   setup.generation += 1;
   $('sound-help').open = false;
@@ -79,13 +88,14 @@ function moveSetup(direction) {
 }
 
 function playSetupSound() {
-  if (state.page !== 'setup' || setup.index !== 2 || document.hidden || ['loading', 'playing'].includes(setup.sound)) return;
+  if (state.page !== 'setup' || !isSoundSetup() || document.hidden || ['loading', 'playing'].includes(setup.sound)) return;
   const token = ++setup.generation;
   const audio = freshParentMedia('sound-check');
   setup.sound = 'loading';
+  setup.soundConfirmed = false;
   setup.message = 'The sample is loading…';
   renderSetup();
-  const current = () => state.page === 'setup' && setup.index === 2 && !document.hidden && setup.generation === token && $('sound-check') === audio;
+  const current = () => state.page === 'setup' && isSoundSetup() && !document.hidden && setup.generation === token && $('sound-check') === audio;
   const failure = error => {
     if (!current()) return;
     audio.pause();
@@ -105,9 +115,9 @@ function playSetupSound() {
   audio.onended = () => {
     if (!current() || setup.sound !== 'playing') return;
     setup.sound = 'complete';
-    setup.message = 'Did you hear all 3 chimes?';
+    setup.message = 'Heard all 3? Check the box below.';
     renderSetup();
-    $('setup-next').focus({ preventScroll: false });
+    $('sound-confirm').focus({ preventScroll: false });
   };
   audio.onerror = failure;
   audio.play().catch(failure);
@@ -421,6 +431,7 @@ function stopParentMedia() {
   });
   if (['loading', 'playing'].includes(setup.sound)) {
     setup.sound = 'idle';
+    setup.soundConfirmed = false;
     setup.message = 'The sound stopped. Play the chimes again when you’re ready.';
     setup.generation += 1;
     renderSetup();
@@ -673,6 +684,11 @@ $('timing-next').onclick=() => { if(state.page==='timing-practice' && timingPrac
 renderTimingPractice();
 renderRuleCheck();
 $('sound-play').onclick = playSetupSound;
+$('sound-confirm').onchange = event => {
+  if (state.page !== 'setup' || !isSoundSetup() || document.hidden || setup.sound !== 'complete') return;
+  setup.soundConfirmed = !!event.target.checked;
+  renderSetup();
+};
 
 $('example-start').onclick = () => {
   const video = freshParentMedia('example-movie');

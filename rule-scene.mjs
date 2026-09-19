@@ -20,65 +20,49 @@ export function renderRuleScene({
   const isPress = cue === 'press' && elapsed === 3;
   const showSecondMarks = showCount ?? (isStill || isReset);
 
-  // The two open-eyed states share a seated body and stationary highchair.
-  // Select a tightly cropped sprite panel; never mirror the whole baby/chair.
-  // The generated halves have different side margins, so align their chair centers.
-  const babyViewBox = isAway ? '813 20 630 970' : '100 20 630 970';
-  const gazeLine = isAway
-    ? '<path d="M 486 64 H 550 M 543 58 L 551 64 L 543 70"/>'
-    : '<path d="M 389 64 H 252 M 259 58 L 251 64 L 259 70"/>';
+  // Caregiver viewpoint: the baby faces the computer, with the adult behind.
+  // Two matched panels change only the illustrated head direction. The original
+  // Raz rear-view practice video remains a separate, unchanged later step.
+  const babyViewBox = isAway ? '768 0 768 768' : '0 0 768 768';
 
   const secondMarks = [1, 2, 3].map((second, index) => {
-    const x = 384 + index * 49;
+    const x = 368 + index * 49;
     const done = second <= elapsed;
     return `<g class="rule-scene-second${done ? ' is-complete' : ''}">
-      <circle cx="${x}" cy="214" r="18" fill="${done ? '#3f755f' : '#ffffff'}" stroke="${done ? '#3f755f' : '#c4d8ce'}" stroke-width="2"/>
+      <circle cx="${x}" cy="222" r="18" fill="${done ? '#3f755f' : '#ffffff'}" stroke="${done ? '#3f755f' : '#c4d8ce'}" stroke-width="2"/>
       ${done
-        ? `<text x="${x}" y="220" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="750">${second}</text>`
-        : `<circle cx="${x}" cy="214" r="2.4" fill="#b9cec2"/>`}
+        ? `<text x="${x}" y="228" text-anchor="middle" fill="#ffffff" font-size="19" font-weight="750">${second}</text>`
+        : `<circle cx="${x}" cy="222" r="2.4" fill="#b9cec2"/>`}
     </g>`;
   }).join('');
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" class="rule-lesson-scene" viewBox="0 0 600 260" aria-hidden="true" focusable="false" fill="none">
+  return `<svg xmlns="http://www.w3.org/2000/svg" class="rule-lesson-scene" viewBox="0 0 600 284" aria-hidden="true" focusable="false" fill="none">
     <g font-family="Avenir Next, Avenir, ui-sans-serif, system-ui, sans-serif" stroke-linecap="round" stroke-linejoin="round">
-      <ellipse cx="144" cy="168" rx="106" ry="9" fill="#e2ece7"/>
-
-      <g class="rule-scene-laptop">
-        <rect x="55" y="43" width="179" height="118" rx="11" fill="#526d79"/>
-        <rect x="64" y="53" width="161" height="98" rx="5" fill="#eef6f8"/>
-        <path d="M 55 160 H 234 L 250 172 H 39 Z" fill="#a4bac2"/>
-        <path d="M 123 162 H 166 L 172 167 H 118 Z" fill="#e0ebed"/>
-        <g class="${isStill ? 'rule-scene-frozen' : 'rule-scene-motion'}" stroke="#78a592" stroke-width="7">
-          <path d="M 96 105 C 111 83 130 83 145 105 S 178 127 193 105"/>
-        </g>
-        <g fill="#557e8d">
-          ${isStill
-            ? '<rect x="77" y="65" width="4" height="12" rx="1"/><rect x="85" y="65" width="4" height="12" rx="1"/>'
-            : '<path d="M 78 64 L 89 71 L 78 78 Z"/>'}
-        </g>
-      </g>
-
-      <g class="rule-scene-gaze" stroke="${isAway ? '#b28667' : '#719c8b'}" stroke-width="2.5" stroke-dasharray="5 6">
-        ${gazeLine}
-      </g>
-
       <g class="rule-scene-baby" data-gaze="${isAway ? 'away' : 'on'}">
-        <svg x="372" y="10" width="117" height="180" viewBox="${babyViewBox}" preserveAspectRatio="xMidYMid slice" overflow="hidden">
-          <image href="./practice-baby-seated.png" x="0" y="0" width="1536" height="1024"/>
+        <svg x="16" y="10" width="264" height="264" viewBox="${babyViewBox}" preserveAspectRatio="xMidYMid slice" overflow="hidden">
+          <image href="./parent-view-practice.png" x="0" y="0" width="1536" height="1024"/>
         </svg>
       </g>
-
+      <g class="rule-scene-laptop">
+        <g class="${isStill ? 'rule-scene-frozen' : 'rule-scene-motion'}" stroke="#456f70" stroke-width="4">
+          <path d="M 115 68 C 126 54 137 54 148 68 S 170 82 181 68"/>
+        </g>
+      </g>
+      <text x="425" y="38" text-anchor="middle" fill="#355b4c" font-size="19" font-weight="700">Your view from behind</text>
+      <text x="425" y="64" text-anchor="middle" fill="#566e65" font-size="16">Watch your baby.</text>
+      <rect x="322" y="84" width="206" height="38" rx="10" fill="#ffffff" stroke="#d7e5de"/>
+      <text x="425" y="109" text-anchor="middle" fill="#3d6063" font-size="17" font-weight="650">${isStill ? 'Picture still' : 'Movie moving'}</text>
       <g class="rule-scene-space${isPress ? ' is-ready' : ''}">
-        <rect x="85" y="196" width="119" height="39" rx="9" fill="${isPress ? '#2c5846' : '#d3e0d9'}"/>
-        <rect x="85" y="191" width="119" height="39" rx="9" fill="${isPress ? '#3f755f' : '#ffffff'}" stroke="${isPress ? '#3f755f' : '#a8c1b3'}" stroke-width="2"/>
-        <text x="144.5" y="216" text-anchor="middle" fill="${isPress ? '#ffffff' : '#456555'}" font-size="17" font-weight="750" letter-spacing="1">SPACE</text>
-        ${isPress ? '<path d="M 69 202 L 62 198 M 70 217 H 61 M 219 202 L 226 198 M 219 217 H 228" stroke="#609579" stroke-width="3"/>' : ''}
+        <rect x="366" y="150" width="119" height="39" rx="9" fill="${isPress ? '#2c5846' : '#d3e0d9'}"/>
+        <rect x="366" y="145" width="119" height="39" rx="9" fill="${isPress ? '#3f755f' : '#ffffff'}" stroke="${isPress ? '#3f755f' : '#a8c1b3'}" stroke-width="2"/>
+        <text x="425.5" y="171" text-anchor="middle" fill="${isPress ? '#ffffff' : '#456555'}" font-size="17" font-weight="750" letter-spacing="1">SPACE</text>
+        ${isPress ? '<path d="M 350 156 L 343 152 M 351 171 H 342 M 500 156 L 507 152 M 500 171 H 509" stroke="#609579" stroke-width="3"/>' : ''}
       </g>
 
       ${showSecondMarks ? `<g class="rule-scene-seconds">
         ${secondMarks}
-        <text x="433" y="249" text-anchor="middle" fill="#587167" font-size="13" font-weight="600">full seconds looking away</text>
-        ${isReset ? '<path d="M 528 220 A 13 13 0 1 0 527 205 M 527 197 V 206 H 519" stroke="#b28667" stroke-width="2.5"/>' : ''}
+        <text x="417" y="261" text-anchor="middle" fill="#587167" font-size="13" font-weight="600">full seconds looking away</text>
+        ${isReset ? '<path d="M 516 228 A 13 13 0 1 0 515 213 M 515 205 V 214 H 507" stroke="#b28667" stroke-width="2.5"/>' : ''}
       </g>` : ''}
     </g>
   </svg>`;
