@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Infant study — collaborator review</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Researcher review of parent instructions and V3/V5 movies. Recording and data collection are off.">
+  <link rel="stylesheet" href="style.css?v=clear-setup-timing-20260918">
+</head>
+<body>
+<svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="i-monitor" viewBox="0 0 48 48"><rect x="6" y="8" width="36" height="26" rx="4"/><path d="M19 41h10m-5-7v7M12 27h24"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 48 48"><path d="M4 24s7-12 20-12 20 12 20 12-7 12-20 12S4 24 4 24Z"/><circle cx="24" cy="24" r="6"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 48 48"><path d="M24 40 8 24C-1 14 13 1 24 14 35 1 49 14 40 24Z"/></symbol>
+  <symbol id="i-sound" viewBox="0 0 48 48"><path d="M7 19h8L26 9v30L15 29H7Zm25-2a11 11 0 0 1 0 14m5-20a19 19 0 0 1 0 26"/></symbol>
+  <symbol id="i-home" viewBox="0 0 48 48"><path d="m6 22 18-15 18 15M11 19v22h26V19M20 41V29h8v12"/></symbol>
+  <symbol id="i-play" viewBox="0 0 48 48"><path d="m18 10 22 14-22 14Z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 48 48"><rect x="4" y="14" width="40" height="22" rx="4"/><path d="M13 24v4h22v-4"/></symbol>
+</defs></svg>
+<header class="site-header">
+  <span id="preview-badge" class="badge">Design preview · camera off</span>
+  <details id="researcher-shortcuts" class="researcher-shortcuts">
+    <summary>Researcher skips</summary>
+    <p>Review only—not for participating families. No camera, recording or responses are collected. Skips do not mark practice as completed.</p>
+    <label class="check-line"><input id="researcher-mode" type="checkbox">Enable researcher skip buttons</label>
+    <div id="researcher-navigation" hidden>
+      <div class="researcher-skip-buttons">
+        <button id="researcher-back" class="secondary" type="button">← Previous screen</button>
+        <button id="researcher-next" class="secondary" type="button">Next screen · skip checks →</button>
+        <button id="researcher-rule" class="secondary" type="button">Skip to parent lesson</button>
+        <button id="researcher-timing" class="secondary" type="button">Skip to space-bar practice</button>
+        <button id="researcher-example" class="secondary" type="button">Skip to example video</button>
+        <button id="researcher-practice" class="secondary" type="button">Skip to practice video</button>
+        <button id="researcher-ready" class="secondary" type="button">Skip to baby setup</button>
+        <button id="researcher-stimuli" class="secondary" type="button" disabled>Skip to study movies</button>
+        <button id="researcher-movie" class="secondary" type="button" hidden>Skip this movie →</button>
+      </div>
+      <p id="researcher-status" role="status"></p>
+    </div>
+  </details>
+</header>
+<audio id="parent-narration" preload="none"></audio>
+<template id="narration-controls-template">
+  <div class="narration-controls" role="group" aria-label="Spoken instructions">
+    <div class="narration-buttons">
+      <button type="button" class="secondary narration-replay" hidden><span aria-hidden="true">↻</span> Replay audio</button>
+      <button type="button" class="back narration-stop" disabled>Stop</button>
+      <label class="check-line narration-auto"><input type="checkbox" checked><span>Read pages aloud</span></label>
+    </div>
+    <p class="narration-status" role="status" aria-live="polite"></p>
+    <details class="narration-transcript" hidden><summary>Read the narration</summary><p></p></details>
+  </div>
+</template>
+<main>
+  <section id="study-entry" class="parent-shell study-entry" aria-labelledby="entry-title">
+    <div class="entry-art" aria-hidden="true">
+      <svg viewBox="0 0 360 228" focusable="false">
+        <ellipse cx="180" cy="119" rx="135" ry="100" fill="#eff7f2"/>
+        <ellipse cx="180" cy="207" rx="121" ry="9" fill="#dcebe3"/>
+        <path d="M39 135q-9-31 6-57M311 138q11-21 6-42" fill="none" stroke="#c3dcce" stroke-width="3" stroke-linecap="round"/>
+        <g class="entry-laptop">
+          <rect x="80" y="61" width="202" height="133" rx="14" fill="#415c65"/>
+          <rect x="90" y="71" width="182" height="110" rx="6" fill="#e9f4fb"/>
+          <circle cx="181" cy="66" r="2" fill="#b8d4de"/>
+          <path d="M95 155q39-17 87 0t85 0v21H95Z" fill="#dbebf4"/>
+          <path d="m81 193-21 13q-3 6 9 6h224q12 0 9-6l-21-13Z" fill="#9cb9b9"/>
+          <path d="M154 195h54l-5 5h-44Z" fill="#e5eeeb"/>
+          <path d="M181 157c-5-3-43-26-43-47 0-22 28-28 43-9 15-19 43-13 43 9 0 21-38 44-43 47Z" fill="#dc9f7c"/>
+          <path d="M150 111q0-9 9-10" fill="none" stroke="#f5d9c6" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <g class="entry-float entry-sound-bubble">
+          <circle cx="287" cy="69" r="34" fill="#dbe8ef"/>
+          <circle cx="287" cy="65" r="34" fill="#78a3c9" stroke="#fff" stroke-width="5"/>
+          <path d="M270 60h7l10-8v26l-10-8h-7Z" fill="#fff"/>
+          <path d="M294 59q6 6 0 12m6-18q11 12 0 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/>
+        </g>
+        <g class="entry-float entry-leaf-bubble">
+          <circle cx="67" cy="156" r="29" fill="#dae8df"/>
+          <circle cx="67" cy="152" r="29" fill="#7aaa94" stroke="#fff" stroke-width="5"/>
+          <path d="M57 166q-8-24 17-29 8 22-14 26m0 2 12-21" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+        <path d="M99 36v12m-6-6h12M313 167v10m-5-5h10" stroke="#dcbf8f" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1 id="entry-title" tabindex="-1">Ready, <span>grown-ups?</span></h1>
+    <p class="lede">Setup and practice. Then baby’s turn.</p>
+    <button type="button" aria-describedby="entry-audio-note" id="start-study" class="primary" disabled>Begin <span aria-hidden="true">→</span></button>
+    <p id="entry-audio-note" class="entry-note"><svg aria-hidden="true" focusable="false"><use href="#i-sound"/></svg>Instructions play aloud</p>
+    <p id="entry-status" class="startup-status" role="status">Getting the preview ready…</p>
+    <noscript>This preview needs JavaScript turned on to continue.</noscript>
+  </section>
+  <div id="parent-shell" class="parent-shell" hidden>
+    <nav class="parent-progress" aria-label="Getting ready progress">
+      <span data-step="1" class="active" aria-current="step"><i>1</i><b>Welcome</b></span>
+      <span data-step="2"><i>2</i><b>Get ready</b></span>
+      <span data-step="3"><i>3</i><b>Parent practice</b></span>
+      <span data-step="4"><i>4</i><b>Baby’s turn</b></span>
+    </nav>
+    <section id="welcome" class="parent-page" aria-labelledby="welcome-title" hidden>
+      <div class="page-heading">
+        <h1 id="welcome-title" tabindex="-1">Welcome, grown-ups!</h1>
+        <p class="lede">Thank you for joining us with your baby.<br>We’ll help you get comfortable, one step at a time.</p>
+      </div>
+      <div class="welcome-visuals">
+        <input type="checkbox" id="welcome-pause-illustrations" class="welcome-pause">
+        <label for="welcome-pause-illustrations" class="welcome-pause-label">Pause illustrations</label>
+        <div class="welcome-grid">
+          <article class="welcome-card"><span class="icon-bubble sage"><svg aria-hidden="true"><use href="#i-monitor"/></svg></span><h2>A simple setup</h2><p>A computer, a quiet spot,<br>and a little space to sit.</p></article>
+          <article class="welcome-card"><span class="icon-bubble blue"><svg aria-hidden="true"><use href="#i-eye"/></svg></span><h2>Your baby watches</h2><p>Your baby will see short movies.<br>There are no answers to give.</p></article>
+          <article class="welcome-card"><span class="icon-bubble peach"><svg aria-hidden="true"><use href="#i-heart"/></svg></span><h2>You stay close</h2><p>You’ll watch your baby and<br>help us know when to move on.</p></article>
+        </div>
+      </div>
+      <aside class="blue-note"><span class="note-symbol" aria-hidden="true">i</span><div><strong>First, a few pages just for you.</strong><p>Your baby doesn’t need to join you until setup and practice are finished.</p></div></aside>
+      <div class="page-footer"><p>We’ll show you exactly what to do.</p><button id="begin" class="primary" disabled>Let’s get set up <span aria-hidden="true">→</span></button></div>
+      <p id="startup-status" class="startup-status" role="status">Getting the preview ready…</p>
+    </section>
+    <section id="setup" class="parent-page" aria-labelledby="setup-title" hidden>
+      <div class="page-heading"><p class="eyebrow">Before your baby joins</p><h1 id="setup-title" tabindex="-1">Set up for your baby’s study.</h1><p class="lede">A good setup helps us see where your baby is looking.<br>Follow these 3 steps before we practice.</p></div>
+      <div class="setup-visuals">
+        <input type="checkbox" id="setup-pause-illustrations" class="illustration-pause">
+        <label for="setup-pause-illustrations" class="illustration-pause-label">Pause illustrations</label>
+        <div class="setup-list">
+          <article class="setup-card">
+            <span class="step-number">1</span>
+            <div class="setup-copy"><h2>Use a computer with a keyboard</h2><p>You’ll need a laptop or desktop with a webcam, speakers, and a physical keyboard. Please don’t use a phone or tablet.</p></div>
+            <div class="setup-illustration computer-illustration" aria-hidden="true">
+              <svg viewBox="0 0 220 160" focusable="false">
+                <ellipse cx="111" cy="140" rx="77" ry="7" fill="#e5eee9"/>
+                <g class="illustration-float">
+                  <rect x="32" y="27" width="156" height="95" rx="11" fill="#405962"/>
+                  <rect x="40" y="36" width="140" height="77" rx="4" fill="#e7f3fc"/>
+                  <circle cx="110" cy="31" r="2" fill="#a7cbd6"/>
+                  <rect x="58" y="53" width="49" height="7" rx="3.5" fill="#86b5d5"/>
+                  <path d="M58 73h99M58 85h73M58 97h87" stroke="#c1dcec" stroke-width="5" stroke-linecap="round"/>
+                  <path d="m32 122-12 13q-2 5 6 5h169q8 0 5-5l-12-13Z" fill="#a5bdbf"/>
+                  <path d="M45 127h131m-137 6h143" stroke="#eaf3f2" stroke-width="2" stroke-linecap="round" stroke-dasharray="7 5"/>
+                  <rect x="91" y="134" width="39" height="3" rx="1.5" fill="#eaf3f2"/>
+                </g>
+                <g class="illustration-float illustration-float-delayed">
+                  <circle cx="183" cy="30" r="22" fill="#fff"/>
+                  <circle cx="183" cy="30" r="18" fill="#70aa91"/>
+                  <path d="m174 30 6 6 12-13" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+              </svg>
+            </div>
+          </article>
+          <article class="setup-card">
+            <span class="step-number">2</span>
+            <div class="setup-copy"><h2>Find a quiet, well-lit spot</h2><p>Clear away toys. Turn off extra screens and sound.</p><p class="lighting-tip">Use soft light from behind the computer, <strong>facing your baby.</strong> Avoid a bright window behind your baby.</p></div>
+            <div class="setup-illustration lighting-illustration" aria-hidden="true">
+              <svg viewBox="0 0 220 160" focusable="false">
+                <defs>
+                  <g id="lighting-example-baby">
+                    <path d="M24 111q2-29 29-29t29 29Z" fill="#7dacc3"/>
+                    <ellipse cx="28" cy="61" rx="5" ry="8" fill="#bd906f"/>
+                    <ellipse cx="78" cy="61" rx="5" ry="8" fill="#bd906f"/>
+                    <ellipse cx="53" cy="60" rx="26" ry="31" fill="#bd906f"/>
+                    <path d="M46 34q8-15 14-3" fill="none" stroke="#775744" stroke-width="3" stroke-linecap="round"/>
+                    <ellipse cx="43" cy="58" rx="6" ry="4.5" fill="#fff"/>
+                    <ellipse cx="63" cy="58" rx="6" ry="4.5" fill="#fff"/>
+                    <circle cx="43" cy="58" r="3" fill="#293e46"/>
+                    <circle cx="63" cy="58" r="3" fill="#293e46"/>
+                    <path d="M52 64v5h3m-8 9q6 4 12 0" fill="none" stroke="#855e48" stroke-width="2" stroke-linecap="round"/>
+                  </g>
+                </defs>
+                <rect x="7" y="12" width="96" height="108" rx="9" fill="#eaf4ed" stroke="#c8ddd0"/>
+                <rect x="117" y="12" width="96" height="108" rx="9" fill="#fff4de" stroke="#e8d8b7"/>
+                <use href="#lighting-example-baby" x="2"/>
+                <g transform="translate(112)">
+                  <rect x="17" y="19" width="73" height="68" rx="3" fill="#fffdf5" stroke="#ebddbe" stroke-width="2"/>
+                  <path d="M53 20v65M18 52h70" stroke="#ebddbe" stroke-width="3"/>
+                  <use href="#lighting-example-baby"/>
+                  <path d="M24 111q1-17 13-24-10-9-10-27 0-30 26-31 26 1 26 31 0 18-10 27 12 7 13 24Z" fill="#24353e" opacity=".72"/>
+                </g>
+                <circle cx="87" cy="112" r="11" fill="#56856b" stroke="#fff" stroke-width="2"/>
+                <path d="m82 112 3 3 6-7" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="197" cy="112" r="11" fill="#a86854" stroke="#fff" stroke-width="2"/>
+                <path d="m193 108 8 8m0-8-8 8" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="55" y="142" text-anchor="middle" fill="#395d4e" font-family="system-ui, sans-serif" font-size="13" font-weight="650">Even light</text>
+                <text x="165" y="142" text-anchor="middle" fill="#865747" font-family="system-ui, sans-serif" font-size="13" font-weight="650">Backlit</text>
+              </svg>
+            </div>
+          </article>
+          <article class="setup-card">
+            <span class="step-number">3</span>
+            <div class="setup-copy"><h2>Check the sound</h2><p>Turn on your speakers at a comfortable volume. The sample has 3 gentle chimes.</p><div class="sound-controls"><button id="sound-play" class="secondary">▶ Play sample sound</button><span id="sound-status" role="status"></span></div><label class="check-line"><input type="checkbox" id="sound-confirm" disabled><span>I can hear the sound clearly.</span></label></div>
+            <div class="setup-illustration sound-illustration" aria-hidden="true">
+              <svg viewBox="0 0 220 160" focusable="false">
+                <ellipse cx="109" cy="140" rx="69" ry="7" fill="#e5edf2"/>
+                <g class="illustration-float">
+                  <rect x="38" y="31" width="76" height="98" rx="23" fill="#769fc7"/>
+                  <path d="M53 71h12l23-17v52L65 89H53Z" fill="#fff"/>
+                  <path d="M132 67q9 13 0 26" fill="none" stroke="#8cadcc" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M153 54q18 26 0 52" fill="none" stroke="#a3bfd9" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M175 42q27 38 0 76" fill="none" stroke="#bfd2e4" stroke-width="6" stroke-linecap="round"/>
+                </g>
+              </svg>
+            </div>
+          </article>
+        </div>
+      </div>
+      <audio id="sound-check" preload="none" src="./audio-check-three-chimes-candidate.mp3"></audio>
+      <div class="page-footer"><button class="back" data-page="welcome">← Back</button><button id="setup-next" class="primary" disabled>Show me what to do <span aria-hidden="true">→</span></button></div>
+    </section>
+    <section id="instructions" class="visual-rule-lesson" aria-labelledby="instructions-title" hidden>
+      <div class="page-heading">
+        <p id="rule-position" class="lesson-position" hidden>Example 1 of 4 · See it</p>
+        <h1 id="instructions-title" tabindex="-1">Your part is to watch your baby and press space if they look away for 3 full seconds.</h1>
+        <p id="rule-heading-copy" class="lede">Start counting only when the picture is still.<br>A look back resets the count.</p>
+      </div>
+      <div id="rule-visual" class="rule-visual" aria-hidden="true"></div>
+      <p id="rule-scene-caption" class="rule-scene-caption" role="status" aria-live="polite" aria-atomic="true">Watch your baby—not the movies.</p>
+      <p id="rule-example-note" class="rule-example-note" hidden>Illustration only. During the study, you do the counting.</p>
+      <fieldset id="rule-answer-group" class="rule-answer-group" hidden>
+        <legend id="rule-question" class="visually-hidden">What should you do?</legend>
+        <div class="rule-answers"><button id="rule-answer-a" type="button" class="rule-answer"></button><button id="rule-answer-b" type="button" class="rule-answer"></button></div>
+      </fieldset>
+      <p id="rule-feedback" class="rule-feedback" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" hidden></p>
+      <div id="rule-footer" class="page-footer">
+        <button id="rule-previous" type="button" class="back">← Back</button>
+        <button id="rule-next" type="button" class="primary">Show me how →</button>
+        <button id="instructions-next" class="primary" hidden disabled>Try the space bar <span aria-hidden="true">→</span></button>
+      </div>
+      <div id="rule-review-tools" class="rule-review-tools" hidden>
+        <button id="rule-replay-demo" class="back" type="button">↻ Show this again</button>
+        <button id="rule-review-overview" class="back" type="button">Review the rule</button>
+      </div>
+      <div id="rule-audio-area" class="rule-audio-area">
+        <button id="rule-audio-stop" class="back" type="button" hidden>Stop narration</button>
+        <details class="rule-audio-panel"><summary>Audio &amp; written instructions</summary><div id="rule-narration"></div></details>
+      </div>
+      <details id="rule-extra" class="rule-extra"><summary>Breaks &amp; automatic endings</summary><p>Some movies move on by themselves. Need a break? Press <kbd>P</kbd>; continuing restarts that movie from the beginning.</p></details>
+    </section>
+    <section id="timing-practice" class="parent-page timing-practice" aria-labelledby="timing-title" hidden>
+      <div class="page-heading"><p class="eyebrow">Your turn</p><h1 id="timing-title" tabindex="-1">Watch her. Count. Press space.</h1><p class="lede">Wait for a still picture, then 3 full seconds away.<br>A look back resets your count.</p></div>
+      <div id="timing-visual" class="rule-visual" aria-hidden="true"></div>
+      <p id="timing-caption" class="rule-scene-caption">Watch this practice baby. You do the counting.</p>
+      <img id="practice-art-loader" src="./practice-baby-girl.png" alt="" hidden>
+      <div class="timing-actions"><button id="timing-start" class="primary" type="button">Start practice</button><p id="timing-response" hidden>Use the <kbd>space bar</kbd> on your keyboard.</p></div>
+      <p id="timing-feedback" class="timing-feedback" role="status" aria-live="polite" tabindex="-1"></p>
+      <p class="practice-disclaimer">AI-generated illustration, not a real baby or camera view. This checks your timing in this example only.</p>
+      <div class="page-footer"><button class="back" data-page="instructions">← Back</button><button id="timing-next" class="primary" disabled>Watch a real example →</button></div>
+    </section>
+    <section id="example" class="parent-page" aria-labelledby="example-title" hidden>
+      <div class="page-heading"><p class="eyebrow">Watch how it works</p><h1 id="example-title" tabindex="-1">If your baby is still looking away after 3 full seconds, press space once.</h1><p class="lede">Start counting only when the picture is still.<br>A look back resets the count. Start fresh the next time your baby looks away.</p></div>
+      <div class="training-player"><video id="example-movie" playsinline controls preload="none" aria-label="Gal Raz parent look-away demonstration"></video><button id="example-start" class="training-start"><span class="play-disc" aria-hidden="true">▶</span>Play the example</button></div>
+      <p id="example-status" class="training-status" role="status">This example teaches the look-away rule. During the study, wait for the action to finish before using it.</p>
+      <div class="page-footer"><button class="back" data-page="timing-practice">← Back</button><button id="example-next" class="primary" data-page="practice" disabled>My turn to practice <span aria-hidden="true">→</span></button></div>
+    </section>
+    <section id="practice" class="parent-page" aria-labelledby="practice-title" hidden>
+      <div class="page-heading"><p class="eyebrow">Try it before your baby joins</p><h1 id="practice-title" tabindex="-1">Now it’s your turn.</h1><p class="lede">Watch the child in this practice video.<br>Press space after they look away for 3 seconds in a row.</p></div>
+      <div class="training-player"><video id="practice-movie" playsinline preload="none" aria-label="Gal Raz parent look-away practice"></video><button id="practice-start" class="training-start"><span class="play-disc" aria-hidden="true">▶</span>Start the practice</button></div>
+      <div class="practice-controls"><button id="practice-space" class="secondary" disabled>Looked away for 3 seconds · Space</button><button id="practice-replay" class="back" hidden>Try again</button></div>
+      <p id="practice-status" class="training-status" role="status">This practice is for you, not your baby. Brief looks back reset your count.</p>
+      <aside id="practice-feedback" class="blue-note" hidden><span class="note-symbol" aria-hidden="true">i</span><div><strong>Remember the same simple rule.</strong><p>Wait for the action to finish. Count 3 continuous seconds away. Reset whenever your baby looks back. This preview does not score your timing.</p></div></aside>
+      <div class="page-footer"><button class="back" data-page="example">← Back</button><button id="practice-next" class="primary" data-page="ready" disabled>Get my baby settled <span aria-hidden="true">→</span></button></div>
+    </section>
+    <section id="ready" class="parent-page" aria-labelledby="ready-title" hidden>
+      <div class="page-heading"><h1 id="ready-title" tabindex="-1">Get your baby ready.</h1><p class="lede">On your lap or in a high chair, facing the screen.</p></div>
+      <div class="baby-setup">
+        <figure class="camera-illustration"><svg viewBox="0 0 360 310" role="img" aria-label="Illustration of the camera view: a baby’s full face centered, with the grown-up above and behind them.">
+          <rect x="15" y="18" width="330" height="239" rx="19" fill="#eef5f7" stroke="#a8c8d2" stroke-width="3"/>
+          <path d="M38 53V40h17m250 0h17v13M38 221v13h17m250 0h17v-13" fill="none" stroke="#75a3ad" stroke-width="3" stroke-linecap="round"/>
+          <path d="M65 234v-19c0-69 38-104 82-104s83 35 83 104v19" fill="#88b8a5"/>
+          <ellipse cx="147" cy="83" rx="43" ry="49" fill="#d7a480"/>
+          <path d="M104 81c-9-53 72-76 86-11-14-8-21-19-24-31-15 21-39 21-62 25Z" fill="#4b5356"/>
+          <path d="M95 244c4-54 32-84 77-84s75 31 78 84" fill="#739fc5"/>
+          <ellipse cx="173" cy="150" rx="49" ry="51" fill="#f0c6a1"/>
+          <ellipse cx="124" cy="155" rx="8" ry="12" fill="#f0c6a1"/><ellipse cx="222" cy="155" rx="8" ry="12" fill="#f0c6a1"/>
+          <path d="M163 103c17-14 29 1 15 6" fill="none" stroke="#775b46" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="157" cy="148" r="4" fill="#35454c"/><circle cx="188" cy="148" r="4" fill="#35454c"/>
+          <path d="M163 174q10 8 20 0" fill="none" stroke="#ae745c" stroke-width="3" stroke-linecap="round"/>
+          <path d="M145 264h70l11 20h-92Z" fill="#c5d7da"/><rect x="115" y="282" width="130" height="8" rx="4" fill="#91b4ba"/>
+          <rect x="238" y="81" width="89" height="60" rx="11" fill="white"/><path d="m252 111 8 8 15-17" fill="none" stroke="#4e896d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><text x="283" y="108" fill="#426259" font-size="10" font-family="system-ui">Both eyes</text><text x="283" y="122" fill="#426259" font-size="10" font-family="system-ui">in view</text>
+        </svg><figcaption>Example camera framing—not a live camera view.</figcaption></figure>
+        <div class="baby-checks">
+          <article><span class="ready-number" aria-hidden="true">1</span><div><h2>Face clear. Light in front.</h2><p>Both eyes visible. No bright window behind.</p></div></article>
+          <article><span class="ready-number" aria-hidden="true">2</span><div><h2>You sit above and behind.</h2><p>Baby’s face lowest in view. Keyboard in your reach.</p></div></article>
+          <article><span class="ready-number" aria-hidden="true">3</span><div><h2>Watch your baby.</h2><p>No pointing, naming or encouraging them to look.</p></div></article>
+        </div>
+      </div>
+      <p class="ready-reassurance">Just watching—no answers needed. Breaks are always okay.</p>
+      <details class="ready-tips"><summary>A few extra setup tips</summary><ul><li>Keep your baby’s whole face visible. Use soft light from in front, with no dark shadows or glare over their eyes.</li><li>Your baby’s face should be the lowest and clearest in the camera view. Keep the keyboard out of their reach.</li><li>Watch your baby, not the movies. Don’t describe the action or try to bring their attention back.</li><li>You can take a break or stop at any time.</li></ul></details>
+      <div id="ready-narration"></div>
+      <p class="preview-note">Preview only · Camera and recording are off. CHS consent and a live camera check will come before the study.</p>
+      <div class="page-footer"><button class="back" data-page="practice">← Back</button><button id="play" class="primary" disabled>We’re ready to watch <span aria-hidden="true">→</span></button></div>
+    </section>
+  </div>
+  <details id="preview-tools" class="preview-tools" hidden>
+    <summary>Researcher preview settings</summary>
+    <p>These controls are not for families. No camera, recording, upload, gaze detection, random assignment, or saved responses are active here.</p>
+    <div class="selection"><label>Study version<select id="arm"><option value="V3">V3 — three per group</option><option value="V5">V5 — five per group</option></select></label><label>Counterbalance<select id="condition" disabled><option>Loading…</option></select></label><label>Review a screen<select id="review-page"><option value="welcome">Welcome</option><option value="setup">Get ready</option><option value="instructions">Parent instructions</option><option value="timing-practice">Space-bar timing practice</option><option value="example">Example video</option><option value="practice">Practice video</option><option value="ready">Baby’s turn</option></select></label><button id="review-go" class="secondary">Open screen</button></div>
+    <p id="load-status" role="status">Loading the selected study map…</p>
+    <p class="small">The chime sound check is an existing review candidate, not approved release audio. Raz training plays directly from its author-hosted OSF sources and requires an internet connection. This design is not yet installed on CHS.</p>
+    <nav class="review-links" aria-label="Training sources"><span>Parent-training videos: Gal Raz and colleagues, played from their OSF sources.</span><a href="https://osf.io/download/v4npq/" target="_blank" rel="noopener">Original demonstration</a><a href="https://osf.io/download/juea4/" target="_blank" rel="noopener">Original practice</a></nav>
+  </details>
+  <section id="session" hidden>
+    <div class="session-header"><div><p class="eyebrow">Your baby’s turn</p><h1 id="trial-title" tabindex="-1">Getting ready</h1></div><button class="secondary" id="leave">Leave preview</button></div>
+    <div class="player-card">
+      <div id="stage"><video id="movie" playsinline preload="auto" disablepictureinpicture aria-label="Study movie"></video><div id="overlay" hidden><div><h2 id="overlay-title"></h2><p id="overlay-text"></p><button id="overlay-action">Continue</button></div></div></div>
+      <div class="playback-status"><span id="status" role="status" aria-live="polite"></span><span id="progress"></span></div>
+      <div class="buttons"><button id="advance" disabled>Baby looked away for 3 seconds · Space</button><button class="secondary" id="pause">Pause · P</button><button class="secondary" id="fullscreen">Full screen</button></div>
+      <p class="small">During the still picture, look-backs reset your 3-second count. The key does not measure the baby’s gaze.</p>
+    </div>
+    <details id="reviewer" class="card reviewer"><summary>Researcher controls and full sequence</summary><p id="assignment"></p><p>Jumping to an item is for review only. These controls are outside the parent experience.</p><div class="buttons"><label>Jump to item<select id="entry"></select></label><button class="secondary" id="jump">Play selected item</button><button class="secondary" id="replay">Restart current item</button></div><p id="detail"></p><p class="small">This rehearsal opens parent control on the video’s ended event. The current CHS draft uses a duration timer. The 60-second threshold starts at action onset and requires completed playback; buffering can extend this. This page does not validate CHS recording, randomization, uploads, or stalled playback.</p></details>
+  </section>
+  <section id="complete" class="card narrow" hidden><p class="eyebrow">Preview complete</p><h1 tabindex="-1">Thank you for watching!</h1><p>You’ve reached the end of the local movie sequence. No camera recording or study response was created.</p><button id="again">Back to the welcome</button></section>
+  <footer class="site-footer">Collaborator review only · No recording or data collection · Not a live CHS study</footer>
+</main>
+<script type="module" src="app.js?v=clear-setup-timing-20260918"></script>
+</body>
+</html>

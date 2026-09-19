@@ -1,0 +1,159 @@
+{
+  "version": "parent-evelyn-v1-2026-09-17",
+  "status": "generated-local-review",
+  "voice": {
+    "provider": "NaturalReaders Commercial",
+    "name": "Evelyn",
+    "language": "en-US",
+    "variant": "Soft",
+    "speed": 0.9,
+    "wordsPerMinute": 180,
+    "paragraphPauseSeconds": 0,
+    "export": "320 kbps MP3"
+  },
+  "clips": [
+    {
+      "page": "welcome",
+      "filename": "01-welcome.mp3",
+      "text": "Welcome, grown-ups! Thank you for joining us with your baby. We'll help you get comfortable, one step at a time. You'll need a computer, a quiet spot, and a little space to sit. Your baby will watch short movies, with no answers to give. You'll stay close, watch your baby, and help us know when to move on. These first pages are just for you. Your baby doesn't need to join until setup and practice are finished. When you're ready, choose Let's get set up.",
+      "sha256": "b230b0ec73245a99d7a33731b66acd126373eca6d62e46d924da06e6c00654f3",
+      "bytes": 1219441,
+      "durationSeconds": 30.4849,
+      "exportedFilename": "1.Welcome,_grownups!_Thank_you_.mp3",
+      "technical": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "30.484900",
+          "bit_rate": "320011"
+        }
+      }
+    },
+    {
+      "page": "setup",
+      "filename": "02-get-ready.mp3",
+      "text": "Let's get comfortable. First, use a laptop or desktop with a webcam, speakers, and a physical keyboard. Please don't use a phone or tablet. Second, find a quiet spot. Move toys and other distractions out of view, and turn off extra screens and other sound. Third, check the sound. Turn on your speakers at a comfortable volume. Play the sample sound, then check the box if you can hear it clearly. When you're ready, choose Show me what to do.",
+      "sha256": "73b318f3185f9c55963fce859b089ef9732efa06230adff3f0a3efbe1bc1db92",
+      "bytes": 1220485,
+      "durationSeconds": 30.511,
+      "exportedFilename": "2.Lets_get_comfortable._First,_.mp3",
+      "technical": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "30.511000",
+          "bit_rate": "320011"
+        }
+      }
+    },
+    {
+      "page": "instructions",
+      "filename": "03-look-away-rule.mp3",
+      "text": "Your part is to watch your baby. First, let the movie finish. The space bar won't skip the action. After the action, the picture will stay still. Now watch your baby. If your baby looks away, count slowly: one, two, three. If your baby is still looking away after three full seconds, press the space bar once. If your baby looks back before three seconds, stop counting. Start a new count the next time they look away. Short glances away don't end the trial. Some movies move on by themselves. Need a break? Press the P key. Continuing restarts that movie from the beginning. Next, watch an example.",
+      "sha256": "c07dbd3cba466313d82dd9b1c1d5e75b954d52288b2daee222f08e23573cd668",
+      "bytes": 1811898,
+      "durationSeconds": 45.296325,
+      "exportedFilename": "3.Your_part_is_to_watch_your_bab.mp3",
+      "technical": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "45.296325",
+          "bit_rate": "320007"
+        }
+      }
+    },
+    {
+      "page": "example",
+      "filename": "04-example-intro.mp3",
+      "text": "This example is for the grown-up. Notice how brief glances away don't end the trial. The caregiver waits for three continuous seconds away. During this study, wait for the action to finish before using that rule. Choose Play the example when you're ready.",
+      "sha256": "2cc252dea244ed71e0c12c8d719c6f3decf7580ce00605a055171f36044cab89",
+      "bytes": 709530,
+      "durationSeconds": 17.737125,
+      "exportedFilename": "4.This_example_is_for_the_grown.mp3",
+      "technical": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "17.737125",
+          "bit_rate": "320020"
+        }
+      }
+    },
+    {
+      "page": "practice",
+      "filename": "05-practice-intro.mp3",
+      "text": "Now it's your turn to practice, before your baby joins. Watch the child in the practice video. Press the space bar after they look away for three seconds in a row. If they look back, start your count again. This practice is not scored. Choose Start the practice when you're ready.",
+      "sha256": "7c3b8989e72028c5dcdbfe921772c4f19e1b51f9097c453ea3df4198cab46b40",
+      "bytes": 796257,
+      "durationSeconds": 19.9053,
+      "exportedFilename": "5.Now_its_your_turn_to_practice.mp3",
+      "technical": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "19.905300",
+          "bit_rate": "320018"
+        }
+      }
+    },
+    {
+      "page": "ready",
+      "filename": "06-baby-ready.mp3",
+      "text": "You're ready for your baby to join. Your baby can sit in a high chair or on your lap. Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them. Stay above and behind your baby, so your baby is the lowest, clearest face in the camera view. Keep the keyboard within your reach, but out of theirs. Watch your baby, not the movies. Please don't point, name shapes, describe the action, or encourage them to look. There is nothing for your baby to learn or answer. Help them sit comfortably facing the screen. You can take a break or stop at any time. When you're both ready, choose We're ready to watch.",
+      "sha256": "af55296cb4cf06b32a1544a926c4da9a9fde017b1fa12ecafd59e384bb967f8f",
+      "bytes": 1743979,
+      "durationSeconds": 43.59835,
+      "exportedFilename": "6.Youre_ready_for_your_baby_to_.mp3",
+      "technical": {
+        "programs": [],
+        "streams": [
+          {
+            "codec_name": "mp3",
+            "sample_rate": "44100",
+            "channels": 1
+          }
+        ],
+        "format": {
+          "duration": "43.598350",
+          "bit_rate": "320008"
+        }
+      }
+    }
+  ],
+  "generatedOn": "2026-09-17",
+  "exportSha256": "b00ce5516f0c82cc97036f3e417d1ffd0fd81d9b4c28b6befa03a358b9c584c3",
+  "exportedTextVerified": true,
+  "sourceProjectDisplayName": "Welcome, grown-ups! Thank you for",
+  "notes": "Generated in a new NaturalReaders file, with Evelyn Soft, 180 WPM (creation panel 0.90x), zero paragraph pause and 320 kbps selected. Exact six-segment transcript verified against export. Not a scientific/CHS release approval. Human listening review remains required."
+}
