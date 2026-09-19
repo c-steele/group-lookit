@@ -6,7 +6,7 @@
   <title>Infant study — collaborator review</title>
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="Collaborator review of parent instructions and V3/V5 movies. Recording and data collection are off.">
-  <link rel="stylesheet" href="style.css?v=animated-questions-v1">
+  <link rel="stylesheet" href="style.css?v=three-full-seconds-v1">
 </head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -201,8 +201,8 @@
     <section id="instructions" class="visual-rule-lesson" aria-labelledby="instructions-title" hidden>
       <div class="page-heading">
         <p id="rule-position" class="lesson-position" hidden>Example 1 of 4 · See it</p>
-        <h1 id="instructions-title" tabindex="-1">Your part is to watch your baby and press space if they look away for 3 full seconds.</h1>
-        <p id="rule-heading-copy" class="lede">Start counting only when the picture is still.<br>A look back resets the count.</p>
+        <h1 id="instructions-title" tabindex="-1">Press space after your baby has looked away for 3 full seconds.</h1>
+        <p id="rule-heading-copy" class="lede">First, wait for the picture to freeze. Count only while baby looks away.<br>A look back resets the count.</p>
       </div>
       <div id="rule-visual" class="rule-visual" aria-hidden="true"></div>
       <p id="rule-scene-caption" class="rule-scene-caption" role="status" aria-live="polite" aria-atomic="true">Watch your baby—not the movies.</p>
@@ -228,25 +228,25 @@
       <details id="rule-extra" class="rule-extra"><summary>Breaks &amp; automatic endings</summary><p>Some movies move on by themselves. Need a break? Press <kbd>P</kbd>; continuing restarts that movie from the beginning.</p></details>
     </section>
     <section id="timing-practice" class="parent-page timing-practice" aria-labelledby="timing-title" hidden>
-      <div class="page-heading"><p class="eyebrow">Your turn</p><h1 id="timing-title" tabindex="-1">Watch her. Count. Press space.</h1><p class="lede">Wait for a still picture, then 3 full seconds away.<br>A look back resets your count.</p></div>
+      <div class="page-heading"><p class="eyebrow">Your turn · A quick glance is not enough</p><h1 id="timing-title" tabindex="-1">Press space after your baby has looked away for 3 full seconds.</h1><p class="lede">First, wait for the picture to freeze.<br>Count 3 full seconds without a look back. A look back resets your count.</p></div>
       <div id="timing-visual" class="rule-visual" aria-hidden="true"></div>
       <p id="timing-caption" class="rule-scene-caption">Watch this practice baby. You do the counting.</p>
       <img id="practice-art-loader" src="./parent-view-practice.png" alt="" hidden>
-      <div class="timing-actions"><button id="timing-start" class="primary" type="button">Start practice</button><p id="timing-response" hidden>Use the <kbd>space bar</kbd> on your keyboard.</p></div>
+      <div class="timing-actions"><button id="timing-start" class="primary" type="button">Start practice</button><p id="timing-response" hidden>Wait <strong>3 full seconds away</strong>. Then press <kbd>space</kbd> once.</p></div>
       <p id="timing-feedback" class="timing-feedback" role="status" aria-live="polite" tabindex="-1"></p>
       <p class="practice-disclaimer">AI-generated illustration, not a real baby or camera view. This checks your timing in this example only.</p>
       <div class="page-footer"><button class="back" data-page="instructions">← Back</button><button id="timing-next" class="primary" disabled>Watch a real example →</button></div>
     </section>
     <section id="example" class="parent-page" aria-labelledby="example-title" hidden>
-      <div class="page-heading"><p class="eyebrow">Watch how it works</p><h1 id="example-title" tabindex="-1">If your baby is still looking away after 3 full seconds, press space once.</h1><p class="lede">Start counting only when the picture is still.<br>A look back resets the count. Start fresh the next time your baby looks away.</p></div>
+      <div class="page-heading"><p class="eyebrow">Watch how it works</p><h1 id="example-title" tabindex="-1">Press space after your baby has looked away for 3 full seconds.</h1><p class="lede">Not as soon as your baby looks away.<br>Count only when the picture is still. A look back resets the count.</p></div>
       <div class="training-player"><video id="example-movie" playsinline controls preload="none" aria-label="Gal Raz parent look-away demonstration"></video><button id="example-start" class="training-start"><span class="play-disc" aria-hidden="true">▶</span>Play the example</button></div>
       <p id="example-status" class="training-status" role="status">This example teaches the look-away rule. During the study, wait for the action to finish before using it.</p>
       <div class="page-footer"><button class="back" data-page="timing-practice">← Back</button><button id="example-next" class="primary" data-page="practice" disabled>My turn to practice <span aria-hidden="true">→</span></button></div>
     </section>
     <section id="practice" class="parent-page" aria-labelledby="practice-title" hidden>
-      <div class="page-heading"><p class="eyebrow">Try it before your baby joins</p><h1 id="practice-title" tabindex="-1">Now it’s your turn.</h1><p class="lede">Watch the child in this practice video.<br>Press space after they look away for 3 seconds in a row.</p></div>
+      <div class="page-heading"><p class="eyebrow">Try it before your baby joins</p><h1 id="practice-title" tabindex="-1">Wait 3 full seconds. Then press space.</h1><p class="lede">Watch the child in this practice video.<br>Press once only after 3 full seconds away, while they’re still looking away.<br>A look back resets your count.</p></div>
       <div class="training-player"><video id="practice-movie" playsinline preload="none" aria-label="Gal Raz parent look-away practice"></video><button id="practice-start" class="training-start"><span class="play-disc" aria-hidden="true">▶</span>Start the practice</button></div>
-      <div class="practice-controls"><button id="practice-space" class="secondary" disabled>Looked away for 3 seconds · Space</button><button id="practice-replay" class="back" hidden>Try again</button></div>
+      <div class="practice-controls"><button id="practice-space" class="secondary" disabled>Still away after 3 full seconds · Space</button><button id="practice-replay" class="back" hidden>Try again</button></div>
       <p id="practice-status" class="training-status" role="status">This practice is for you, not your baby. Brief looks back reset your count.</p>
       <aside id="practice-feedback" class="blue-note" hidden><span class="note-symbol" aria-hidden="true">i</span><div><strong>Remember the same simple rule.</strong><p>Wait for the action to finish. Count 3 continuous seconds away. Reset whenever your baby looks back. This preview does not score your timing.</p></div></aside>
       <div class="page-footer"><button class="back" data-page="example">← Back</button><button id="practice-next" class="primary" data-page="ready" disabled>Get my baby settled <span aria-hidden="true">→</span></button></div>
@@ -295,7 +295,7 @@
     <div class="player-card">
       <div id="stage"><video id="movie" playsinline preload="auto" disablepictureinpicture aria-label="Study movie"></video><div id="overlay" hidden><div><h2 id="overlay-title"></h2><p id="overlay-text"></p><button id="overlay-action">Continue</button></div></div></div>
       <div class="playback-status"><span id="status" role="status" aria-live="polite"></span><span id="progress"></span></div>
-      <div class="buttons"><button id="advance" disabled>Baby looked away for 3 seconds · Space</button><button class="secondary" id="pause">Pause · P</button><button class="secondary" id="fullscreen">Full screen</button></div>
+      <div class="buttons"><button id="advance" disabled>Still away after 3 full seconds · Space</button><button class="secondary" id="pause">Pause · P</button><button class="secondary" id="fullscreen">Full screen</button></div>
       <p class="small">During the still picture, look-backs reset your 3-second count. The key does not measure the baby’s gaze.</p>
     </div>
     <details id="reviewer" class="card reviewer"><summary>Researcher controls and full sequence</summary><p id="assignment"></p><p>Jumping to an item is for review only. These controls are outside the parent experience.</p><div class="buttons"><label>Jump to item<select id="entry"></select></label><button class="secondary" id="jump">Play selected item</button><button class="secondary" id="replay">Restart current item</button></div><p id="detail"></p><p class="small">This rehearsal opens parent control on the video’s ended event. The current CHS draft uses a duration timer. The 60-second threshold starts at action onset and requires completed playback; buffering can extend this. This page does not validate CHS recording, randomization, uploads, or stalled playback.</p></details>
@@ -303,6 +303,6 @@
   <section id="complete" class="card narrow" hidden><p class="eyebrow">Preview complete</p><h1 tabindex="-1">Thank you for watching!</h1><p>You’ve reached the end of the local movie sequence. No camera recording or study response was created.</p><button id="again">Back to the welcome</button></section>
   <footer class="site-footer">Collaborator review only · No recording or data collection · Not a live CHS study</footer>
 </main>
-<script type="module" src="app.js?v=animated-questions-v1"></script>
+<script type="module" src="app.js?v=three-full-seconds-v1"></script>
 </body>
 </html>

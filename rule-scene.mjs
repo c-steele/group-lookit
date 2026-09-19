@@ -65,7 +65,8 @@ export function renderRuleScene({
         ${secondMarks}
         <text x="417" y="261" text-anchor="middle" fill="#587167" font-size="13" font-weight="600">full seconds looking away</text>
         ${isReset ? '<path d="M 516 228 A 13 13 0 1 0 515 213 M 515 205 V 214 H 507" stroke="#b28667" stroke-width="2.5"/>' : ''}
-      </g>` : ''}
+      </g>` : `<text x="425" y="215" text-anchor="middle" fill="#355b4c" font-size="17" font-weight="750">After 3 full seconds</text>
+        <text x="425" y="240" text-anchor="middle" fill="#566e65" font-size="15">away, with the picture still</text>`}
     </g>
   </svg>`;
 }

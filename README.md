@@ -32,3 +32,7 @@ No blanket license is granted by publishing this review. Third-party research ma
 ## Animated comprehension examples
 
 Each question now enacts its short scene before answer buttons appear. A moving-movie question stays visibly animated while answering; frozen scenes remain frozen. A brighter moving ball makes the demonstration screen easier to follow. Leaving the tab pauses the example and requires replay, without credit for unseen frames. Existing four comprehension rules, 3-second thresholds, scientific movies and study timing are unchanged.
+
+## Three full seconds, not any glance
+
+Parent headings now say “Press space after your baby has looked away for 3 full seconds.” Teaching captions explicitly say keep waiting at 1 second and not yet at 2 seconds; questions retain neutral scenarios. A fixed reminder beside the space-bar illustration repeats the full 3-second requirement and still-picture condition. Independent timing practice still has no live countdown or automatic press-now cue. Original Evelyn audio/transcripts and the 3-second timing model are unchanged.

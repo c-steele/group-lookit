@@ -1,7 +1,7 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
 import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs';
-import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=animated-questions-v1';
-import { renderRuleScene } from './rule-scene.mjs?v=animated-questions-v1';
+import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=three-full-seconds-v1';
+import { renderRuleScene } from './rule-scene.mjs?v=three-full-seconds-v1';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs';
 
 const $ = id => document.getElementById(id);
@@ -208,7 +208,7 @@ function renderRuleCheck() {
   $('rule-position').textContent = `Example ${ruleCheck.index + 1} of ${ruleLessonSteps.length} · ${teaching ? 'Watch what happens' : questionReady ? 'Now choose' : 'Watch, then choose'}`;
   $('instructions-title').textContent = overview ? ruleRoleTitle : teaching ? step.title : questionReady ? step.questionTitle : 'Watch this short example.';
   $('rule-heading-copy').textContent = overview
-    ? 'Start counting only when the picture is still. A look back resets the count.'
+    ? 'First, wait for the picture to freeze. Count only while baby looks away. A look back resets the count.'
     : teaching ? step.copy : questionReady ? step.questionCopy : 'Watch the movie and the baby. Then choose what you would do.';
   const visual = overview ? { movie: 'still', gaze: 'on', cue: 'none', showCount: false }
     : frame.visual;
@@ -553,7 +553,7 @@ function renderState() {
   $('pause').textContent = phase === 'paused' ? 'Restart item · P' : 'Pause · P';
   const messages = {
     loading: 'Loading the movie…', playing: 'Let the movie finish. Space is disabled.',
-    hold: 'Picture is still. Use the 3-second look-away rule.', paused: 'Paused. Resume restarts this item.',
+    hold: 'Picture is still. Press space only after 3 full seconds away, with no look back.', paused: 'Paused. Resume restarts this item.',
     error: 'The movie could not play. Retry this item.', finished: 'Continuing…'
   };
   $('status').textContent = messages[phase] || '';
