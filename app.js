@@ -1,6 +1,6 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
-import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs?v=clear-parent-language-v1';
-import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=clear-parent-language-v1';
+import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs?v=not-yet-three-seconds-v1';
+import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=not-yet-three-seconds-v1';
 import { renderRuleScene } from './rule-scene.mjs?v=clear-parent-language-v1';
 import { ruleIntroPages } from './rule-intro.mjs?v=clear-parent-language-v1';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs?v=clear-parent-language-v1';

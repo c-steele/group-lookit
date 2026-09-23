@@ -8,16 +8,16 @@ export const ruleLessonSteps = [
     title: 'First, let the movie finish.', copy: 'Wait—even if your baby looks away from the screen.',
     frames: [
       frame(0, 'The movie is moving. Keep waiting.', scene('moving', 'on')),
-      frame(1000, 'Baby looks away from the screen. The movie is still moving—wait.', scene('moving', 'away')),
+      frame(1000, 'Baby looks away from the screen, but not yet for 3 full seconds. The movie is still moving—wait.', scene('moving', 'away')),
       frame(2400, 'The picture is still. Baby is looking away from the screen—start counting.', scene('still', 'away')),
       frame(1000, 'Baby looks back at the screen. Stop counting until the next look away.', scene('still', 'on'))
     ],
-    questionTitle: 'The movie is still moving.', questionCopy: 'Your baby looks away from the screen. What do you do?',
+    questionTitle: 'The movie is still moving.', questionCopy: 'Your baby looks away from the screen, but has not yet looked away for 3 full seconds. What do you do?',
     questionFrames: [
       frame(0, 'The movie is moving. Baby is watching.', scene('moving', 'on')),
-      frame(1200, 'Baby looks away from the screen. The movie is still moving.', scene('moving', 'away'))
+      frame(1200, 'Baby looks away from the screen. The movie is still moving. Baby has not yet looked away for 3 full seconds.', scene('moving', 'away'))
     ],
-    questionScene: scene('moving', 'away'), questionCaption: 'The movie is moving. Baby is looking away from the screen.',
+    questionScene: scene('moving', 'away'), questionCaption: 'The movie is still moving. Baby has not yet looked away from the screen for 3 full seconds.',
     choices: ['Keep waiting', 'Press space'],
     success: 'Yes. Wait for the picture to become still. Then count 3 full seconds looking away from the screen, without a look back, before pressing space.',
     retry: 'Not yet. First wait for the picture to become still. Then count 3 full seconds looking away from the screen, without a look back.'

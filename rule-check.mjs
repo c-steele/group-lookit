@@ -2,7 +2,7 @@
 export const ruleExamples = [
   {
     title: 'The action is still happening.',
-    detail: 'Your baby looks away from the screen while the movie is moving.',
+    detail: 'Your baby looks away from the screen while the movie is moving, but has not yet looked away for 3 full seconds.',
     movie: 'Movie is moving', baby: 'Baby looks away from the screen', movieIcon: '#i-play', babyIcon: '#i-eye',
     beats: ['Action playing', 'Wait for the still picture'],
     question: 'What should you do?',
