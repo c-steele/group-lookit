@@ -58,3 +58,11 @@ Exact page transcripts are included in `rule-intro.mjs`. Full technical provenan
 ## High-chair and lap seating
 
 The baby-ready page replaces the old faceless camera drawing with two AI-generated seating examples: high chair and supported lap. These are synthetic illustrations, not real participants or a live webcam, and do not validate physical safety or exact camera coverage. The caregiver must be able to observe baby’s eyes and reach Space. No over-the-shoulder option is included for this parent-controlled paradigm. Existing Evelyn narration already covers high chair/lap and is unchanged, as are all scientific videos, timing models and CHS settings. The exact image-generation prompt and inspection notes are retained in the local project.
+
+## Checking the movie and watching baby
+
+Parents glance at the screen to check when the picture becomes still, then watch baby’s eyes. The first teaching page demonstrates this transition. The baby-ready narration now uses `ready-watch-baby-and-movie.mp3`, removing the outdated sentence telling parents not to watch the movies; its displayed transcript matches the edited recording. This is a sentence deletion from the existing Evelyn audio, not new speech. The original recording and manifest remain as provenance; the old sentence is not played or displayed by the current ready page. Technical silent-boundary checks passed, but human listening verification is still required before participant release. No pointing/prompting, 3 full continuous seconds away, look-back resets, practice checks, and all scientific timing/movies remain unchanged. CHS is not modified by this preview update.
+
+## Clear parent-language revision
+
+Headings now explicitly identify looking away from the screen for 3 full seconds, a look back before 3 seconds, and pressing P to pause. Captions and practice feedback use the same explicit references. A look back stops the count; a new count starts at the next look away. These are wording-only changes: teaching delays, scientific timing, answer keys, independent practice eligibility, and look-back resets are unchanged. Existing narration excerpts and their exact transcripts remain unchanged.

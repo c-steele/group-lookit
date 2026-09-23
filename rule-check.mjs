@@ -2,43 +2,43 @@
 export const ruleExamples = [
   {
     title: 'The action is still happening.',
-    detail: 'Your baby looks away while the movie is moving.',
-    movie: 'Movie is moving', baby: 'Baby looks away', movieIcon: '#i-play', babyIcon: '#i-eye',
+    detail: 'Your baby looks away from the screen while the movie is moving.',
+    movie: 'Movie is moving', baby: 'Baby looks away from the screen', movieIcon: '#i-play', babyIcon: '#i-eye',
     beats: ['Action playing', 'Wait for the still picture'],
     question: 'What should you do?',
     choices: ['Wait for the action to finish', 'Press space now'], correct: 0,
-    success: 'Exactly. Let the action finish first. Only start a look-away count once the picture is still.',
-    retry: 'Not yet. Let the action finish—even if your baby looks away. Start a fresh count after the picture becomes still.'
+    success: 'Exactly. Let the action finish first. Start counting when the picture is still and your baby is looking away from the screen.',
+    retry: 'Not yet. Let the action finish—even if your baby looks away from the screen. Start a fresh count after the picture becomes still.'
   },
   {
     title: 'The picture is still. Your baby keeps watching.',
     detail: 'The action has finished, but your baby is still looking at the screen.',
-    movie: 'Picture is still', baby: 'Baby is looking', movieIcon: '#i-monitor', babyIcon: '#i-eye',
+    movie: 'Picture is still', baby: 'Baby is looking at the screen', movieIcon: '#i-monitor', babyIcon: '#i-eye',
     beats: ['Still watching', 'No count yet'],
     question: 'What should you do?',
     choices: ['Count to 3 and press space', 'Keep waiting without counting'], correct: 1,
-    success: 'Yes. A still picture is not a cue to press space. Count only while your baby is looking away.',
+    success: 'Yes. A still picture is not a cue to press space. Count only while your baby is looking away from the screen.',
     retry: 'Keep waiting. Do not count while your baby is looking at the screen.'
   },
   {
-    title: 'A quick look away… then a look back.',
-    detail: 'The picture is still. Your baby looks away for two seconds, then looks back.',
-    movie: 'Picture is still', baby: 'Baby looks back', movieIcon: '#i-monitor', babyIcon: '#i-eye',
-    beats: ['1 second away', '2 seconds away', 'Looks back → reset'],
+    title: 'Your baby looks back at the screen before 3 seconds.',
+    detail: 'The picture is still. Your baby looks away from the screen for 2 seconds, then looks back.',
+    movie: 'Picture is still', baby: 'Baby looks back at the screen', movieIcon: '#i-monitor', babyIcon: '#i-eye',
+    beats: ['1 second looking away', '2 seconds looking away', 'Looks back → stop counting'],
     question: 'What happens to your count?',
-    choices: ['Start a fresh count next time', 'Keep counting from two next time'], correct: 0,
-    success: 'That’s it. A look back resets the count. Wait for a new look away, then count 3 full seconds from the beginning.',
-    retry: 'Do not add short looks together. A look back resets your count; start fresh the next time your baby looks away.'
+    choices: ['Start a fresh count next time', 'Keep counting from 2 next time'], correct: 0,
+    success: 'That’s it. Stop counting when your baby looks back. Start a new 3-second count the next time they look away from the screen.',
+    retry: 'Do not add short looks together. Stop counting now; start a new count the next time your baby looks away from the screen.'
   },
   {
-    title: '3 full seconds away. No look back.',
-    detail: 'The picture is still. Your baby has looked away for 3 seconds in a row and is still looking away.',
-    movie: 'Picture is still', baby: 'Baby is still looking away', movieIcon: '#i-monitor', babyIcon: '#i-eye',
+    title: 'Your baby has looked away from the screen for 3 full seconds.',
+    detail: 'The picture is still. Your baby has not looked back during those 3 seconds and is still looking away.',
+    movie: 'Picture is still', baby: 'Baby is still looking away from the screen', movieIcon: '#i-monitor', babyIcon: '#i-eye',
     beats: ['1 full second', '2 full seconds', '3 full seconds'],
     question: 'What should you do now?',
     choices: ['Wait for your baby to look back', 'Press the space bar once'], correct: 1,
-    success: 'Exactly—press space once. You watch your baby and count; the study does not detect their gaze for you.',
-    retry: 'This is when you press space once: the picture is still, and your baby has looked away for 3 full, continuous seconds.'
+    success: 'Exactly—press space once after 3 full seconds looking away from the screen, without a look back. You do the counting; the study does not detect your baby’s gaze for you.',
+    retry: 'Press space once now: the picture is still, and your baby has looked away from the screen for 3 full seconds without looking back.'
   }
 ];
 

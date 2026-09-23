@@ -1,83 +1,83 @@
 // Parent-only demonstrations. Delays run after the preceding frame is rendered,
 // so a busy browser can lengthen, but never compress, a full-second example.
-export const ruleRoleTitle = 'Press space after your baby has looked away for 3 full seconds.';
+export const ruleRoleTitle = 'If your baby looks away from the screen for 3 full seconds, press space.';
 const scene = (movie, gaze, count = 0, cue = 'none', showCount = false, reset = false) => ({ movie, gaze, count, cue, showCount, reset });
 const frame = (afterMs, caption, visual) => ({ afterMs, caption, visual });
 export const ruleLessonSteps = [
   {
-    title: 'First, let the movie finish.', copy: 'Wait—even if your baby looks away.',
+    title: 'First, let the movie finish.', copy: 'Wait—even if your baby looks away from the screen.',
     frames: [
       frame(0, 'The movie is moving. Keep waiting.', scene('moving', 'on')),
-      frame(1000, 'Baby looks away. The movie is still moving—wait.', scene('moving', 'away')),
-      frame(2400, 'Picture still: start counting—not pressing.', scene('still', 'away')),
-      frame(1000, 'She looks back. Wait for her next look away.', scene('still', 'on'))
+      frame(1000, 'Baby looks away from the screen. The movie is still moving—wait.', scene('moving', 'away')),
+      frame(2400, 'The picture is still. Baby is looking away from the screen—start counting.', scene('still', 'away')),
+      frame(1000, 'Baby looks back at the screen. Stop counting until the next look away.', scene('still', 'on'))
     ],
-    questionTitle: 'The movie is still moving.', questionCopy: 'Your baby turns away. What do you do?',
+    questionTitle: 'The movie is still moving.', questionCopy: 'Your baby looks away from the screen. What do you do?',
     questionFrames: [
       frame(0, 'The movie is moving. Baby is watching.', scene('moving', 'on')),
-      frame(1200, 'Baby turns away. The movie is still moving.', scene('moving', 'away'))
+      frame(1200, 'Baby looks away from the screen. The movie is still moving.', scene('moving', 'away'))
     ],
-    questionScene: scene('moving', 'away'), questionCaption: 'Movie moving · Baby looking away',
+    questionScene: scene('moving', 'away'), questionCaption: 'The movie is moving. Baby is looking away from the screen.',
     choices: ['Keep waiting', 'Press space'],
-    success: 'Yes. Wait for a still picture, then count 3 full seconds away before pressing.',
-    retry: 'Not yet. A look away alone is not enough: first a still picture, then 3 full seconds away.'
+    success: 'Yes. Wait for the picture to become still. Then count 3 full seconds looking away from the screen, without a look back, before pressing space.',
+    retry: 'Not yet. First wait for the picture to become still. Then count 3 full seconds looking away from the screen, without a look back.'
   },
   {
-    title: 'Still watching? Keep waiting.', copy: 'A still picture does not mean it’s time to press space.',
+    title: 'What if your baby is still watching the screen?', copy: 'Keep waiting. Start counting when your baby looks away from the still picture.',
     frames: [frame(0, 'Baby is watching. Don’t start counting yet.', scene('still', 'on'))],
-    questionTitle: 'Your baby is still watching.', questionCopy: 'The picture is still. What do you do?',
+    questionTitle: 'Your baby is still watching the screen.', questionCopy: 'The picture is still. What do you do?',
     questionFrames: [
       frame(0, 'The movie is moving. Baby is watching.', scene('moving', 'on')),
       frame(1800, 'The picture stops. Baby is still watching.', scene('still', 'on'))
     ],
-    questionScene: scene('still', 'on'), questionCaption: 'Still picture · Baby watching',
+    questionScene: scene('still', 'on'), questionCaption: 'The picture is still. Baby is looking at the screen.',
     choices: ['Start counting', 'Keep watching your baby'],
-    success: 'Yes. Once baby looks away, wait 3 full seconds without a look back before pressing.',
-    retry: 'Keep waiting. Don’t count while your baby is watching.'
+    success: 'Yes. Once your baby looks away from the screen, count 3 full seconds without a look back before pressing space.',
+    retry: 'Keep waiting. Don’t count while your baby is looking at the screen.'
   },
   {
-    title: 'A look back? Start over.', copy: 'Short looks away do not add together.',
+    title: 'What if your baby looks back before 3 seconds?', copy: 'Stop counting. Start a new count the next time your baby looks away from the screen.',
     frames: [
       frame(0, 'The picture is still. Baby is watching.', scene('still', 'on', 0, 'none', true)),
-      frame(600, 'She looks away. Count—don’t press yet.', scene('still', 'away', 0, 'count', true)),
-      frame(1000, '1 full second away—keep waiting.', scene('still', 'away', 1, 'count', true)),
-      frame(1000, '2 full seconds away—not yet.', scene('still', 'away', 2, 'count', true)),
-      frame(400, 'Baby looks back. Clear the count; start fresh at the next look away.', scene('still', 'on', 0, 'reset', true, true))
+      frame(600, 'Baby looks away from the screen. Start counting.', scene('still', 'away', 0, 'count', true)),
+      frame(1000, 'Baby has looked away from the screen for 1 full second. Keep counting.', scene('still', 'away', 1, 'count', true)),
+      frame(1000, 'Baby has looked away from the screen for 2 full seconds. Keep counting.', scene('still', 'away', 2, 'count', true)),
+      frame(400, 'Baby looks back at the screen. Stop counting; start a new count at the next look away.', scene('still', 'on', 0, 'reset', true, true))
     ],
-    questionTitle: 'Your baby looks back after 2 seconds.', questionCopy: 'What happens to your count?',
+    questionTitle: 'Your baby looks back at the screen before 3 seconds.', questionCopy: 'This look away lasted 2 seconds. What happens to your count?',
     questionFrames: [
       frame(0, 'The picture is still. Baby is watching.', scene('still', 'on', 0, 'none', true)),
-      frame(600, 'Baby turns away.', scene('still', 'away', 0, 'none', true)),
-      frame(1000, '1 full second away.', scene('still', 'away', 1, 'none', true)),
-      frame(1000, '2 full seconds away.', scene('still', 'away', 2, 'none', true)),
-      frame(400, 'Baby looks back.', scene('still', 'on', 0, 'none', true))
+      frame(600, 'Baby looks away from the screen.', scene('still', 'away', 0, 'none', true)),
+      frame(1000, 'Baby has looked away from the screen for 1 full second.', scene('still', 'away', 1, 'none', true)),
+      frame(1000, 'Baby has looked away from the screen for 2 full seconds.', scene('still', 'away', 2, 'none', true)),
+      frame(400, 'Baby looks back at the screen.', scene('still', 'on', 0, 'none', true))
     ],
-    questionScene: scene('still', 'on', 0, 'none', true), questionCaption: 'Still picture · Baby looking back',
+    questionScene: scene('still', 'on', 0, 'none', true), questionCaption: 'The picture is still. Baby has looked back at the screen.',
     choices: ['Start over next time', 'Continue from 2 next time'],
-    success: 'Yes. Wait for a new look away, then count 3 full seconds from the beginning.',
-    retry: '2 seconds is not enough. A look back resets the count; start a fresh 3-second count next time.'
+    success: 'Yes. Stop counting when your baby looks back. Start a new 3-second count the next time they look away from the screen.',
+    retry: 'Stop counting when your baby looks back. Don’t add short looks away together; start a new count at the next look away from the screen.'
   },
   {
-    title: 'Watch the full 3-second wait.', copy: 'Don’t press as soon as your baby looks away.',
+    title: 'If your baby looks away from the screen for 3 full seconds, press space.', copy: 'Wait for the picture to become still. Count 3 seconds without a look back.',
     frames: [
       frame(0, 'The picture is still. Baby is watching.', scene('still', 'on', 0, 'none', true)),
-      frame(600, 'She looks away. Count—don’t press yet.', scene('still', 'away', 0, 'count', true)),
-      frame(1000, '1 full second away—keep waiting.', scene('still', 'away', 1, 'count', true)),
-      frame(1000, '2 full seconds away—not yet.', scene('still', 'away', 2, 'count', true)),
-      frame(1000, '3 full seconds, with no look back. Press space once.', scene('still', 'away', 3, 'press', true)),
-      frame(2000, 'She looks back. Stop counting and wait for a new look away.', scene('still', 'on', 0, 'reset', true, true))
+      frame(600, 'Baby looks away from the screen. Start counting.', scene('still', 'away', 0, 'count', true)),
+      frame(1000, 'Baby has looked away from the screen for 1 full second. Keep counting.', scene('still', 'away', 1, 'count', true)),
+      frame(1000, 'Baby has looked away from the screen for 2 full seconds. Keep counting.', scene('still', 'away', 2, 'count', true)),
+      frame(1000, 'Baby has looked away from the screen for 3 full seconds without looking back. Press space once.', scene('still', 'away', 3, 'press', true)),
+      frame(2000, 'Baby looks back at the screen. Stop counting until the next look away.', scene('still', 'on', 0, 'reset', true, true))
     ],
-    questionTitle: '3 full seconds away. No look back.', questionCopy: 'The picture is still, and baby is still looking away. What do you do?',
+    questionTitle: 'Your baby has looked away from the screen for 3 full seconds.', questionCopy: 'The picture is still. Your baby has not looked back and is still looking away. What do you do?',
     questionFrames: [
       frame(0, 'The picture is still. Baby is watching.', scene('still', 'on', 0, 'none', true)),
-      frame(600, 'Baby turns away.', scene('still', 'away', 0, 'none', true)),
-      frame(1000, '1 full second away.', scene('still', 'away', 1, 'none', true)),
-      frame(1000, '2 full seconds away.', scene('still', 'away', 2, 'none', true)),
-      frame(1000, '3 full seconds away. No look back.', scene('still', 'away', 3, 'none', true))
+      frame(600, 'Baby looks away from the screen.', scene('still', 'away', 0, 'none', true)),
+      frame(1000, 'Baby has looked away from the screen for 1 full second.', scene('still', 'away', 1, 'none', true)),
+      frame(1000, 'Baby has looked away from the screen for 2 full seconds.', scene('still', 'away', 2, 'none', true)),
+      frame(1000, 'Baby has looked away from the screen for 3 full seconds without looking back.', scene('still', 'away', 3, 'none', true))
     ],
-    questionScene: scene('still', 'away', 3, 'none', true), questionCaption: 'Still picture · 3 full seconds away',
+    questionScene: scene('still', 'away', 3, 'none', true), questionCaption: 'Baby has looked away from the still picture for 3 full seconds without looking back.',
     choices: ['Wait for a look back', 'Press space once'],
-    success: 'Yes—after 3 full seconds away, with no look back. Press once while baby is still looking away.',
-    retry: 'This is the moment to press space: 3 full seconds away, with no look back.'
+    success: 'Yes. Your baby has looked away from the screen for 3 full seconds without looking back. Press space once while they are still looking away.',
+    retry: 'Press space once now: the picture is still, and your baby has looked away from the screen for 3 full seconds without looking back.'
   }
 ];

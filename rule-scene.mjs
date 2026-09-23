@@ -51,7 +51,7 @@ export function renderRuleScene({
         </g>
       </g>
       <text x="425" y="38" text-anchor="middle" fill="#355b4c" font-size="19" font-weight="700">Your view from behind</text>
-      <text x="425" y="64" text-anchor="middle" fill="#566e65" font-size="16">Watch your baby.</text>
+      <text x="425" y="64" text-anchor="middle" fill="#566e65" font-size="16">${isStill ? 'Watch your baby’s eyes.' : 'Check when the movie stops.'}</text>
       <rect x="322" y="84" width="206" height="38" rx="10" fill="#ffffff" stroke="#d7e5de"/>
       <text x="425" y="109" text-anchor="middle" fill="#3d6063" font-size="17" font-weight="650">${isStill ? '❚❚ Picture frozen' : '▶ Movie playing'}</text>
       ${panel === 'rule' ? `
@@ -64,16 +64,18 @@ export function renderRuleScene({
 
       ${showSecondMarks ? `<g class="rule-scene-seconds">
         ${secondMarks}
-        <text x="417" y="261" text-anchor="middle" fill="#587167" font-size="13" font-weight="600">full seconds looking away</text>
+        <text x="417" y="259" text-anchor="middle" fill="#587167" font-size="13" font-weight="600">full seconds looking away</text>
+        <text x="417" y="277" text-anchor="middle" fill="#587167" font-size="13">from the screen</text>
         ${isReset ? '<path d="M 516 228 A 13 13 0 1 0 515 213 M 515 205 V 214 H 507" stroke="#b28667" stroke-width="2.5"/>' : ''}
-      </g>` : `<text x="425" y="215" text-anchor="middle" fill="#355b4c" font-size="17" font-weight="750">After 3 full seconds</text>
-        <text x="425" y="240" text-anchor="middle" fill="#566e65" font-size="15">away, with the picture still</text>`}` : panel === 'break' ? `
+      </g>` : `<text x="425" y="215" text-anchor="middle" fill="#355b4c" font-size="16" font-weight="750">After baby looks away</text>
+        <text x="425" y="236" text-anchor="middle" fill="#566e65" font-size="16">from the screen</text>
+        <text x="425" y="257" text-anchor="middle" fill="#355b4c" font-size="16" font-weight="750">for 3 full seconds</text>`}` : panel === 'break' ? `
         <rect x="393" y="153" width="64" height="58" rx="12" fill="#ffffff" stroke="#a8c1b3" stroke-width="2"/>
         <text x="425" y="194" text-anchor="middle" fill="#355b4c" font-size="36" font-weight="750">P</text>
-        <text x="425" y="245" text-anchor="middle" fill="#566e65" font-size="17">Pause for a break</text>` : panel === 'watch' ? `
+        <text x="425" y="245" text-anchor="middle" fill="#566e65" font-size="17">Press P to pause</text>` : panel === 'watch' ? `
         <path d="M 382 182 Q 425 130 468 182 Q 425 234 382 182 Z" stroke="#77a894" stroke-width="4"/>
         <circle cx="425" cy="182" r="15" stroke="#77a894" stroke-width="4"/>
-        <text x="425" y="245" text-anchor="middle" fill="#355b4c" font-size="18" font-weight="700">Watch your baby</text>` : `
+        <text x="425" y="245" text-anchor="middle" fill="#355b4c" font-size="18" font-weight="700">${isStill ? 'Now watch baby’s eyes' : 'Wait for the still picture'}</text>` : `
         <circle cx="425" cy="178" r="31" fill="#e5f1eb"/>
         <path d="M 416 164 V 192 M 435 164 V 192" stroke="#77a894" stroke-width="8"/>
         <text x="425" y="240" text-anchor="middle" fill="#355b4c" font-size="18" font-weight="700">${isStill ? 'Ready to watch baby' : 'Wait for the still picture'}</text>`}

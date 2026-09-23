@@ -1,9 +1,9 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
-import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs';
-import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=three-full-seconds-v1';
-import { renderRuleScene } from './rule-scene.mjs?v=one-point-rule-v1';
-import { ruleIntroPages } from './rule-intro.mjs?v=one-point-rule-v1';
-import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs';
+import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs?v=clear-parent-language-v1';
+import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=clear-parent-language-v1';
+import { renderRuleScene } from './rule-scene.mjs?v=clear-parent-language-v1';
+import { ruleIntroPages } from './rule-intro.mjs?v=clear-parent-language-v1';
+import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs?v=clear-parent-language-v1';
 
 const $ = id => document.getElementById(id);
 const mapUrl = './group-v3-v5-aligned-v2-parent-ux-v1-study-map.json';
@@ -16,7 +16,7 @@ let practiceRunning = false;
 let researcherMode = false;
 const narrationFiles = {
   welcome: '01-welcome.mp3', setup: '02-get-ready.mp3', instructions: '03-look-away-rule.mp3',
-  example: '04-example-intro.mp3', practice: '05-practice-intro.mp3', ready: '06-baby-ready.mp3'
+  example: '04-example-intro.mp3', practice: '05-practice-intro.mp3', ready: 'ready-watch-baby-and-movie.mp3'
 };
 const narration = {
   auto: true, audio: $('parent-narration'), generation: 0,
@@ -475,7 +475,9 @@ fetch('./narration-manifest.json').then(response => {
     if (clip.page === 'setup' || clip.page === 'instructions') continue; // Step pages show only their matching excerpt.
     const controls = narration.controls.get(clip.page);
     if (!controls || typeof clip.text !== 'string' || !clip.text.trim()) continue;
-    controls.querySelector('.narration-transcript p').textContent = clip.text;
+    // The ready derivative removes the outdated instruction not to watch movies.
+    const transcript = clip.page === 'ready' ? clip.text.replace('Watch your baby, not the movies. ', '') : clip.text;
+    controls.querySelector('.narration-transcript p').textContent = transcript;
     controls.querySelector('.narration-transcript').hidden = false;
   }
 }).catch(() => { /* A transcript or missing asset never blocks the parent flow. */ });
@@ -617,7 +619,7 @@ function renderState() {
   $('pause').textContent = phase === 'paused' ? 'Restart item · P' : 'Pause · P';
   const messages = {
     loading: 'Loading the movie…', playing: 'Let the movie finish. Space is disabled.',
-    hold: 'Picture is still. Press space only after 3 full seconds away, with no look back.', paused: 'Paused. Resume restarts this item.',
+    hold: 'The picture is still. Press space after your baby has looked away from the screen for 3 full seconds without looking back.', paused: 'Paused. Resume restarts this item.',
     error: 'The movie could not play. Retry this item.', finished: 'Continuing…'
   };
   $('status').textContent = messages[phase] || '';
@@ -816,7 +818,7 @@ function startPractice() {
     if (!current()) return;
     practiceRunning = true;
     $('practice-space').disabled = false;
-    $('practice-status').textContent = 'Watch the child. Press space after 3 full seconds looking away. A look back resets your count.';
+    $('practice-status').textContent = 'Watch the child. Press space after they have looked away from the screen for 3 full seconds without looking back.';
   };
   video.onended = () => { if (current()) finishPractice(false); };
   video.onerror = failure;
