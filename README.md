@@ -1,12 +1,14 @@
 # GROUP — current collaborator review
 
-This is this GROUP project's own latest parent-instructions and scientific-movie preview, prepared September 19, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
+This is this GROUP project's own latest parent-instructions and scientific-movie preview, updated October 3, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
+
+Current parent flow: setup → Gal Raz’s real-child front demonstration → three short GROUP rule pages → one scored illustration practice → baby setup. The mandatory four-question quiz and duplicate unscored practice are removed. New Evelyn narration explicitly says to wait for the picture to stay still, then press Space after 3 full continuous seconds looking away from the screen. The rear-view author video remains an optional, unscored researcher reference.
 
 The live collaborator review is https://c-steele.github.io/group-lookit/. Open it through a web server, not directly as a downloaded file.
 
 ## Included
 
-- The current parent pages, guided lessons, physical-space-bar timing practice, six original Evelyn narration recordings plus four current setup excerpts and five short rule excerpts, with transcripts, AI-generated camera-lighting examples and a caregiver-view practice illustration, and review chime candidate.
+- The current parent pages, physical-space-bar timing practice, original Evelyn audio plus four current setup excerpts and five newly generated training clips with matching transcripts, AI-generated camera-lighting examples and a caregiver-view practice illustration, and review chime candidate. Historical rule excerpts are retained but not used by the current parent sequence.
 - Both V3 and V5, 16 counterbalance cells each, their complete 37-entry sequences, and 148 original selected scientific video files. V3 PS09 is the review default.
 - The current player timing and review controls. Researcher skips are an explicit review convenience available to every visitor, not authentication or proof that training was passed.
 
@@ -21,7 +23,7 @@ The example and practice videos play directly from the existing author-hosted OS
 
 Internet access is required for those third-party videos; availability and playback are not guaranteed. They are not redistributed in this repository.
 
-Setup now shows four short steps: computer, lighting, clear camera view, and sound. A prominent checkbox confirms hearing the sample, then enables Continue. Existing Evelyn recordings are excerpted for the setup pages; source-pause boundaries are verified, but human listening review remains pending. The short rule pages use Evelyn excerpts; comprehension questions and independent timed practice have no new dedicated narration. The chime remains a review candidate, not approved release audio. Parent usability testing and actual CHS integration remain pending. This preview is not validated gaze detection, a competency assessment, or a participant-ready protocol.
+Setup shows four short steps: computer, lighting, clear camera view, and sound. A prominent checkbox confirms hearing the sample, then enables Continue. Existing Evelyn recordings are excerpted for setup; the real-demo introduction, three rule pages and scored-practice introduction now have newly generated Evelyn recordings. Exact provider export transcripts and hashes are verified; independent listening review remains pending. The chime remains a review candidate, not approved release audio. Parent usability testing and actual CHS integration remain pending. This preview is not validated gaze detection, a competency assessment, or a participant-ready protocol.
 
 ## Packaging and rights
 
@@ -30,6 +32,8 @@ Files are deliberately flat for GitHub's browser uploader. The parent setup now 
 No blanket license is granted by publishing this review. Third-party research materials retain their applicable rights and attribution; public access is not permission for unrestricted reuse.
 
 ## Animated comprehension examples
+
+Historical revision notes below describe prior builds. The October 3 flow above supersedes descriptions of five rule pages, mandatory quizzes, and excerpt-only rule narration.
 
 Each question now enacts its short scene before answer buttons appear. A moving-movie question stays visibly animated while answering; frozen scenes remain frozen. A brighter moving ball makes the demonstration screen easier to follow. Leaving the tab pauses the example and requires replay, without credit for unseen frames. Existing four comprehension rules, 3-second thresholds, scientific movies and study timing are unchanged.
 

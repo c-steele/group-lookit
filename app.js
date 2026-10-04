@@ -811,6 +811,10 @@ $('example-start').onclick = () => {
   };
   video.onplaying = () => {
     if (!current()) { video.pause(); return; }
+    // Native video controls can replay the same element after completion.
+    // Next is a completion gate, not a sticky permission from a previous run.
+    examplePlayback.complete = false;
+    $('example-next').disabled = true;
     examplePlayback.started = true;
   };
   video.onended = () => {
