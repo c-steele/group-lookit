@@ -4,6 +4,8 @@ This is this GROUP project's own latest parent-instructions and scientific-movie
 
 Current parent flow: setup → Gal Raz’s real-child front demonstration → three short GROUP rule pages → one scored illustration practice → baby setup. The mandatory four-question quiz and duplicate unscored practice are removed. New Evelyn narration explicitly says to wait for the picture to stay still, then press Space after 3 full continuous seconds looking away from the screen. The rear-view author video remains an optional, unscored researcher reference.
 
+The demonstration page now explicitly introduces the parent’s own task: “See what you’ll do during the study.” Its new Evelyn introduction (`demo-your-role.mp3`) says this video shows what the parent will do, explains waiting for baby to look away from the screen for 3 full seconds before pressing Space, and reiterates that GROUP counting begins after the movie finishes and the picture stays still. The previous `demo-intro.mp3` remains preserved but is no longer the active demonstration narration. This is a wording/audio revision, not a timing or training-flow change.
+
 The live collaborator review is https://c-steele.github.io/group-lookit/. Open it through a web server, not directly as a downloaded file.
 
 ## Included

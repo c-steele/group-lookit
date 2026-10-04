@@ -20,12 +20,12 @@ let researcherMode = false;
 const examplePlayback = { generation: 0, started: false, complete: false };
 const narrationFiles = {
   welcome: '01-welcome.mp3', setup: '02-get-ready.mp3', instructions: '03-look-away-rule.mp3',
-  example: 'demo-intro.mp3',
+  example: 'demo-your-role.mp3',
   'timing-practice': 'practice-intro.mp3',
   practice: '05-practice-intro.mp3', ready: 'ready-watch-baby-and-movie.mp3'
 };
 const customNarrationTranscripts = {
-  example: 'First, watch a real example. Notice that short glances away do not end the trial. In our study, you will wait for the movie to finish and the picture to become still before you start counting.',
+  example: 'This video shows what you will do during the study. Watch how this parent waits until their baby has looked away from the screen for three full seconds before pressing space. A quick look back resets the count. In our study, wait for the movie to finish and the picture to stay still before you start counting.',
   'timing-practice': 'Now try it yourself. Wait for the picture to become still. Then press space after the practice baby has looked away from the screen for three full seconds without looking back. If she looks back sooner, start a new count.'
 };
 const narration = {
@@ -41,7 +41,7 @@ const setupSteps = [
     audio: 'setup-quiet-light.mp3', transcript: 'Second, find a quiet spot. Move toys and other distractions out of view, and turn off extra screens and other sound. Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
   { title: 'Make both eyes easy to see.', copy: 'Keep your baby’s whole head in view, with even light on their face.', scene: 'setup-camera', next: 'Next: check the sound →',
     audio: 'setup-camera.mp3', transcript: 'Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
-  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'Watch a real example →',
+  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'See what you’ll do →',
     audio: 'setup-sound-no-ordinal.mp3', transcript: 'Turn on your speakers at a comfortable volume.' }
 ];
 const setup = { index: 0, sound: 'idle', soundConfirmed: false, generation: 0, message: '' };
