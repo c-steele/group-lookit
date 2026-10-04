@@ -42,7 +42,7 @@ export const ruleIntroPages = [
     copy: 'Continuing restarts that movie from the beginning.',
     audio: 'pause-break.mp3',
     transcript: 'Need a break? Press P to pause. When you continue, that movie starts again from the beginning. Some movies move on by themselves.',
-    next: 'Try the space bar →',
+    next: 'Watch a parent do this →',
     frames: [frame(0, 'Some movies move on by themselves.', { movie: 'still', gaze: 'on', panel: 'break', showCount: false })]
   }
 ];

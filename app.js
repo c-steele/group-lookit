@@ -2,7 +2,7 @@ import { freshTrial, playbackTransition } from './playback-state.mjs';
 import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs?v=clear-still-rule-20261003';
 import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=clear-still-rule-20261003';
 import { renderRuleScene } from './rule-scene.mjs?v=clear-still-rule-20261003';
-import { ruleIntroPages } from './rule-intro.mjs?v=clear-still-rule-20261003';
+import { ruleIntroPages } from './rule-intro.mjs?v=learn-before-example-20261003';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs?v=clear-still-rule-20261003';
 
 const $ = id => document.getElementById(id);
@@ -10,9 +10,9 @@ const mapUrl = './group-v3-v5-aligned-v2-parent-ux-v1-study-map.json';
 const state = { map: null, cell: null, index: -1, trial: null, timer: null, generation: 0, page: 'study-entry', movie: $('movie') };
 const localUrl = file => new URL('./' + file, location.href).href;
 const trialLabel = entry => entry.type === 'attention' ? 'Getting your baby’s attention' : 'Time to watch';
-// The real demonstration comes before the short GROUP-specific rule and one
-// scored practice. The author's unscored rear-view clip is review-only.
-const normalParentPages = ['welcome', 'setup', 'example', 'instructions', 'timing-practice', 'ready'];
+// Explain the GROUP-specific rule before the real-parent demonstration, then
+// give one scored practice. The author's rear-view clip is review-only.
+const normalParentPages = ['welcome', 'setup', 'instructions', 'example', 'timing-practice', 'ready'];
 const parentPages = [...normalParentPages, 'practice'];
 const progressSteps = { welcome: 1, setup: 2, instructions: 3, 'timing-practice': 3, example: 3, practice: 3, ready: 4 };
 let practiceRunning = false;
@@ -41,7 +41,7 @@ const setupSteps = [
     audio: 'setup-quiet-light.mp3', transcript: 'Second, find a quiet spot. Move toys and other distractions out of view, and turn off extra screens and other sound. Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
   { title: 'Make both eyes easy to see.', copy: 'Keep your baby’s whole head in view, with even light on their face.', scene: 'setup-camera', next: 'Next: check the sound →',
     audio: 'setup-camera.mp3', transcript: 'Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
-  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'See what you’ll do →',
+  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'Learn what to do →',
     audio: 'setup-sound-no-ordinal.mp3', transcript: 'Turn on your speakers at a comfortable volume.' }
 ];
 const setup = { index: 0, sound: 'idle', soundConfirmed: false, generation: 0, message: '' };
@@ -79,7 +79,7 @@ function moveSetup(direction) {
   if (state.page !== 'setup' || document.hidden) return;
   if (direction === -1 && setup.index === 0) { showPage('welcome'); return; }
   if (direction === 1 && setup.index === setupSteps.length - 1) {
-    if (setup.sound === 'complete' && setup.soundConfirmed) showPage('example');
+    if (setup.sound === 'complete' && setup.soundConfirmed) showPage('instructions');
     return;
   }
   const next = setup.index + direction;
@@ -330,7 +330,7 @@ function advanceRuleLesson() {
   if (state.page !== 'instructions' || document.hidden) return;
   if (ruleLesson.mode === 'overview') {
     if (ruleLesson.introIndex < ruleIntroPages.length - 1) showRuleIntro(ruleLesson.introIndex + 1);
-    else showPage('timing-practice');
+    else showPage('example');
     return;
   }
   if (ruleLesson.paused) { startRuleSequence(ruleLesson.mode); return; }
@@ -348,7 +348,7 @@ function backRuleLesson() {
   if (state.page !== 'instructions') return;
   if (ruleLesson.mode === 'overview') {
     if (ruleLesson.introIndex > 0) showRuleIntro(ruleLesson.introIndex - 1);
-    else showPage('example');
+    else showPage('setup');
     return;
   }
   if (ruleLesson.mode === 'question') {
@@ -822,13 +822,13 @@ $('example-start').onclick = () => {
     examplePlayback.started = false;
     examplePlayback.complete = true;
     $('example-next').disabled = false;
-    $('example-status').textContent = 'Next, see how the rule works with our study’s still picture.';
+    $('example-status').textContent = 'Now try the rule yourself with our practice example.';
   };
   video.onerror = failure;
   video.play().catch(failure);
 };
 $('example-next').onclick = () => {
-  if (state.page === 'example' && !document.hidden && examplePlayback.complete) showPage('instructions');
+  if (state.page === 'example' && !document.hidden && examplePlayback.complete) showPage('timing-practice');
 };
 
 function finishPractice(pressed) {

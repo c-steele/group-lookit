@@ -2,7 +2,7 @@
 
 This is this GROUP project's own latest parent-instructions and scientific-movie preview, updated October 3, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
 
-Current parent flow: setup → Gal Raz’s real-child front demonstration → three short GROUP rule pages → one scored illustration practice → baby setup. The mandatory four-question quiz and duplicate unscored practice are removed. New Evelyn narration explicitly says to wait for the picture to stay still, then press Space after 3 full continuous seconds looking away from the screen. The rear-view author video remains an optional, unscored researcher reference.
+Current parent flow: setup → three short narrated GROUP rule pages → Gal Raz’s real-child front demonstration → one scored illustration practice → baby setup. Parents learn the rule before watching the demonstration: wait for the picture to stay still, press Space after 3 full continuous seconds looking away from the screen, restart the count after a look back, and use P to pause. The existing verified Evelyn recordings now play before the real video, rather than afterwards. No additional instruction pages or recordings are added by this ordering change. The mandatory four-question quiz and duplicate unscored practice remain removed. The rear-view author video remains an optional, unscored researcher reference.
 
 The demonstration page now explicitly introduces the parent’s own task: “See what you’ll do during the study.” Its new Evelyn introduction (`demo-your-role.mp3`) says this video shows what the parent will do, explains waiting for baby to look away from the screen for 3 full seconds before pressing Space, and reiterates that GROUP counting begins after the movie finishes and the picture stays still. The previous `demo-intro.mp3` remains preserved but is no longer the active demonstration narration. This is a wording/audio revision, not a timing or training-flow change.
 
@@ -35,7 +35,7 @@ No blanket license is granted by publishing this review. Third-party research ma
 
 ## Animated comprehension examples
 
-Historical revision notes below describe prior builds. The October 3 flow above supersedes descriptions of five rule pages, mandatory quizzes, and excerpt-only rule narration.
+Historical revision notes below describe prior builds. The latest October 3 learn-before-watching flow above supersedes descriptions of the real video preceding instructions, five rule pages, mandatory quizzes, and excerpt-only rule narration.
 
 Each question now enacts its short scene before answer buttons appear. A moving-movie question stays visibly animated while answering; frozen scenes remain frozen. A brighter moving ball makes the demonstration screen easier to follow. Leaving the tab pauses the example and requires replay, without credit for unseen frames. Existing four comprehension rules, 3-second thresholds, scientific movies and study timing are unchanged.
 
