@@ -1,22 +1,32 @@
 import { freshTrial, playbackTransition } from './playback-state.mjs';
-import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs?v=not-yet-three-seconds-v1';
-import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=not-yet-three-seconds-v1';
-import { renderRuleScene } from './rule-scene.mjs?v=clear-parent-language-v1';
-import { ruleIntroPages } from './rule-intro.mjs?v=clear-parent-language-v1';
-import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs?v=clear-parent-language-v1';
+import { ruleExamples, freshRuleCheck, answerRuleCheck, moveRuleCheck, ruleCheckComplete } from './rule-check.mjs?v=clear-still-rule-20261003';
+import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=clear-still-rule-20261003';
+import { renderRuleScene } from './rule-scene.mjs?v=clear-still-rule-20261003';
+import { ruleIntroPages } from './rule-intro.mjs?v=clear-still-rule-20261003';
+import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs?v=clear-still-rule-20261003';
 
 const $ = id => document.getElementById(id);
 const mapUrl = './group-v3-v5-aligned-v2-parent-ux-v1-study-map.json';
 const state = { map: null, cell: null, index: -1, trial: null, timer: null, generation: 0, page: 'study-entry', movie: $('movie') };
 const localUrl = file => new URL('./' + file, location.href).href;
 const trialLabel = entry => entry.type === 'attention' ? 'Getting your baby’s attention' : 'Time to watch';
-const parentPages = ['welcome', 'setup', 'instructions', 'timing-practice', 'example', 'practice', 'ready'];
+// The real demonstration comes before the short GROUP-specific rule and one
+// scored practice. The author's unscored rear-view clip is review-only.
+const normalParentPages = ['welcome', 'setup', 'example', 'instructions', 'timing-practice', 'ready'];
+const parentPages = [...normalParentPages, 'practice'];
 const progressSteps = { welcome: 1, setup: 2, instructions: 3, 'timing-practice': 3, example: 3, practice: 3, ready: 4 };
 let practiceRunning = false;
 let researcherMode = false;
+const examplePlayback = { generation: 0, started: false, complete: false };
 const narrationFiles = {
   welcome: '01-welcome.mp3', setup: '02-get-ready.mp3', instructions: '03-look-away-rule.mp3',
-  example: '04-example-intro.mp3', practice: '05-practice-intro.mp3', ready: 'ready-watch-baby-and-movie.mp3'
+  example: 'demo-intro.mp3',
+  'timing-practice': 'practice-intro.mp3',
+  practice: '05-practice-intro.mp3', ready: 'ready-watch-baby-and-movie.mp3'
+};
+const customNarrationTranscripts = {
+  example: 'First, watch a real example. Notice that short glances away do not end the trial. In our study, you will wait for the movie to finish and the picture to become still before you start counting.',
+  'timing-practice': 'Now try it yourself. Wait for the picture to become still. Then press space after the practice baby has looked away from the screen for three full seconds without looking back. If she looks back sooner, start a new count.'
 };
 const narration = {
   auto: true, audio: $('parent-narration'), generation: 0,
@@ -31,7 +41,7 @@ const setupSteps = [
     audio: 'setup-quiet-light.mp3', transcript: 'Second, find a quiet spot. Move toys and other distractions out of view, and turn off extra screens and other sound. Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
   { title: 'Make both eyes easy to see.', copy: 'Keep your baby’s whole head in view, with even light on their face.', scene: 'setup-camera', next: 'Next: check the sound →',
     audio: 'setup-camera.mp3', transcript: 'Make sure their full face and both eyes are clearly visible, with even light. Avoid a bright window behind them.' },
-  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'Continue to parent practice →',
+  { title: 'Can you hear the chimes?', copy: 'Turn on your speakers at a comfortable volume.', scene: 'setup-sound', next: 'Watch a real example →',
     audio: 'setup-sound-no-ordinal.mp3', transcript: 'Turn on your speakers at a comfortable volume.' }
 ];
 const setup = { index: 0, sound: 'idle', soundConfirmed: false, generation: 0, message: '' };
@@ -69,7 +79,7 @@ function moveSetup(direction) {
   if (state.page !== 'setup' || document.hidden) return;
   if (direction === -1 && setup.index === 0) { showPage('welcome'); return; }
   if (direction === 1 && setup.index === setupSteps.length - 1) {
-    if (setup.sound === 'complete' && setup.soundConfirmed) showPage('instructions');
+    if (setup.sound === 'complete' && setup.soundConfirmed) showPage('example');
     return;
   }
   const next = setup.index + direction;
@@ -157,7 +167,7 @@ function renderTimingPractice() {
     : timingPractice.feedback;
   $('timing-feedback').className='timing-feedback '+(success ? 'success' : '');
   $('timing-caption').textContent=running
-    ? visual.movie==='moving' ? 'The movie is moving.' : visual.gaze==='away' ? 'She is looking away.' : 'She is watching the screen.'
+    ? visual.movie==='moving' ? 'The movie is moving. Wait for the still picture.' : visual.gaze==='away' ? 'The picture is still. She is looking away from the screen.' : 'The picture is still. She is watching the screen.'
     : success ? 'That movie would end now.' : 'Watch this practice baby. You do the counting.';
 }
 
@@ -320,7 +330,7 @@ function advanceRuleLesson() {
   if (state.page !== 'instructions' || document.hidden) return;
   if (ruleLesson.mode === 'overview') {
     if (ruleLesson.introIndex < ruleIntroPages.length - 1) showRuleIntro(ruleLesson.introIndex + 1);
-    else startRuleQuestion();
+    else showPage('timing-practice');
     return;
   }
   if (ruleLesson.paused) { startRuleSequence(ruleLesson.mode); return; }
@@ -338,7 +348,7 @@ function backRuleLesson() {
   if (state.page !== 'instructions') return;
   if (ruleLesson.mode === 'overview') {
     if (ruleLesson.introIndex > 0) showRuleIntro(ruleLesson.introIndex - 1);
-    else showPage('setup');
+    else showPage('example');
     return;
   }
   if (ruleLesson.mode === 'question') {
@@ -389,6 +399,12 @@ function stopNarration(message = '') {
 function startNarration(page) {
   if (!narrationFiles[page] || state.page !== page || document.hidden) return;
   if (page === 'instructions' && ruleLesson.mode !== 'overview') return;
+  // Replaying spoken practice instructions must not leave a scored animation
+  // running underneath them. A fresh Start practice gesture restarts it.
+  if (page === 'timing-practice') {
+    stopTimingPractice();
+    renderTimingPractice();
+  }
   if (page === 'instructions') {
     stopRuleDemo();
     ruleLesson.frame = 0;
@@ -448,6 +464,10 @@ Object.keys(narrationFiles).forEach(page => {
   const controls = $('narration-controls-template').content.firstElementChild.cloneNode(true);
   (page === 'instructions' ? $('rule-narration') : page === 'ready' ? $('ready-narration') : page === 'setup' ? $('setup-narration') : $(page).querySelector('.page-heading')).append(controls);
   narration.controls.set(page, controls);
+  if (customNarrationTranscripts[page]) {
+    controls.querySelector('.narration-transcript p').textContent = customNarrationTranscripts[page];
+    controls.querySelector('.narration-transcript').hidden = false;
+  }
   controls.querySelector('.narration-replay').onclick = () => {
     if (narration.heard.has(narrationKey(page))) startNarration(page);
   };
@@ -472,7 +492,7 @@ fetch('./narration-manifest.json').then(response => {
   return response.json();
 }).then(manifest => {
   for (const clip of manifest.clips || []) {
-    if (clip.page === 'setup' || clip.page === 'instructions') continue; // Step pages show only their matching excerpt.
+    if (clip.page === 'setup' || clip.page === 'instructions' || customNarrationTranscripts[clip.page]) continue; // Revised pages keep only their matching recording's words.
     const controls = narration.controls.get(clip.page);
     if (!controls || typeof clip.text !== 'string' || !clip.text.trim()) continue;
     // The ready derivative removes the outdated instruction not to watch movies.
@@ -487,8 +507,16 @@ document.addEventListener('play', event => {
   if (event.target instanceof HTMLMediaElement && event.target !== narration.audio) stopNarration();
 }, true);
 
+function resetExamplePlayback() {
+  examplePlayback.generation += 1;
+  examplePlayback.started = false;
+  examplePlayback.complete = false;
+  $('example-next').disabled = true;
+}
+
 function stopParentMedia() {
   stopNarration();
+  resetExamplePlayback();
   ['sound-check', 'example-movie', 'practice-movie'].forEach(id => {
     const media = $(id);
     media.onplaying = media.onended = media.onerror = null;
@@ -532,7 +560,7 @@ function clearPlayback() {
 // Explicit review-only bypasses. These never answer parent questions or alter
 // the normal completion gates, response data, protocol or scientific player.
 function renderResearcherControls() {
-  const screens = ['study-entry', ...parentPages];
+  const screens = ['study-entry', ...normalParentPages];
   const index = screens.indexOf(state.page);
   $('researcher-navigation').hidden = !researcherMode;
   $('preview-badge').textContent = researcherMode ? 'Researcher review · recording off' : 'Design preview · camera off';
@@ -541,7 +569,9 @@ function renderResearcherControls() {
   $('researcher-stimuli').disabled = !researcherMode || !state.map;
   $('researcher-movie').hidden = state.page !== 'session';
   $('researcher-movie').disabled = !researcherMode || state.page !== 'session' || !state.cell;
-  $('researcher-status').textContent = state.page === 'session'
+  $('researcher-status').textContent = state.page === 'practice'
+    ? 'Optional original rear-view video. Timing is not scored; this is not part of the normal parent flow.'
+    : state.page === 'session'
     ? `Reviewing ${state.cell?.study_arm || ''} · ${state.cell?.ps_condition_id || ''}. Movie ${state.index + 1} of ${state.cell?.entries.length || 0}.`
     : 'Skip controls are for review only. Normal parent checks are unchanged.';
 }
@@ -557,7 +587,7 @@ function researcherNavigate(page) {
 
 function researcherStep(direction) {
   if (!researcherMode || ![1, -1].includes(direction)) return;
-  const screens = ['study-entry', ...parentPages];
+  const screens = ['study-entry', ...normalParentPages];
   const index = screens.indexOf(state.page);
   if (index < 0) { if (direction === -1) researcherNavigate('ready'); return; }
   const next = screens[index + direction];
@@ -753,7 +783,7 @@ $('instructions-next').onclick = () => {
   if (state.page === 'instructions' && !document.hidden && ruleLesson.mode === 'question' && ruleLesson.ended && !ruleLesson.paused && ruleCheck.index === ruleLessonSteps.length - 1 && ruleCheckComplete(ruleCheck)) showPage('timing-practice');
 };
 $('timing-start').onclick=beginTimingPractice;
-$('timing-next').onclick=() => { if(state.page==='timing-practice' && timingPractice.phase==='success') showPage('example'); };
+$('timing-next').onclick=() => { if(state.page==='timing-practice' && timingPractice.phase==='success') showPage('ready'); };
 renderTimingPractice();
 renderRuleCheck();
 $('sound-play').onclick = playSetupSound;
@@ -764,23 +794,37 @@ $('sound-confirm').onchange = event => {
 };
 
 $('example-start').onclick = () => {
+  if (state.page !== 'example' || document.hidden) return;
+  resetExamplePlayback();
   const video = freshParentMedia('example-movie');
+  const token = examplePlayback.generation;
   video.src = 'https://osf.io/download/v4npq/';
   $('example-start').hidden = true;
-  $('example-status').textContent = 'Watch how brief looks away are different from 3 continuous seconds away.';
-  const current = () => state.page === 'example' && $('example-movie') === video;
+  $('example-status').textContent = 'Notice the brief glances away—and the looks back.';
+  const current = () => token === examplePlayback.generation && state.page === 'example' && $('example-movie') === video && !document.hidden;
   const failure = () => {
     if (!current()) return;
+    resetExamplePlayback();
+    video.pause();
     $('example-start').hidden = false;
     $('example-status').textContent = 'The example couldn’t play. Please try again.';
   };
+  video.onplaying = () => {
+    if (!current()) { video.pause(); return; }
+    examplePlayback.started = true;
+  };
   video.onended = () => {
-    if (!current()) return;
+    if (!current() || !examplePlayback.started) return;
+    examplePlayback.started = false;
+    examplePlayback.complete = true;
     $('example-next').disabled = false;
-    $('example-status').textContent = 'Next, try the same look-away rule yourself. During the study, wait for the action to finish first.';
+    $('example-status').textContent = 'Next, see how the rule works with our study’s still picture.';
   };
   video.onerror = failure;
   video.play().catch(failure);
+};
+$('example-next').onclick = () => {
+  if (state.page === 'example' && !document.hidden && examplePlayback.complete) showPage('instructions');
 };
 
 function finishPractice(pressed) {
@@ -797,6 +841,7 @@ function finishPractice(pressed) {
 }
 
 function startPractice() {
+  if (state.page !== 'practice' || document.hidden) return;
   const video = freshParentMedia('practice-movie');
   video.src = 'https://osf.io/download/juea4/';
   practiceRunning = false;

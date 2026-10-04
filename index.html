@@ -31,7 +31,7 @@
         <button id="researcher-rule" class="secondary" type="button">Skip to parent lesson</button>
         <button id="researcher-timing" class="secondary" type="button">Skip to space-bar practice</button>
         <button id="researcher-example" class="secondary" type="button">Skip to example video</button>
-        <button id="researcher-practice" class="secondary" type="button">Skip to practice video</button>
+        <button id="researcher-practice" class="secondary" type="button">Optional original practice · unscored</button>
         <button id="researcher-ready" class="secondary" type="button">Skip to baby setup</button>
         <button id="researcher-stimuli" class="secondary" type="button" disabled>Skip to study movies</button>
         <button id="researcher-movie" class="secondary" type="button" hidden>Skip this movie →</button>
@@ -200,9 +200,9 @@
     </section>
     <section id="instructions" class="visual-rule-lesson" aria-labelledby="instructions-title" hidden>
       <div class="page-heading">
-        <p id="rule-position" class="lesson-position">Your part · 1 of 5</p>
-        <h1 id="instructions-title" tabindex="-1">Check the movie. Watch your baby.</h1>
-        <p id="rule-heading-copy" class="lede">Glance at the screen to see when the picture becomes still. Then watch your baby’s eyes.</p>
+        <p id="rule-position" class="lesson-position">Your part · 1 of 3</p>
+        <h1 id="instructions-title" tabindex="-1">When the picture is still, watch your baby.</h1>
+        <p id="rule-heading-copy" class="lede">If your baby looks away from the screen for 3 full seconds without looking back, press Space.</p>
       </div>
       <div id="rule-visual" class="rule-visual" aria-hidden="true"></div>
       <p id="rule-scene-caption" class="rule-scene-caption" role="status" aria-live="polite" aria-atomic="true">Check when the picture becomes still. Then watch your baby’s eyes.</p>
@@ -214,7 +214,7 @@
       <p id="rule-feedback" class="rule-feedback" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" hidden></p>
       <div id="rule-footer" class="page-footer">
         <button id="rule-previous" type="button" class="back">← Back</button>
-        <button id="rule-next" type="button" class="primary">Next: when to start counting →</button>
+        <button id="rule-next" type="button" class="primary">Next: what if baby looks back? →</button>
         <button id="instructions-next" class="primary" hidden disabled>Try the space bar <span aria-hidden="true">→</span></button>
       </div>
       <div id="rule-review-tools" class="rule-review-tools" hidden>
@@ -228,27 +228,28 @@
       <details id="rule-extra" class="rule-extra"><summary>Breaks &amp; automatic endings</summary><p>Some movies move on by themselves. Need a break? Press <kbd>P</kbd>; continuing restarts that movie from the beginning.</p></details>
     </section>
     <section id="timing-practice" class="parent-page timing-practice" aria-labelledby="timing-title" hidden>
-      <div class="page-heading"><p class="eyebrow">Your turn · A quick glance is not enough</p><h1 id="timing-title" tabindex="-1">If your baby looks away from the screen for 3 full seconds, press space.</h1><p class="lede">First, wait for the picture to become still.<br>Your baby must keep looking away for all 3 seconds. If they look back, stop counting and start again at their next look away.</p></div>
+      <div class="page-heading"><p class="eyebrow">Your turn · Try the Space bar</p><h1 id="timing-title" tabindex="-1">If your baby looks away from the screen for 3 full seconds, press Space.</h1><p class="lede">Wait for the picture to become still.<br>Then count while she looks away from the screen. A look back resets your count.</p></div>
       <div id="timing-visual" class="rule-visual" aria-hidden="true"></div>
       <p id="timing-caption" class="rule-scene-caption">Watch this practice baby. You do the counting.</p>
       <img id="practice-art-loader" src="./parent-view-practice.png" alt="" hidden>
       <div class="timing-actions"><button id="timing-start" class="primary" type="button">Start practice</button><p id="timing-response" hidden>After she has looked away from the screen for <strong>3 full seconds without looking back</strong>, press <kbd>space</kbd> once.</p></div>
       <p id="timing-feedback" class="timing-feedback" role="status" aria-live="polite" tabindex="-1"></p>
       <p class="practice-disclaimer">AI-generated illustration, not a real baby or camera view. This checks your timing in this example only.</p>
-      <div class="page-footer"><button class="back" data-page="instructions">← Back</button><button id="timing-next" class="primary" disabled>Watch a real example →</button></div>
+      <div class="page-footer"><button class="back" data-page="instructions">← Back</button><button id="timing-next" class="primary" disabled>Get my baby ready →</button></div>
     </section>
     <section id="example" class="parent-page" aria-labelledby="example-title" hidden>
-      <div class="page-heading"><p class="eyebrow">Watch how it works</p><h1 id="example-title" tabindex="-1">If your baby looks away from the screen for 3 full seconds, press space.</h1><p class="lede">Wait for the picture to become still.<br>If your baby looks back before 3 seconds, stop counting. Start again at their next look away.</p></div>
+      <div class="page-heading"><h1 id="example-title" tabindex="-1">Watch a real example.</h1><p class="lede">See when a parent waits—and when they move on.</p></div>
       <div class="training-player"><video id="example-movie" playsinline controls preload="none" aria-label="Gal Raz parent look-away demonstration"></video><button id="example-start" class="training-start"><span class="play-disc" aria-hidden="true">▶</span>Play the example</button></div>
-      <p id="example-status" class="training-status" role="status">This example teaches the look-away rule. During the study, wait for the action to finish before using it.</p>
-      <div class="page-footer"><button class="back" data-page="timing-practice">← Back</button><button id="example-next" class="primary" data-page="practice" disabled>My turn to practice <span aria-hidden="true">→</span></button></div>
+      <p id="example-status" class="training-status" role="status">Notice the brief glances away—and the looks back.</p>
+      <p class="practice-disclaimer">This video teaches the look-away rule. Our study movies end with a still picture—you’ll practice that next.</p>
+      <div class="page-footer"><button class="back" data-page="setup">← Back</button><button id="example-next" class="primary" disabled>Show me our study’s rule <span aria-hidden="true">→</span></button></div>
     </section>
     <section id="practice" class="parent-page" aria-labelledby="practice-title" hidden>
-      <div class="page-heading"><p class="eyebrow">Try it before your baby joins</p><h1 id="practice-title" tabindex="-1">If the child looks away from the screen for 3 full seconds, press space.</h1><p class="lede">Watch the child in this practice video.<br>They must keep looking away for all 3 seconds.<br>If they look back, stop counting and start again at their next look away.</p></div>
+      <div class="page-heading"><p class="eyebrow">Optional researcher review · Unscored</p><h1 id="practice-title" tabindex="-1">Original rear-view practice video.</h1><p class="lede">This optional author video is not part of the parent training sequence. Space-bar timing is not scored here.</p></div>
       <div class="training-player"><video id="practice-movie" playsinline preload="none" aria-label="Gal Raz parent look-away practice"></video><button id="practice-start" class="training-start"><span class="play-disc" aria-hidden="true">▶</span>Start the practice</button></div>
       <div class="practice-controls"><button id="practice-space" class="secondary" disabled>Still away after 3 full seconds · Space</button><button id="practice-replay" class="back" hidden>Try again</button></div>
-      <p id="practice-status" class="training-status" role="status">This practice is for you, not your baby. Brief looks back reset your count.</p>
-      <aside id="practice-feedback" class="blue-note" hidden><span class="note-symbol" aria-hidden="true">i</span><div><strong>Remember the same simple rule.</strong><p>Wait for the action to finish. Count 3 continuous seconds away. Reset whenever your baby looks back. This preview does not score your timing.</p></div></aside>
+      <p id="practice-status" class="training-status" role="status">Original practice reference. Brief looks back reset the 3-second count.</p>
+      <aside id="practice-feedback" class="blue-note" hidden><span class="note-symbol" aria-hidden="true">i</span><div><strong>Original reference—not a full GROUP trial.</strong><p>This author video teaches looking away and looking back. In GROUP, wait for the picture to become still, then count 3 full seconds looking away. Timing in this reference video is not scored.</p></div></aside>
       <div class="page-footer"><button class="back" data-page="example">← Back</button><button id="practice-next" class="primary" data-page="ready" disabled>Get my baby settled <span aria-hidden="true">→</span></button></div>
     </section>
     <section id="ready" class="parent-page" aria-labelledby="ready-title" hidden>
@@ -269,13 +270,13 @@
       <details class="ready-tips"><summary>A few extra setup tips</summary><ul><li>Keep your baby’s whole face visible. Use soft light from in front, with no dark shadows or glare over their eyes.</li><li>Your baby’s face should be the lowest and clearest in the camera view. Keep the keyboard out of their reach.</li><li>Glance at the screen to check when the picture becomes still, then watch your baby’s eyes. Don’t describe the action or try to bring their attention back.</li><li>Once the picture is still, press Space after 3 full seconds looking away. If your baby looks back, start a new count the next time they look away.</li><li>You can take a break or stop at any time.</li></ul></details>
       <div id="ready-narration"></div>
       <p class="preview-note">Preview only · Camera and recording are off. CHS consent and a live camera check will come before the study.</p>
-      <div class="page-footer"><button class="back" data-page="practice">← Back</button><button id="play" class="primary" disabled>We’re ready to watch <span aria-hidden="true">→</span></button></div>
+      <div class="page-footer"><button class="back" data-page="timing-practice">← Back</button><button id="play" class="primary" disabled>We’re ready to watch <span aria-hidden="true">→</span></button></div>
     </section>
   </div>
   <details id="preview-tools" class="preview-tools" hidden>
     <summary>Researcher preview settings</summary>
     <p>These controls are not for families. No camera, recording, upload, gaze detection, random assignment, or saved responses are active here.</p>
-    <div class="selection"><label>Study version<select id="arm"><option value="V3">V3 — three per group</option><option value="V5">V5 — five per group</option></select></label><label>Counterbalance<select id="condition" disabled><option>Loading…</option></select></label><label>Review a screen<select id="review-page"><option value="welcome">Welcome</option><option value="setup">Get ready</option><option value="instructions">Parent instructions</option><option value="timing-practice">Space-bar timing practice</option><option value="example">Example video</option><option value="practice">Practice video</option><option value="ready">Baby’s turn</option></select></label><button id="review-go" class="secondary">Open screen</button></div>
+    <div class="selection"><label>Study version<select id="arm"><option value="V3">V3 — three per group</option><option value="V5">V5 — five per group</option></select></label><label>Counterbalance<select id="condition" disabled><option>Loading…</option></select></label><label>Review a screen<select id="review-page"><option value="welcome">Welcome</option><option value="setup">Get ready</option><option value="example">Real example video</option><option value="instructions">Parent instructions</option><option value="timing-practice">Scored Space-bar practice</option><option value="ready">Baby’s turn</option><option value="practice">Optional original rear video · unscored</option></select></label><button id="review-go" class="secondary">Open screen</button></div>
     <p id="load-status" role="status">Loading the selected study map…</p>
     <p class="small">The chime sound check is an existing review candidate, not approved release audio. Raz training plays directly from its author-hosted OSF sources and requires an internet connection. This design is not yet installed on CHS.</p>
     <nav class="review-links" aria-label="Training sources"><span>Parent-training videos: Gal Raz and colleagues, played from their OSF sources.</span><a href="https://osf.io/download/v4npq/" target="_blank" rel="noopener">Original demonstration</a><a href="https://osf.io/download/juea4/" target="_blank" rel="noopener">Original practice</a></nav>
@@ -293,6 +294,6 @@
   <section id="complete" class="card narrow" hidden><p class="eyebrow">Preview complete</p><h1 tabindex="-1">Thank you for watching!</h1><p>You’ve reached the end of the local movie sequence. No camera recording or study response was created.</p><button id="again">Back to the welcome</button></section>
   <footer class="site-footer">Collaborator review only · No recording or data collection · Not a live CHS study</footer>
 </main>
-<script type="module" src="app.js?v=not-yet-three-seconds-v1"></script>
+<script type="module" src="app.js?v=clear-still-rule-20261003"></script>
 </body>
 </html>
