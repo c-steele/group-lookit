@@ -2,15 +2,17 @@
 
 This is this GROUP project's own latest parent-instructions and scientific-movie preview, updated October 3, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
 
-Current parent flow: setup → three short narrated GROUP rule pages → Gal Raz’s real-child front demonstration → one scored illustration practice → baby setup. Parents learn the rule before watching the demonstration: wait for the picture to stay still, press Space after 3 full continuous seconds looking away from the screen, restart the count after a look back, and use P to pause. The existing verified Evelyn recordings now play before the real video, rather than afterwards. No additional instruction pages or recordings are added by this ordering change. The mandatory four-question quiz and duplicate unscored practice remain removed. The rear-view author video remains an optional, unscored researcher reference.
+Current parent flow: setup → guided walkthrough (six short lessons) → one scored illustration practice → baby setup. The walkthrough is: toy movie finishing → toy 3-second look away → corresponding real-parent moment → toy look-back reset → corresponding real-parent moment → P to pause. Each page explains one point, with automatic matching Evelyn narration; the real excerpts start after their short narration finishes. The full original front and rear videos remain optional researcher references, not another mandatory training loop. The dense four-question quiz remains removed.
 
-The demonstration page now explicitly introduces the parent’s own task: “See what you’ll do during the study.” Its new Evelyn introduction (`demo-your-role.mp3`) says this video shows what the parent will do, explains waiting for baby to look away from the screen for 3 full seconds before pressing Space, and reiterates that GROUP counting begins after the movie finishes and the picture stays still. The previous `demo-intro.mp3` remains preserved but is no longer the active demonstration narration. This is a wording/audio revision, not a timing or training-flow change.
+The real-parent excerpts explicitly introduce what the parent will do with their own baby. They play continuous windows of the original author-hosted OSF front video at normal speed: 19.5–26.0 seconds for a sustained look away and parent ending the trial, and 6.0–10.0 seconds for a brief look away and return without ending the trial. These are teaching playback boundaries, not frame-coded gaze ground truth or exact key-down labels. No exact countdown is overlaid on the real footage. The toy example teaches GROUP’s additional requirement to wait for the picture to become still; the real camera view does not show the movie screen. This distinction is displayed beside each real excerpt.
+
+The two short real-example introductions are contiguous intact-sentence excerpts of the previously verified Evelyn recording (`demo-your-role.mp3`), not new speech or word splicing. Their source/export hashes, transcripts, silent cut boundaries, and extraction script are recorded locally. Human listening and parent usability review remain pending. The real footage itself is not edited, downloaded anew, or uploaded to this repository; it continues to play from its original OSF source.
 
 The live collaborator review is https://c-steele.github.io/group-lookit/. Open it through a web server, not directly as a downloaded file.
 
 ## Included
 
-- The current parent pages, physical-space-bar timing practice, original Evelyn audio plus four current setup excerpts and five newly generated training clips with matching transcripts, AI-generated camera-lighting examples and a caregiver-view practice illustration, and review chime candidate. Historical rule excerpts are retained but not used by the current parent sequence.
+- The current parent pages, physical-space-bar timing practice, original Evelyn audio plus setup/training excerpts and two short guided-example introductions with matching transcripts, AI-generated camera-lighting examples and a caregiver-view practice illustration, and review chime candidate. The movie-finish excerpt is used again in the current walkthrough; other historical recordings remain preserved.
 - Both V3 and V5, 16 counterbalance cells each, their complete 37-entry sequences, and 148 original selected scientific video files. V3 PS09 is the review default.
 - The current player timing and review controls. Researcher skips are an explicit review convenience available to every visitor, not authentication or proof that training was passed.
 
@@ -25,7 +27,7 @@ The example and practice videos play directly from the existing author-hosted OS
 
 Internet access is required for those third-party videos; availability and playback are not guaranteed. They are not redistributed in this repository.
 
-Setup shows four short steps: computer, lighting, clear camera view, and sound. A prominent checkbox confirms hearing the sample, then enables Continue. Existing Evelyn recordings are excerpted for setup; the real-demo introduction, three rule pages and scored-practice introduction now have newly generated Evelyn recordings. Exact provider export transcripts and hashes are verified; independent listening review remains pending. The chime remains a review candidate, not approved release audio. Parent usability testing and actual CHS integration remain pending. This preview is not validated gaze detection, a competency assessment, or a participant-ready protocol.
+Setup shows four short steps: computer, lighting, clear camera view, and sound. A prominent checkbox confirms hearing the sample, then enables Continue. The walkthrough reuses the existing verified Evelyn recordings and two new contiguous sentence excerpts from the real-demo introduction. Exact provider export transcripts and hashes are verified; independent listening review remains pending. The chime remains a review candidate, not approved release audio. Parent usability testing and actual CHS integration remain pending. This preview is not validated gaze detection, a competency assessment, or a participant-ready protocol.
 
 ## Packaging and rights
 
@@ -35,7 +37,7 @@ No blanket license is granted by publishing this review. Third-party research ma
 
 ## Animated comprehension examples
 
-Historical revision notes below describe prior builds. The latest October 3 learn-before-watching flow above supersedes descriptions of the real video preceding instructions, five rule pages, mandatory quizzes, and excerpt-only rule narration.
+Historical revision notes below describe prior builds. The latest October 3 interleaved guided walkthrough above supersedes prior whole-video-first/whole-video-after instructions, three/five rule pages, mandatory quizzes, and prior narration arrangements.
 
 Each question now enacts its short scene before answer buttons appear. A moving-movie question stays visibly animated while answering; frozen scenes remain frozen. A brighter moving ball makes the demonstration screen easier to follow. Leaving the tab pauses the example and requires replay, without credit for unseen frames. Existing four comprehension rules, 3-second thresholds, scientific movies and study timing are unchanged.
 
