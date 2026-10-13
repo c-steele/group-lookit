@@ -30,6 +30,12 @@ main, .site-header { max-width: 1032px; }
 .parent-page .back { font-size: 16px; font-weight: 600; }
 .narration-replay, #rule-replay-demo { color: #456da9; }
 .setup-scene { border: 3px solid #9fc5b7; border-radius: 10px; background: #eff9f5; }
+#setup-room { padding: 16px; }
+#setup-room .lighting-examples-grid { gap: 16px; }
+#setup-room .camera-example p { font-size: 18px; font-weight: 700; }
+#setup-room .lighting-guidance { font-size: 18px; font-weight: 500; gap: 10px; }
+#setup-room .lighting-guidance .setup-prohibited { font-size: 19px; }
+#setup-room .lighting-examples-disclaimer { font-size: 12px; font-weight: 400; line-height: 1.4; color: #65766e; }
 #setup-title { font-size: clamp(32px, 4.5vw, 44px); }
 #instructions .page-heading h1 { font-family: inherit; font-size: clamp(28px, 3.5vw, 36px); font-weight: 700; line-height: 1.18; letter-spacing: -.015em; }
 #instructions .page-heading .lede { max-width: 760px; font-size: 19px; }

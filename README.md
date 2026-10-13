@@ -1,5 +1,9 @@
 # GROUP — current collaborator review
 
+## Clear lighting examples — October 13, 2026
+
+The lighting setup screen now shows the same baby in two realistic AI-generated examples: a clearly front-lit face versus a face in shadow with a bright window behind it. This replaces the abstract lamp/computer/empty-chair diagram. Labels and alternative text explain the difference; the synthetic-example disclosure stays visible. The already-published `camera-view-examples.png` is reused without editing its pixels or adding participant imagery. Existing Evelyn narration, setup navigation, practice rules, optional camera behavior, and all scientific movies remain unchanged. This update applies only to the GitHub collaborator preview; no CHS study or reference study is edited.
+
 This is this GROUP project's own latest parent-instructions and scientific-movie preview, updated October 13, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
 
 ## October 13: reference-style parent interface and local camera check

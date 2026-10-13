@@ -8,7 +8,7 @@
   <meta name="description" content="Collaborator review of parent instructions and V3/V5 movies. Recording and data collection are off.">
   <link rel="stylesheet" href="https://c-steele.github.io/ready-set-choose-study/vendor/jspsych/jspsych-7.3.4.css?v=chs-home-school-evelyn-v1-r28-camera-preview-1">
   <link rel="stylesheet" href="style.css?v=reference-style-camera-20261013">
-  <link rel="stylesheet" href="parent-theme.css?v=reference-style-camera-20261013">
+  <link rel="stylesheet" href="parent-theme.css?v=realistic-lighting-20261013">
 </head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -146,26 +146,17 @@
           <figcaption class="device-guidance"><span>✓ Laptop or desktop</span><strong>✕ NO PHONE OR TABLET</strong></figcaption>
         </figure>
         <figure id="setup-room" class="setup-scene" hidden>
-          <svg viewBox="0 0 520 210" role="img" aria-label="Place a soft lamp on the computer side, facing the baby's seat. Avoid a bright window behind the baby.">
-            <defs><linearGradient id="setup-light-beam"><stop stop-color="#f4dfaa" stop-opacity=".8"/><stop offset="1" stop-color="#f4dfaa" stop-opacity=".12"/></linearGradient></defs>
-            <path d="M60 176h397" stroke="#d0e1d8" stroke-width="3" stroke-linecap="round"/>
-            <path d="m90 43 304-20v120L90 68Z" fill="url(#setup-light-beam)"/>
-            <path d="M76 69v106m-18 0h36" stroke="#82a69b" stroke-width="7" stroke-linecap="round"/>
-            <path d="M56 32h40l14 43H42Z" fill="#e9bf80"/>
-            <rect x="155" y="59" width="15" height="72" rx="5" fill="#405962"/>
-            <path d="M165 131h67" stroke="#82a5b1" stroke-width="8" stroke-linecap="round"/>
-            <path d="M134 145h117m-99 0v30m82-30v30" stroke="#8caaa2" stroke-width="7" stroke-linecap="round"/>
-            <path d="M366 73v53h-44m51 10-9 39m-35-39-9 39" fill="none" stroke="#78a698" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="314" y="104" width="51" height="26" rx="12" fill="#bed5ca"/>
-            <path d="M233 65h83m-12-10 12 10-12 10" fill="none" stroke="#d3a55f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="432" y="49" width="65" height="77" rx="4" fill="#fff5dc" stroke="#d9c497" stroke-width="3"/>
-            <path d="M464 50v75m-31-39h63" stroke="#d9c497" stroke-width="3"/>
-            <path d="m429 44 72 87m-72 0 72-87" stroke="#ac574e" stroke-width="5" stroke-linecap="round"/>
-            <text x="76" y="202" text-anchor="middle">Soft light</text>
-            <text x="208" y="202" text-anchor="middle">Computer</text>
-            <text x="367" y="202" text-anchor="middle">Baby’s seat</text>
-          </svg>
-          <figcaption class="lighting-guidance"><span>✓ Soft light from the <strong>computer side</strong>, toward your baby.</span><strong class="setup-prohibited">✕ NO bright window behind your baby.</strong></figcaption>
+          <div class="camera-examples-grid lighting-examples-grid">
+            <div class="camera-example camera-example-good">
+              <div class="camera-example-crop"><img src="./camera-view-examples.png" alt="A baby facing the camera with soft light from the front: their face and both eyes are clearly visible."></div>
+              <p><span aria-hidden="true">✓</span> Face clearly lit</p>
+            </div>
+            <div class="camera-example camera-example-dark">
+              <div class="camera-example-crop"><img src="./camera-view-examples.png" alt="The same baby with a bright window behind them: their face is in shadow and their eyes are harder to see."></div>
+              <p><span aria-hidden="true">✕</span> Bright window behind baby</p>
+            </div>
+          </div>
+          <figcaption class="lighting-guidance"><span>Soft light from the <strong>computer side</strong>, toward your baby.</span><strong class="setup-prohibited">✕ NO bright window behind your baby.</strong><small class="lighting-examples-disclaimer">AI-generated examples—not a live camera view.</small></figcaption>
         </figure>
         <figure id="setup-camera" class="setup-scene" hidden>
           <div class="camera-examples-grid">
@@ -321,6 +312,6 @@
   <section id="complete" class="card narrow" hidden><span class="icon-bubble sage"><svg aria-hidden="true"><use href="#i-heart"/></svg></span><p class="eyebrow">Collaborator review complete</p><h1 tabindex="-1">Thank you for watching!</h1><p>You’ve reached the end of the review movies.</p><div class="complete-review"><h2>What would make this easier for families?</h2><p>Please share feedback on the setup, the 3-second rule, and the practice.</p><p>Recording is off. No study response was created.</p></div><button id="again">Back to the welcome</button></section>
   <footer class="site-footer">Collaborator review only · No recording or data collection · Not a live CHS study</footer>
 </main>
-<script type="module" src="app.js?v=reference-style-camera-20261013"></script>
+<script type="module" src="app.js?v=realistic-lighting-20261013"></script>
 </body>
 </html>
