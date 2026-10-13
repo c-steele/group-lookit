@@ -1,0 +1,74 @@
+/* Parent-only adaptation of the supplied Find the Caregiver / Who Helps Where
+   design. Scientific video geometry, movement and playback are not restyled. */
+:root { font-family: 'Open Sans', Arial, Helvetica, sans-serif; color: #24343d; background: #f5f8f5; }
+body { font-family: 'Open Sans', Arial, Helvetica, sans-serif; background: radial-gradient(circle at 10% 12%, #ffd15c38, transparent 25%), radial-gradient(circle at 88% 18%, #77d7b430, transparent 24%), linear-gradient(#eef8ff, #fff8ec); }
+main, .site-header { max-width: 1032px; }
+.parent-shell, .study-entry { border: 0; border-radius: 18px; box-shadow: 0 16px 42px #2a3e4e21; padding: clamp(24px, 4vw, 46px); }
+.parent-shell:has(#welcome:not([hidden])), .study-entry { background: radial-gradient(circle at 10% 0%, #8fc4b133, transparent 32%), radial-gradient(circle at 100% 100%, #70b6e82b, transparent 34%), white; }
+.parent-progress { max-width: 820px; margin-bottom: 25px; }
+.parent-progress > span { gap: 4px; font-size: 12px; color: #829097; }
+.parent-progress i { width: 30px; height: 30px; border-width: 3px; font-weight: 800; }
+.parent-progress b { font-weight: 800; }
+.parent-progress > span:not(:last-child)::after { top: 15px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 3px; border-radius: 999px; }
+.parent-progress .active i { animation: parent-progress-pulse 1.8s ease-in-out infinite; }
+.parent-page h1, .study-entry h1 { font-family: inherit; font-size: clamp(34px, 5vw, 48px); font-weight: 700; line-height: 1.08; letter-spacing: -.02em; color: #24343d; text-wrap: balance; }
+.parent-page h2 { font-family: inherit; color: #24343d; font-weight: 700; }
+.parent-page .lede { font-size: 20px; line-height: 1.45; color: #53636b; }
+.page-heading { margin-bottom: 26px; }
+.eyebrow { font-size: 14px; letter-spacing: .08em; color: #477365; }
+.welcome-card { padding: 18px 16px; border: 3px solid #9fc5b7; border-radius: 10px; background: #eff9f5; }
+.welcome-card h2 { font-size: 21px; margin-bottom: 8px; }
+.welcome-card p { font-size: 16px; line-height: 1.45; color: #4c5d65; }
+.icon-bubble { width: 58px; height: 58px; margin-bottom: 13px; box-shadow: 0 5px 12px #32597e2e; }
+.icon-bubble.sage { background: #70aa91; }
+.icon-bubble.blue { background: #6f9ed0; }
+.icon-bubble.peach { background: #d89770; }
+.blue-note { max-width: 790px; margin: 16px auto 0; padding: 13px 16px; border: 3px solid #b8e4ff; border-radius: 14px; background: #f1f9ff; font-size: 16px; color: #17466f; box-shadow: 0 8px 18px #25314114; }
+.blue-note strong { color: #245c50; }
+.parent-page .primary, .study-entry .primary { background: #477b4e; border-radius: 8px; min-height: 54px; font-size: 19px; font-weight: 700; box-shadow: 0 7px 16px #34704438; }
+.parent-page .primary:hover:not(:disabled), .study-entry .primary:hover { background: #38683e; }
+.parent-page .back { font-size: 16px; font-weight: 600; }
+.narration-replay, #rule-replay-demo { color: #456da9; }
+.setup-scene { border: 3px solid #9fc5b7; border-radius: 10px; background: #eff9f5; }
+#setup-title { font-size: clamp(32px, 4.5vw, 44px); }
+#instructions .page-heading h1 { font-family: inherit; font-size: clamp(28px, 3.5vw, 36px); font-weight: 700; line-height: 1.18; letter-spacing: -.015em; }
+#instructions .page-heading .lede { max-width: 760px; font-size: 19px; }
+#rule-position { color: #477365; font-size: 14px; }
+#rule-visual, #timing-visual, .guided-real-example { border: 2px solid #dcebe4; border-radius: 14px; background: #eff9f5; }
+#rule-scene-caption, #timing-caption { font-size: 21px; font-weight: 700; color: #245c50; }
+#rule-example-note, .guided-real-example figcaption { font-size: 14px; line-height: 1.45; }
+.narration-auto { font-size: 14px; }
+.narration-status { font-size: 13px; }
+.narration-transcript { font-size: 16px; }
+.narration-transcript p { background: #f1f7fb; border-color: #cce0ee; }
+.baby-checks article { border: 2px solid #9fc5b7; padding: 16px; border-radius: 10px; background: #eff9f5; }
+.baby-checks article:last-child { border: 2px solid #9fc5b7; padding: 16px; }
+.baby-checks h2 { font-size: 21px; }
+.baby-checks p { font-size: 17px; line-height: 1.45; }
+.camera-preview-card { margin: 24px auto 0; padding: 24px; background: #eff9f5; border: 3px solid #9fc5b7; border-radius: 12px; }
+.camera-preview-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.camera-preview-heading h2 { font-size: 23px; margin: 0; }
+.camera-privacy-badge { border-radius: 999px; padding: 6px 12px; color: #245c50; background: white; border: 1px solid #9fc5b7; font-size: 13px; }
+.camera-preview-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 16px; align-items: center; }
+.camera-live-stage { aspect-ratio: 4 / 3; position: relative; display: grid; place-items: center; overflow: hidden; border-radius: 12px; background: #203b45; }
+.camera-live-stage video { display: block; width: 100%; height: 100%; object-fit: contain; transform: scaleX(-1); }
+.camera-placeholder { padding: 24px; text-align: center; color: white; }
+.camera-placeholder svg { display: block; margin: 0 auto 16px; width: 46px; height: 46px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+.camera-live-status { margin: 12px 0 0; font-size: 16px; color: #355d50; }
+.camera-preview-checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 15px; }
+.camera-preview-checks li { display: grid; grid-template-columns: 27px 1fr; gap: 10px; color: #43535b; font-size: 17px; line-height: 1.45; }
+.camera-preview-checks li::before { content: '✓'; color: #376c5b; font-weight: 800; background: white; border-radius: 50%; width: 27px; height: 27px; text-align: center; }
+.camera-preview-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+.camera-preview-actions button { font-size: 16px; }
+.camera-live-confirm:not([hidden]) { margin-top: 18px; padding: 12px 14px; border: 2px solid #9fc5b7; border-radius: 10px; background: white; display: flex; align-items: center; gap: 10px; font-size: 16px; }
+.camera-live-confirm input { width: 21px; height: 21px; accent-color: #579b55; }
+.camera-preview-note { font-size: 14px; line-height: 1.45; margin: 15px 0 0; color: #53636b; }
+.complete-review { max-width: 790px; margin: 20px auto; padding: 24px; border: 3px solid #9fc5b7; border-radius: 12px; background: #eff9f5; }
+.complete-review h2 { font-size: 23px; }
+#complete { text-align: center; border-radius: 18px; box-shadow: 0 16px 42px #2a3e4e21; background: radial-gradient(circle at 10% 0%, #8fc4b133, transparent 32%), white; }
+#complete h1 { font-family: inherit; font-size: clamp(34px, 5vw, 48px); font-weight: 700; letter-spacing: -.02em; }
+#complete .icon-bubble { margin: 0 auto 20px; }
+#complete p { font-size: 18px; color: #53636b; }
+@keyframes parent-progress-pulse { 0%, 100% { box-shadow: 0 0 0 0 #70aa9140; } 50% { box-shadow: 0 0 0 8px #70aa9100; } }
+@media(max-width: 720px) { .parent-shell, .study-entry { padding: 22px 16px 26px; } .camera-preview-grid { grid-template-columns: 1fr; } .camera-preview-card { padding: 18px; } .parent-page .lede { font-size: 18px; } .parent-page .primary { font-size: 17px; } .parent-progress > span { font-size: 11px; } }
+@media(prefers-reduced-motion: reduce) { .parent-progress .active i { animation: none !important; } }

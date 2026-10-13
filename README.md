@@ -1,6 +1,18 @@
 # GROUP — current collaborator review
 
-This is this GROUP project's own latest parent-instructions and scientific-movie preview, updated October 3, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
+This is this GROUP project's own latest parent-instructions and scientific-movie preview, updated October 13, 2026. It is a standalone review copy, not a live Children Helping Science (CHS)/Lookit study or another project's demo.
+
+## October 13: reference-style parent interface and local camera check
+
+The opening now adapts the supplied Find the Caregiver! / Who Helps Where? parent-interface design: Open Sans typography, soft cream/blue background, white rounded shell, sage illustrated cards, three colored floating icon badges, connected progress, blue callouts, clear green next buttons, and a styled review ending. GROUP-specific wording, the six-step toy/real-parent walkthrough, automatic Evelyn narration, 3-full-second practice, scientific timings, counterbalance and all 148 scientific movies are preserved. The reference studies were inspected but not edited or activated. Only their visual design is reused—not child-choice instructions, durations, payments, consent or participant data.
+
+The baby-ready screen adds an optional **Show my camera view** action. It requests video only, on that explicit click; microphone, recording, uploads and stored responses remain off. The mirrored local feed lets a collaborator check their own framing. Confirmation appears only after a rendered video frame, and is a human check, not automated validation of eyes/lighting or a new trial gate. Leaving the screen, hiding/navigating the tab, cancelling a request or disconnecting the camera stops its tracks. The feed is never shown during scientific movies. Permission denial and unsupported browsers leave the review available without camera access. Hardware-camera testing and the actual CHS runner pilot are still required.
+
+Open Sans comes from the same jsPsych 7.3.4 vendor stylesheet already used by the supplied reference study, hosted on the same lab-owner GitHub account. The GROUP-specific theme is isolated in `parent-theme.css`. The camera module never uses MediaRecorder, image capture, upload, analytics, or local storage.
+
+For CHS, use a native `exp-lookit-webcam-display` check (`startRecordingAutomatically:false`) after approved consent and before `exp-lookit-start-recording`. This standalone optional camera preview is not that integration and does not grant CHS access to the stream, record consent, certify training, or replace its upload/recording flow. Do not iframe the public reviewer preview and assume CHS knows that training was completed. Do not copy over-the-shoulder positioning from child-study/default camera instructions: GROUP parents must see baby's eyes and reach Space.
+
+Primary method sources: [Raz and colleagues’ paper](https://bpb-us-e1.wpmucdn.com/sites.mit.edu/dist/0/2045/files/2024/07/raz_devpsych_2024.pdf), [author stimulus repository](https://github.com/GalRaz/mcs_lookit_stims), [native CHS webcam frame](https://lookit.readthedocs.io/projects/frameplayer/en/latest/components/exp-lookit-webcam-display/doc.html). Parent instructions use 3 continuous seconds away with look-back reset; the paper's separate 2-second offline analysis rule is not a parent instruction. Waiting for the action to finish and the picture to stay still is GROUP's added gate, taught separately from the original Gal camera-view examples.
 
 Current parent flow: setup → guided walkthrough (six short lessons) → one scored illustration practice → baby setup. The walkthrough is: toy movie finishing → toy 3-second look away → corresponding real-parent moment → toy look-back reset → corresponding real-parent moment → P to pause. Each page explains one point, with automatic matching Evelyn narration; the real excerpts start after their short narration finishes. The full original front and rear videos remain optional researcher references, not another mandatory training loop. The dense four-question quiz remains removed.
 
@@ -18,7 +30,7 @@ The live collaborator review is https://c-steele.github.io/group-lookit/. Open i
 
 ## Review only
 
-No webcam or microphone access, recording, consent workflow, uploads, saved participant responses, random assignment, or iCatcher processing runs here. No participant data, local Raz training-video copies, project documents, Keynotes, unrelated reference-project assets, or credentials are included. This public repository is not access-controlled; noindex and robots.txt merely discourage indexing.
+No microphone access, recording, consent workflow, uploads, saved participant responses, random assignment, or iCatcher processing runs here. Camera access is off by default and available only for an explicitly requested local preview on the baby-ready page. No participant data, local Raz training-video copies, project documents, Keynotes, unrelated reference-project assets, or credentials are included. This public repository is not access-controlled; noindex and robots.txt merely discourage indexing.
 
 The example and practice videos play directly from the existing author-hosted OSF sources by Gal Raz and colleagues:
 

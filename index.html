@@ -6,7 +6,9 @@
   <title>Infant study — collaborator review</title>
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="Collaborator review of parent instructions and V3/V5 movies. Recording and data collection are off.">
-  <link rel="stylesheet" href="style.css?v=guided-walkthrough-20261003">
+  <link rel="stylesheet" href="https://c-steele.github.io/ready-set-choose-study/vendor/jspsych/jspsych-7.3.4.css?v=chs-home-school-evelyn-v1-r28-camera-preview-1">
+  <link rel="stylesheet" href="style.css?v=reference-style-camera-20261013">
+  <link rel="stylesheet" href="parent-theme.css?v=reference-style-camera-20261013">
 </head>
 <body>
 <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
@@ -22,7 +24,7 @@
   <span id="preview-badge" class="badge">Design preview · camera off</span>
   <details id="researcher-shortcuts" class="researcher-shortcuts">
     <summary>Researcher skips</summary>
-    <p>Review only—not for participating families. No camera, recording or responses are collected. Skips do not mark practice as completed.</p>
+    <p>Review only—not for participating families. No camera recordings or responses are collected. Skips do not mark practice as completed.</p>
     <label class="check-line"><input id="researcher-mode" type="checkbox">Enable researcher skip buttons</label>
     <div id="researcher-navigation" hidden>
       <div class="researcher-skip-buttons">
@@ -257,7 +259,7 @@
       <div class="page-footer"><button class="back" data-page="example">← Back</button><button id="practice-next" class="primary" data-page="ready" disabled>Get my baby settled <span aria-hidden="true">→</span></button></div>
     </section>
     <section id="ready" class="parent-page" aria-labelledby="ready-title" hidden>
-      <div class="page-heading"><h1 id="ready-title" tabindex="-1">Get your baby ready.</h1><p class="lede">On your lap or in a high chair, facing the screen.</p></div>
+      <div class="page-heading"><p class="eyebrow">A clear view of your baby</p><h1 id="ready-title" tabindex="-1">Get your baby ready.</h1><p class="lede">On your lap or in a high chair, facing the screen.</p></div>
       <div class="baby-setup">
         <figure class="seating-options">
           <div class="seating-labels" aria-hidden="true"><strong>In a high chair</strong><strong>On your lap</strong></div>
@@ -273,13 +275,34 @@
       <p class="ready-reassurance">Just watching—no answers needed. Breaks are always okay.</p>
       <details class="ready-tips"><summary>A few extra setup tips</summary><ul><li>Keep your baby’s whole face visible. Use soft light from in front, with no dark shadows or glare over their eyes.</li><li>Your baby’s face should be the lowest and clearest in the camera view. Keep the keyboard out of their reach.</li><li>Glance at the screen to check when the picture becomes still, then watch your baby’s eyes. Don’t describe the action or try to bring their attention back.</li><li>Once the picture is still, press Space after 3 full seconds looking away. If your baby looks back, start a new count the next time they look away.</li><li>You can take a break or stop at any time.</li></ul></details>
       <div id="ready-narration"></div>
-      <p class="preview-note">Preview only · Camera and recording are off. CHS consent and a live camera check will come before the study.</p>
+      <section class="camera-preview-card" aria-labelledby="live-camera-heading">
+        <div class="camera-preview-heading"><h2 id="live-camera-heading">Check your own camera view</h2><span class="camera-privacy-badge">Preview only · Not recording</span></div>
+        <div class="camera-preview-grid">
+          <div>
+            <div class="camera-live-stage">
+              <video id="live-camera-video" playsinline muted hidden aria-label="Your live camera preview"></video>
+              <div id="camera-placeholder" class="camera-placeholder"><svg aria-hidden="true"><use href="#i-monitor"/></svg>Your camera is off.<br>Choose “Show my camera view” to check your setup.</div>
+            </div>
+            <p id="camera-live-status" class="camera-live-status" role="status">This optional review check stays on your device. Nothing is recorded or uploaded.</p>
+          </div>
+          <ul class="camera-preview-checks">
+            <li>Keep baby’s whole head and both eyes visible.</li>
+            <li>Light baby from the computer side. No bright window behind them.</li>
+            <li>Center the camera above the study screen.</li>
+            <li>You can watch baby’s eyes and reach Space. Keep the keyboard out of baby’s reach.</li>
+          </ul>
+        </div>
+        <div class="camera-preview-actions"><button id="camera-preview-start" type="button" class="secondary">Show my camera view</button><button id="camera-preview-stop" type="button" class="back" hidden>Turn camera off</button></div>
+        <label id="camera-confirm-row" class="camera-live-confirm" hidden><input id="camera-live-confirm" type="checkbox">I can clearly see my baby’s whole head and both eyes.</label>
+        <p class="camera-preview-note">Collaborator preview: this camera check is optional. The live CHS study must show the family’s own camera view after consent, before recording starts. The camera view will not appear alongside the study movies.</p>
+      </section>
+      <p class="preview-note">Review only · Recording is off. Live camera preview is off unless you choose to enable it. This page is not CHS consent or a recording check.</p>
       <div class="page-footer"><button class="back" data-page="timing-practice">← Back</button><button id="play" class="primary" disabled>We’re ready to watch <span aria-hidden="true">→</span></button></div>
     </section>
   </div>
   <details id="preview-tools" class="preview-tools" hidden>
     <summary>Researcher preview settings</summary>
-    <p>These controls are not for families. No camera, recording, upload, gaze detection, random assignment, or saved responses are active here.</p>
+    <p>These controls are not for families. Recording, upload, gaze detection, random assignment, and saved responses are off. The optional camera preview runs locally only when you enable it.</p>
     <div class="selection"><label>Study version<select id="arm"><option value="V3">V3 — three per group</option><option value="V5">V5 — five per group</option></select></label><label>Counterbalance<select id="condition" disabled><option>Loading…</option></select></label><label>Review a screen<select id="review-page"><option value="welcome">Welcome</option><option value="setup">Get ready</option><option value="instructions">Guided parent walkthrough</option><option value="timing-practice">Scored Space-bar practice</option><option value="ready">Baby’s turn</option><option value="example">Optional full original demonstration</option><option value="practice">Optional original rear video · unscored</option></select></label><button id="review-go" class="secondary">Open screen</button></div>
     <p id="load-status" role="status">Loading the selected study map…</p>
     <p class="small">The chime sound check is an existing review candidate, not approved release audio. Raz training plays directly from its author-hosted OSF sources and requires an internet connection. This design is not yet installed on CHS.</p>
@@ -295,9 +318,9 @@
     </div>
     <details id="reviewer" class="card reviewer"><summary>Researcher controls and full sequence</summary><p id="assignment"></p><p>Jumping to an item is for review only. These controls are outside the parent experience.</p><div class="buttons"><label>Jump to item<select id="entry"></select></label><button class="secondary" id="jump">Play selected item</button><button class="secondary" id="replay">Restart current item</button></div><p id="detail"></p><p class="small">This rehearsal opens parent control on the video’s ended event. The current CHS draft uses a duration timer. The 60-second threshold starts at action onset and requires completed playback; buffering can extend this. This page does not validate CHS recording, randomization, uploads, or stalled playback.</p></details>
   </section>
-  <section id="complete" class="card narrow" hidden><p class="eyebrow">Preview complete</p><h1 tabindex="-1">Thank you for watching!</h1><p>You’ve reached the end of the local movie sequence. No camera recording or study response was created.</p><button id="again">Back to the welcome</button></section>
+  <section id="complete" class="card narrow" hidden><span class="icon-bubble sage"><svg aria-hidden="true"><use href="#i-heart"/></svg></span><p class="eyebrow">Collaborator review complete</p><h1 tabindex="-1">Thank you for watching!</h1><p>You’ve reached the end of the review movies.</p><div class="complete-review"><h2>What would make this easier for families?</h2><p>Please share feedback on the setup, the 3-second rule, and the practice.</p><p>Recording is off. No study response was created.</p></div><button id="again">Back to the welcome</button></section>
   <footer class="site-footer">Collaborator review only · No recording or data collection · Not a live CHS study</footer>
 </main>
-<script type="module" src="app.js?v=guided-walkthrough-20261003"></script>
+<script type="module" src="app.js?v=reference-style-camera-20261013"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import { ruleRoleTitle, ruleLessonSteps } from './rule-lesson.mjs?v=clear-still-
 import { renderRuleScene } from './rule-scene.mjs?v=clear-still-rule-20261003';
 import { ruleIntroPages } from './rule-intro.mjs?v=guided-walkthrough-20261003';
 import { freshGuidedVideo, guidedVideoTransition } from './guided-video.mjs?v=guided-walkthrough-20261003';
+import { createCameraPreview } from './camera-preview.mjs?v=reference-style-camera-20261013';
 import { practiceSequence, freshGuidedPractice, practiceVisual, startGuidedPractice, advanceGuidedPractice, checkPracticePress, pauseGuidedPractice } from './timing-practice.mjs?v=clear-still-rule-20261003';
 
 const $ = id => document.getElementById(id);
@@ -33,6 +34,29 @@ const narration = {
   auto: true, audio: $('parent-narration'), generation: 0,
   page: null, phase: 'idle', heard: new Set(), messages: new Map(), controls: new Map()
 };
+const parentCamera = createCameraPreview({ video: $('live-camera-video'), onChange: camera => renderCameraPreview(camera) });
+function previewBadge() {
+  return parentCamera.getState().active ? 'Live camera preview · not recording'
+    : researcherMode ? 'Researcher review · recording off' : 'Design preview · camera off';
+}
+function renderCameraPreview(camera = parentCamera.getState()) {
+  $('live-camera-video').hidden = !camera.active;
+  $('camera-placeholder').hidden = camera.active;
+  $('camera-live-status').textContent = camera.message;
+  $('camera-preview-start').disabled = ['requesting', 'loading'].includes(camera.status);
+  $('camera-preview-start').textContent = camera.ready ? 'Restart camera preview' : 'Show my camera view';
+  $('camera-preview-stop').hidden = !camera.active && camera.status !== 'requesting';
+  $('camera-confirm-row').hidden = !camera.ready;
+  $('camera-live-confirm').disabled = !camera.ready;
+  if (!camera.ready) $('camera-live-confirm').checked = false;
+  $('preview-badge').textContent = previewBadge();
+}
+// Permission is requested only by this explicit, visible action. No microphone,
+// recording, upload or parent-training completion is inferred from the preview.
+$('camera-preview-start').onclick = () => { if (state.page === 'ready' && !document.hidden) parentCamera.start(); };
+$('camera-preview-stop').onclick = () => parentCamera.stop();
+renderCameraPreview();
+window.addEventListener('pagehide', () => parentCamera.stop());
 // Parent setup is deliberately one small decision at a time. These are exact
 // excerpts of the existing Evelyn recordings, not newly synthesized speech.
 const setupSteps = [
@@ -618,7 +642,7 @@ fetch('./narration-manifest.json').then(response => {
 
 // Native training-video controls can also start playback; stop narration first.
 document.addEventListener('play', event => {
-  if (event.target instanceof HTMLMediaElement && event.target !== narration.audio) stopNarration();
+  if (event.target instanceof HTMLMediaElement && event.target !== narration.audio && event.target !== $('live-camera-video')) stopNarration();
 }, true);
 
 function resetExamplePlayback() {
@@ -678,7 +702,7 @@ function renderResearcherControls() {
   const screens = ['study-entry', ...normalParentPages];
   const index = screens.indexOf(state.page);
   $('researcher-navigation').hidden = !researcherMode;
-  $('preview-badge').textContent = researcherMode ? 'Researcher review · recording off' : 'Design preview · camera off';
+  $('preview-badge').textContent = previewBadge();
   $('researcher-back').disabled = !researcherMode || state.page === 'study-entry';
   $('researcher-next').disabled = !researcherMode || index < 0 || index === screens.length - 1;
   $('researcher-stimuli').disabled = !researcherMode || !state.map;
@@ -722,6 +746,7 @@ function researcherSkipMovie() {
 }
 
 function showPage(page) {
+  parentCamera.stop(); // Never carry the family's camera view into scientific movies.
   stopRuleDemo();
   stopTimingPractice();
   stopParentMedia();
@@ -1032,6 +1057,7 @@ document.querySelectorAll('button').forEach(button => button.addEventListener('c
 document.addEventListener('visibilitychange', () => {
   // Returning to a tab never starts the study or restarts interrupted speech.
   if (!document.hidden) return;
+  parentCamera.stop('Camera preview stopped while the page was hidden. Choose Show my camera view to check it again.');
   if(state.page==='timing-practice') { stopTimingPractice(); renderTimingPractice(); }
   if (state.page === 'instructions') {
     stopRuleDemo();
